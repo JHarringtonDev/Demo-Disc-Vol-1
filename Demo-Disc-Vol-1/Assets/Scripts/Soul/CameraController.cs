@@ -16,6 +16,6 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.RotateAround(playerModel.transform.position, Vector3.up, Input.GetAxis("Mouse X") * cameraSpeed * Time.deltaTime);
+        //transform.RotateAround(playerModel.transform.position, Vector3.up, Input.GetAxis("Mouse X") * cameraSpeed * Time.deltaTime);
     }
 }

@@ -11,98 +11,178 @@ public class PlayerController : MonoBehaviour
 
     float xInput;
     float yInput;
+
+    bool isRolling;
+
+    [HideInInspector] public float health;
+    [HideInInspector] public float magic;
+    [HideInInspector] public float stamina;
+
+    [Header("Attribute Settings")]
+    public float maxHealth;
+    public float maxMagic;
+    public float maxStamina;
+
+    [SerializeField] float staminaDrain;
+    [SerializeField] float staminaRegen;
+
+    float currentSpeed;
     Vector3 dir;
 
+    [Header("Movement Settings")]
     [SerializeField] float cameraSpeed;
     [SerializeField] float moveSpeed;
+    [SerializeField] float rollSpeed;
+    [SerializeField] float sprintDelay;
     [SerializeField] float sprintMultiplier;
+    [SerializeField] float timeHeld;
+    [SerializeField] float rollCost;
+    [SerializeField] float rollDelay;
+
+    [Header("Serialized Objects")]
     [SerializeField] Animator animator;
-    private bool isRunning;
-    bool isIdling;
+    [SerializeField] Transform playerModel;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();   
+        rb = GetComponent<Rigidbody>();
+        health = maxHealth;
+        magic = maxMagic;
+        stamina = maxStamina;
+        currentSpeed = moveSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
         movePlayer();
+        handleSprint();
         rotatePlayer();
         handleAnimation();
+
+        if (!isRolling)
+        {
+            playerModel.localRotation = Quaternion.Slerp(playerModel.localRotation, Quaternion.identity, 3f * Time.deltaTime);
+        } 
     }
 
-   void movePlayer()
-    {
-        xInput = Input.GetAxis("Horizontal");
-        yInput = Input.GetAxis("Vertical");
-
-        dir = transform.right * xInput + transform.forward * yInput;
-        dir *= moveSpeed;
-        dir.y = rb.velocity.y;
-
-        rb.velocity = dir;
-
-
-        if(dir != new Vector3(0,0,0))
+        void movePlayer()
         {
-            Debug.Log(rb.velocity);
+            if (!isRolling)
+            {
+
+                xInput = Input.GetAxis("Horizontal");
+                yInput = Input.GetAxis("Vertical");
+
+                dir = transform.right * xInput + transform.forward * yInput;
+                dir *= currentSpeed;
+                dir.y = rb.velocity.y;
+
+                rb.velocity = dir;
+
+            }
+
+        }
+
+        void rotatePlayer()
+        {
+            transform.Rotate(Input.GetAxis("Mouse X") * cameraSpeed * transform.up * Time.deltaTime);
+        }
+
+        void handleAnimation()
+        {
+            if (Mathf.Abs(yInput) > Mathf.Abs(xInput))
+            {
+
+                if (yInput > 0)
+                {
+                    uncheckAnimations();
+                    animator.SetBool("isRunning", true);
+                }
+                else if (yInput < 0)
+                {
+                    uncheckAnimations();
+                    animator.SetBool("isBackwards", true);
+                }
+
+            }
+            else if (Mathf.Abs(xInput) >= Mathf.Abs(yInput) && xInput != 0)
+            {
+
+                if (xInput > 0)
+                {
+                    uncheckAnimations();
+                    animator.SetBool("isStrafingR", true);
+                }
+                else if (xInput < 0)
+                {
+                    uncheckAnimations();
+                    animator.SetBool("isStrafingL", true);
+                }
+
+            }
+
+            else
+            {
+                uncheckAnimations();
+            }
+        }
+
+        void uncheckAnimations()
+        {
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isBackwards", false);
+            animator.SetBool("isStrafingL", false);
+            animator.SetBool("isStrafingR", false);
+        }
+
+        void handleSprint()
+        {
+
+            if (Input.GetButton("Fire3") && stamina > 0)
+            {
+                timeHeld += sprintDelay * Time.deltaTime;
+
+                if (timeHeld > sprintDelay)
+                {
+                    currentSpeed = moveSpeed * sprintMultiplier;
+                    stamina -= staminaDrain * Time.deltaTime;
+                }
+
+            }
+            else if (Input.GetButtonUp("Fire3") && timeHeld < 1)
+            {
+                StartCoroutine("HandleRoll");
+            }
+            else if (stamina < maxStamina)
+            {
+                timeHeld = 0;
+                currentSpeed = moveSpeed;
+                stamina += staminaRegen * Time.deltaTime;
+            }
+        }
+
+        IEnumerator HandleRoll()
+        {
+            if (stamina >= rollCost && !isRolling)
+            {
+                Vector3 rollDirection = rb.velocity;
+                animator.SetTrigger("Roll");
+                rb.velocity = new Vector3(0, 0, 0);
+                isRolling = true;
+                stamina -= rollCost;
+                rb.AddForce(rollDirection * rollSpeed, ForceMode.Impulse);
+                playerModel.LookAt(rollDirection + transform.position);
+                yield return new WaitForSeconds(rollDelay);
+
+                isRolling = false;
+
+            }
+
         }
 
     }
 
-    void rotatePlayer()
-    {
-        transform.Rotate(Input.GetAxis("Mouse X") * cameraSpeed * transform.up * Time.deltaTime);
-    }
-
-    void handleAnimation()
-    {
-        if (Mathf.Abs(yInput) > Mathf.Abs(xInput))
-        {
-
-            if (yInput > 0)
-            {
-                uncheckAnimations();
-                animator.SetBool("isRunning", true);
-            }
-            else if (yInput < 0)
-            {
-                uncheckAnimations();
-                animator.SetBool("isBackwards", true);
-            }
-
-        }
-        else if (Mathf.Abs(xInput) >= Mathf.Abs(yInput))
-        {
-
-            if (xInput > 0)
-            {
-                uncheckAnimations();
-                animator.SetBool("isStrafingR", true);
-            }
-            else if (xInput < 0)
-            {
-                uncheckAnimations();
-                animator.SetBool("isStrafingL", true);
-            }
-
-        }
-        
-        else
-        {
-            uncheckAnimations();
-        }
-    }
-
-    void uncheckAnimations()
-    {
-        animator.SetBool("isRunning", false);
-        animator.SetBool("isBackwards", false);
-        animator.SetBool("isStrafingL", false);
-        animator.SetBool("isStrafingR", false);
-    }
-}
 

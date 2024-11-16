@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     float xInput;
     float yInput;
 
+    bool canMove = true;
     bool isRolling;
 
     [HideInInspector] public float health;
@@ -38,6 +39,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float timeHeld;
     [SerializeField] float rollCost;
     [SerializeField] float rollDelay;
+    [SerializeField] float attackCost;
+    [SerializeField] float attackDelay;
 
     [Header("Serialized Objects")]
     [SerializeField] Animator animator;
@@ -47,6 +50,8 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
         health = maxHealth;
         magic = maxMagic;
@@ -65,12 +70,17 @@ public class PlayerController : MonoBehaviour
         if (!isRolling)
         {
             playerModel.localRotation = Quaternion.Slerp(playerModel.localRotation, Quaternion.identity, 3f * Time.deltaTime);
-        } 
+        }
+
+        if (Input.GetButtonDown("Fire1") && canMove)
+        {
+            StartCoroutine("HandleAttack");
+        }
     }
 
         void movePlayer()
         {
-            if (!isRolling)
+            if (canMove)
             {
 
                 xInput = Input.GetAxis("Horizontal");
@@ -156,7 +166,7 @@ public class PlayerController : MonoBehaviour
             {
                 StartCoroutine("HandleRoll");
             }
-            else if (stamina < maxStamina)
+            else if (stamina < maxStamina && canMove)
             {
                 timeHeld = 0;
                 currentSpeed = moveSpeed;
@@ -166,22 +176,37 @@ public class PlayerController : MonoBehaviour
 
         IEnumerator HandleRoll()
         {
-            if (stamina >= rollCost && !isRolling)
+            if (stamina >= rollCost && canMove)
             {
                 Vector3 rollDirection = rb.velocity;
                 animator.SetTrigger("Roll");
                 rb.velocity = new Vector3(0, 0, 0);
                 isRolling = true;
+                canMove = false;
                 stamina -= rollCost;
                 rb.AddForce(rollDirection * rollSpeed, ForceMode.Impulse);
                 playerModel.LookAt(rollDirection + transform.position);
-                yield return new WaitForSeconds(rollDelay);
 
+                yield return new WaitForSeconds(rollDelay);
+                
                 isRolling = false;
+                canMove = true;
 
             }
 
         }
+
+        IEnumerator HandleAttack()
+    {
+        if(stamina >= attackCost)
+        {
+            canMove = false;
+            animator.SetTrigger("basicSlash");
+            stamina -= attackCost;
+            yield return new WaitForSeconds(attackDelay);
+            canMove = true;
+        }
+    }
 
     }
 

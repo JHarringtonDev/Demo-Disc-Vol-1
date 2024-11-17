@@ -8,9 +8,12 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
     Vector3 moveInput;
+    WeaponScript weaponScript;
 
     float xInput;
     float yInput;
+
+    int remainingFlasks;
 
     bool canMove = true;
     bool isRolling;
@@ -53,10 +56,15 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         rb = GetComponent<Rigidbody>();
+
+        weaponScript = FindObjectOfType<WeaponScript>();
+        
+
         health = maxHealth;
         magic = maxMagic;
         stamina = maxStamina;
         currentSpeed = moveSpeed;
+        remainingFlasks = 3;
     }
 
     // Update is called once per frame
@@ -67,6 +75,10 @@ public class PlayerController : MonoBehaviour
         rotatePlayer();
         handleAnimation();
 
+        health = Mathf.Clamp(health, 0, maxHealth);
+        magic = Mathf.Clamp(magic, 0, maxMagic);
+        stamina = Mathf.Clamp(stamina, 0, maxStamina);
+
         if (!isRolling)
         {
             playerModel.localRotation = Quaternion.Slerp(playerModel.localRotation, Quaternion.identity, 3f * Time.deltaTime);
@@ -76,6 +88,14 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine("HandleAttack");
         }
+
+        if (Input.GetButtonDown("Jump") && !isRolling)
+        {
+            StartCoroutine("HandleHeal");
+        }
+
+        health -= 1 * Time.deltaTime;
+
     }
 
         void movePlayer()
@@ -203,8 +223,22 @@ public class PlayerController : MonoBehaviour
             canMove = false;
             animator.SetTrigger("basicSlash");
             stamina -= attackCost;
+            weaponScript.CheckHitbox(attackDelay);
             yield return new WaitForSeconds(attackDelay);
             canMove = true;
+        }
+    }
+
+        IEnumerator HandleHeal()
+    {
+        if(remainingFlasks >= 1)
+        {
+            isRolling = true;
+            health += 20;
+            animator.SetTrigger("Drink");
+            remainingFlasks--;
+            yield return new WaitForSeconds(1f);
+            isRolling = false;
         }
     }
 

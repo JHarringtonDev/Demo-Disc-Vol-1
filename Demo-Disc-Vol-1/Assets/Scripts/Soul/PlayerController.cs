@@ -17,8 +17,10 @@ public class PlayerController : MonoBehaviour
 
     bool canMove = true;
     bool isRolling;
+    bool isDamageable = true;
+    bool isAlive = true;
 
-    [HideInInspector] public float health;
+     public float health;
     [HideInInspector] public float magic;
     [HideInInspector] public float stamina;
 
@@ -29,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float staminaDrain;
     [SerializeField] float staminaRegen;
+    [SerializeField] float damageFrames;
 
     float currentSpeed;
     Vector3 dir;
@@ -70,154 +73,168 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movePlayer();
-        handleSprint();
-        rotatePlayer();
-        handleAnimation();
-
         health = Mathf.Clamp(health, 0, maxHealth);
         magic = Mathf.Clamp(magic, 0, maxMagic);
         stamina = Mathf.Clamp(stamina, 0, maxStamina);
 
-        if (!isRolling)
+        if(isAlive)
         {
-            playerModel.localRotation = Quaternion.Slerp(playerModel.localRotation, Quaternion.identity, 3f * Time.deltaTime);
+            movePlayer();
+            handleSprint();
+            rotatePlayer();
+            handleAnimation();
+
+            if (!isRolling)
+            {
+                playerModel.localRotation = Quaternion.Slerp(playerModel.localRotation, Quaternion.identity, 3f * Time.deltaTime);
+            }
+
+            if (Input.GetButtonDown("Fire1") && canMove)
+            {
+                StartCoroutine("HandleAttack");
+            }
+
+            if (Input.GetButtonDown("Jump") && !isRolling)
+            {
+                StartCoroutine("HandleHeal");
+            }
+
+            if (isDamageable)
+            {
+                health -= 5 * Time.deltaTime;
+            }
+
         }
 
-        if (Input.GetButtonDown("Fire1") && canMove)
+        if(health <= 0 && isAlive)
         {
-            StartCoroutine("HandleAttack");
+            HandleDeath();
         }
-
-        if (Input.GetButtonDown("Jump") && !isRolling)
-        {
-            StartCoroutine("HandleHeal");
-        }
-
-        health -= 1 * Time.deltaTime;
 
     }
 
-        void movePlayer()
-        {
-            if (canMove)
-            {
+     void movePlayer()
+     {
+         if (canMove)
+         {
 
-                xInput = Input.GetAxis("Horizontal");
-                yInput = Input.GetAxis("Vertical");
+             xInput = Input.GetAxis("Horizontal");
+             yInput = Input.GetAxis("Vertical");
 
-                dir = transform.right * xInput + transform.forward * yInput;
-                dir *= currentSpeed;
-                dir.y = rb.velocity.y;
+             dir = transform.right * xInput + transform.forward * yInput;
+             dir *= currentSpeed;
+             dir.y = rb.velocity.y;
 
-                rb.velocity = dir;
+             rb.velocity = dir;
 
-            }
+         }
 
-        }
+     }
 
-        void rotatePlayer()
-        {
-            transform.Rotate(Input.GetAxis("Mouse X") * cameraSpeed * transform.up * Time.deltaTime);
-        }
+     void rotatePlayer()
+     {
+         transform.Rotate(Input.GetAxis("Mouse X") * cameraSpeed * transform.up * Time.deltaTime);
+     }
 
-        void handleAnimation()
-        {
-            if (Mathf.Abs(yInput) > Mathf.Abs(xInput))
-            {
+     void handleAnimation()
+     {
+         if (Mathf.Abs(yInput) > Mathf.Abs(xInput))
+         {
 
-                if (yInput > 0)
-                {
-                    uncheckAnimations();
-                    animator.SetBool("isRunning", true);
-                }
-                else if (yInput < 0)
-                {
-                    uncheckAnimations();
-                    animator.SetBool("isBackwards", true);
-                }
+             if (yInput > 0)
+             {
+                 uncheckAnimations();
+                 animator.SetBool("isRunning", true);
+             }
+             else if (yInput < 0)
+             {
+                 uncheckAnimations();
+                 animator.SetBool("isBackwards", true);
+             }
 
-            }
-            else if (Mathf.Abs(xInput) >= Mathf.Abs(yInput) && xInput != 0)
-            {
+         }
+         else if (Mathf.Abs(xInput) >= Mathf.Abs(yInput) && xInput != 0)
+         {
 
-                if (xInput > 0)
-                {
-                    uncheckAnimations();
-                    animator.SetBool("isStrafingR", true);
-                }
-                else if (xInput < 0)
-                {
-                    uncheckAnimations();
-                    animator.SetBool("isStrafingL", true);
-                }
+             if (xInput > 0)
+             {
+                 uncheckAnimations();
+                 animator.SetBool("isStrafingR", true);
+             }
+             else if (xInput < 0)
+             {
+                 uncheckAnimations();
+                 animator.SetBool("isStrafingL", true);
+             }
 
-            }
+         }
 
-            else
-            {
-                uncheckAnimations();
-            }
-        }
+         else
+         {
+             uncheckAnimations();
+         }
+     }
 
-        void uncheckAnimations()
-        {
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isBackwards", false);
-            animator.SetBool("isStrafingL", false);
-            animator.SetBool("isStrafingR", false);
-        }
+     void uncheckAnimations()
+     {
+         animator.SetBool("isRunning", false);
+         animator.SetBool("isBackwards", false);
+         animator.SetBool("isStrafingL", false);
+         animator.SetBool("isStrafingR", false);
+     }
 
-        void handleSprint()
-        {
+     void handleSprint()
+     {
 
-            if (Input.GetButton("Fire3") && stamina > 0)
-            {
-                timeHeld += sprintDelay * Time.deltaTime;
+         if (Input.GetButton("Fire3") && stamina > 0)
+         {
+             timeHeld += sprintDelay * Time.deltaTime;
 
-                if (timeHeld > sprintDelay)
-                {
-                    currentSpeed = moveSpeed * sprintMultiplier;
-                    stamina -= staminaDrain * Time.deltaTime;
-                }
+             if (timeHeld > sprintDelay)
+             {
+                 currentSpeed = moveSpeed * sprintMultiplier;
+                 stamina -= staminaDrain * Time.deltaTime;
+             }
 
-            }
-            else if (Input.GetButtonUp("Fire3") && timeHeld < 1)
-            {
-                StartCoroutine("HandleRoll");
-            }
-            else if (stamina < maxStamina && canMove)
-            {
-                timeHeld = 0;
-                currentSpeed = moveSpeed;
-                stamina += staminaRegen * Time.deltaTime;
-            }
-        }
+         }
+         else if (Input.GetButtonUp("Fire3") && timeHeld < 1)
+         {
+             StartCoroutine("HandleRoll");
+         }
+         else if (stamina < maxStamina && canMove)
+         {
+             timeHeld = 0;
+             currentSpeed = moveSpeed;
+             stamina += staminaRegen * Time.deltaTime;
+         }
+     }
 
-        IEnumerator HandleRoll()
-        {
-            if (stamina >= rollCost && canMove)
-            {
-                Vector3 rollDirection = rb.velocity;
-                animator.SetTrigger("Roll");
-                rb.velocity = new Vector3(0, 0, 0);
-                isRolling = true;
-                canMove = false;
-                stamina -= rollCost;
-                rb.AddForce(rollDirection * rollSpeed, ForceMode.Impulse);
-                playerModel.LookAt(rollDirection + transform.position);
+     IEnumerator HandleRoll()
+     {
+         if (stamina >= rollCost && canMove)
+         {
+             Vector3 rollDirection = rb.velocity;
+             animator.SetTrigger("Roll");
+             rb.velocity = new Vector3(0, 0, 0);
+             isRolling = true;
+             isDamageable = false;
+             canMove = false;
+             stamina -= rollCost;
+             rb.AddForce(rollDirection * rollSpeed, ForceMode.Impulse);
+             playerModel.LookAt(rollDirection + transform.position);
 
-                yield return new WaitForSeconds(rollDelay);
-                
-                isRolling = false;
-                canMove = true;
+             yield return new WaitForSeconds(rollDelay);
+             
+             isRolling = false;
+             canMove = true;
+             isDamageable = true;
 
-            }
+         }
 
-        }
+     }
 
-        IEnumerator HandleAttack()
-    {
+     IEnumerator HandleAttack()
+     {
         if(stamina >= attackCost)
         {
             canMove = false;
@@ -227,9 +244,9 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(attackDelay);
             canMove = true;
         }
-    }
+     }
 
-        IEnumerator HandleHeal()
+    IEnumerator HandleHeal()
     {
         if(remainingFlasks >= 1)
         {
@@ -240,6 +257,24 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(1f);
             isRolling = false;
         }
+    }
+
+    public IEnumerator TakeDamage(float damage)
+    {
+        if(isDamageable)
+        {
+            isDamageable = false;
+            health-= damage;
+            yield return new WaitForSeconds(damageFrames);
+            isDamageable = true;
+        }
+    }
+
+    void HandleDeath()
+    {
+        isAlive = false;
+        canMove = false;
+        animator.SetTrigger("Death");
     }
 
     }

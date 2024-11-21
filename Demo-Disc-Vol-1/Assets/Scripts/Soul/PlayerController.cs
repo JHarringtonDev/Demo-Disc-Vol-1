@@ -3,24 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
     Vector3 moveInput;
     WeaponScript weaponScript;
+    FlaskUI flaskUI;
 
     float xInput;
     float yInput;
 
-    int remainingFlasks;
+    [HideInInspector] public int remainingRedFlasks;
+    [HideInInspector] public int remainingBlueFlasks;
 
     bool canMove = true;
     bool isRolling;
     bool isDamageable = true;
     bool isAlive = true;
+    bool redFlask = true;
+    bool canSwitchFlask = true;
 
-     public float health;
+    [HideInInspector] public float health;
     [HideInInspector] public float magic;
     [HideInInspector] public float stamina;
 
@@ -28,6 +33,8 @@ public class PlayerController : MonoBehaviour
     public float maxHealth;
     public float maxMagic;
     public float maxStamina;
+    [SerializeField] int maxHealthFlask;
+    [SerializeField] int maxMagicFlask;
 
     [SerializeField] float staminaDrain;
     [SerializeField] float staminaRegen;
@@ -61,13 +68,17 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         weaponScript = FindObjectOfType<WeaponScript>();
-        
+        flaskUI = FindObjectOfType<FlaskUI>();
+        flaskUI.FlaskNumber(redFlask);
+
 
         health = maxHealth;
-        magic = maxMagic;
         stamina = maxStamina;
+        magic = maxMagic;
+        remainingRedFlasks = maxHealthFlask;
+        remainingBlueFlasks = maxMagicFlask;
+
         currentSpeed = moveSpeed;
-        remainingFlasks = 3;
     }
 
     // Update is called once per frame
@@ -94,10 +105,16 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine("HandleAttack");
             }
 
+            if (Input.GetButtonDown("Fire2") && canSwitchFlask)
+            {
+                StartCoroutine("SwitchFlask");
+            }
+
             if (Input.GetButtonDown("Jump") && !isRolling)
             {
-                StartCoroutine("HandleHeal");
+                StartCoroutine("HandleFlask");
             }
+
 
             if (isDamageable)
             {
@@ -246,17 +263,47 @@ public class PlayerController : MonoBehaviour
         }
      }
 
-    IEnumerator HandleHeal()
+    IEnumerator HandleFlask()
     {
-        if(remainingFlasks >= 1)
+        isRolling = true;
+
+        if (remainingRedFlasks >= 1 && redFlask)
         {
-            isRolling = true;
             health += 20;
             animator.SetTrigger("Drink");
-            remainingFlasks--;
-            yield return new WaitForSeconds(1f);
-            isRolling = false;
+            remainingRedFlasks--;
+            flaskUI.FlaskNumber(redFlask);
         }
+        else if(remainingBlueFlasks >= 1 && !redFlask)
+        {
+            magic += 20;
+            animator.SetTrigger("Drink");
+            remainingBlueFlasks--;
+            flaskUI.FlaskNumber(redFlask);
+        }
+
+        yield return new WaitForSeconds(1f);
+        isRolling = false;
+    }
+
+    IEnumerator SwitchFlask()
+    {
+        canSwitchFlask = false;
+
+        if (redFlask)
+        {
+            redFlask = false;
+            flaskUI.switchFlask(redFlask);
+            
+        }
+        else if (!redFlask)
+        {
+            redFlask = true;
+            flaskUI.switchFlask(redFlask);
+        }
+
+        yield return new WaitForSeconds(1);
+        canSwitchFlask = true;
     }
 
     public IEnumerator TakeDamage(float damage)

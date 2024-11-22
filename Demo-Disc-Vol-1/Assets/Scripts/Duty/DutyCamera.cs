@@ -4,15 +4,44 @@ using UnityEngine;
 
 public class DutyCamera : MonoBehaviour
 {
+    PlayerControllerDuty player;
+    Object hitTarget;
 
-    [SerializeField] float cameraSensitivity;
+    private void Start()
+    {
+        player = FindObjectOfType<PlayerControllerDuty>();
+    }
+
     private void Update()
     {
         TurnCamera();
     }
 
+    float ClampAngle(float angle, float from, float to)
+    {
+        // accepts e.g. -80, 80
+        if (angle < 0f) angle = 360 + angle;
+        if (angle > 180f) return Mathf.Max(angle, 360 + from);
+        return Mathf.Min(angle, to);
+    }
+
     void TurnCamera()
     {
-        transform.Rotate(Input.GetAxis("Mouse X") * cameraSensitivity * transform.up * Time.deltaTime);
+        float mx = Input.GetAxis("Mouse X") * Time.deltaTime * player.cameraSensitivity;
+        float my = Input.GetAxis("Mouse Y") * Time.deltaTime * player.cameraSensitivity;
+
+        Vector3 rot = transform.rotation.eulerAngles + new Vector3(-my, 0f, 0f); //use local if your char is not always oriented Vector3.up
+        rot.x = ClampAngle(rot.x, -60f, 60f);
+
+        transform.eulerAngles = rot;
+    }
+
+    public void CheckRaycast(LayerMask layerMask)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, layerMask))
+        {
+            Destroy(hit.collider.gameObject);
+        }
     }
 }

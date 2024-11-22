@@ -4,27 +4,42 @@ using UnityEngine;
 
 public class PlayerControllerDuty : MonoBehaviour
 {
+    DutyCamera playerCamera;
+
     Rigidbody rb;
+    LayerMask layerMask;
 
     [SerializeField] float moveSpeed;
-    [SerializeField] float cameraSensitivity;
+    public float cameraSensitivity;
+    [SerializeField] float minYLook;
+    [SerializeField] float maxYLook;
+
+    bool canFire = true;
 
     // Start is called before the first frame update
     void Start()
     {
+        layerMask = LayerMask.GetMask("Target");
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         Mathf.Clamp(transform.localRotation.z, 0, 1);
 
         rb = GetComponent<Rigidbody>();
+        playerCamera = FindObjectOfType<DutyCamera>();
     }
 
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
-        TurnCamera();
+        //TurnCameraHorizontal();
+        TurnPlayer();
+
+        if (Input.GetButton("Fire1") && canFire)
+        {
+            StartCoroutine("ShootGun");
+        }
     }
 
     void MovePlayer()
@@ -35,14 +50,44 @@ public class PlayerControllerDuty : MonoBehaviour
         xInput = Input.GetAxis("Horizontal");
         yInput = Input.GetAxis("Vertical");
 
-        Vector3 dir = new Vector3(xInput, rb.velocity.y, yInput) * moveSpeed;
+        Vector3 dir = transform.right * xInput + transform.forward * yInput;
 
-        rb.velocity += dir * Time.deltaTime;
+        dir *= moveSpeed;
+
+        transform.position += dir * Time.deltaTime;
+        
+    }
+
+    float ClampAngle(float angle, float from, float to)
+    {
+        // accepts e.g. -80, 80
+        if (angle < 0f) angle = 360 + angle;
+        if (angle > 180f) return Mathf.Max(angle, 360 + from);
+        return Mathf.Min(angle, to);
+    }
+
+    void TurnPlayer()
+    {
+        transform.Rotate(new Vector3(0,Input.GetAxis("Mouse X") * Time.deltaTime * cameraSensitivity,0));
     }
 
     void TurnCamera()
     {
-        transform.Rotate(Input.GetAxis("Mouse X") * cameraSensitivity * transform.up * Time.deltaTime);
-        //transform.Rotate(Input.GetAxis("Mouse Y") * -cameraSensitivity * transform.right * Time.deltaTime);
+        float mx = Input.GetAxis("Mouse X") * Time.deltaTime * cameraSensitivity;
+        float my = Input.GetAxis("Mouse Y") * Time.deltaTime * cameraSensitivity;
+
+        Vector3 rot = transform.rotation.eulerAngles + new Vector3(-my, mx, 0f); //use local if your char is not always oriented Vector3.up
+        rot.x = ClampAngle(rot.x, -60f, 60f);
+
+        transform.eulerAngles = rot;
     }
+
+    IEnumerator ShootGun()
+    {
+        canFire = false;
+        playerCamera.CheckRaycast(layerMask);
+        yield return new WaitForSeconds(1);
+        canFire = true;
+    }
+
 }

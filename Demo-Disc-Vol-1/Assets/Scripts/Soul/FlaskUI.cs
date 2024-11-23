@@ -18,6 +18,8 @@ public class FlaskUI : MonoBehaviour
     private void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
+        flaskNo.text = playerController.remainingRedFlasks.ToString();
+
     }
 
 

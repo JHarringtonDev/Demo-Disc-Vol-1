@@ -6,16 +6,28 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] GameObject playerModel;
     [SerializeField] float cameraSpeed;
+    [SerializeField] float clampAmount;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
+        TurnCamera();
     }
 
-    // Update is called once per frame
-    void Update()
+    float ClampAngle(float angle, float from, float to)
     {
-        //transform.RotateAround(playerModel.transform.position, Vector3.up, Input.GetAxis("Mouse X") * cameraSpeed * Time.deltaTime);
+        // accepts e.g. -80, 80
+        if (angle < 0f) angle = 360 + angle;
+        if (angle > 180f) return Mathf.Max(angle, 360 + from);
+        return Mathf.Min(angle, to);
+    }
+    
+    void TurnCamera()
+    {
+        float my = Input.GetAxis("Mouse Y") * Time.deltaTime * cameraSpeed;
+
+        Vector3 rot = transform.rotation.eulerAngles + new Vector3(-my, 0f, 0f); //use local if your char is not always oriented Vector3.up
+        rot.x = ClampAngle(rot.x, -clampAmount, clampAmount);
+
+        transform.eulerAngles = rot;
     }
 }

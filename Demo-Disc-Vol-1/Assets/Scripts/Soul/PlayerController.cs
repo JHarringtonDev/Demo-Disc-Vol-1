@@ -69,8 +69,6 @@ public class PlayerController : MonoBehaviour
 
         weaponScript = FindObjectOfType<WeaponScript>();
         flaskUI = FindObjectOfType<FlaskUI>();
-        flaskUI.FlaskNumber(redFlask);
-
 
         health = maxHealth;
         stamina = maxStamina;

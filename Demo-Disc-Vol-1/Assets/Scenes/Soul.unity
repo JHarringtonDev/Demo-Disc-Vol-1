@@ -862,6 +862,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerModel: {fileID: 945462632}
   cameraSpeed: 100
+  clampAmount: 5
 --- !u!1 &856293386
 GameObject:
   m_ObjectHideFlags: 0

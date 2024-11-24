@@ -13,6 +13,9 @@ public class PlayerControllerDuty : MonoBehaviour
     public float cameraSensitivity;
     [SerializeField] float minYLook;
     [SerializeField] float maxYLook;
+    [SerializeField] bool fireHitscan;
+    [SerializeField] GameObject bullet;
+
 
     bool canFire = true;
 
@@ -85,9 +88,16 @@ public class PlayerControllerDuty : MonoBehaviour
     IEnumerator ShootGun()
     {
         canFire = false;
-        playerCamera.CheckRaycast(layerMask);
+        if (fireHitscan)
+        {
+            playerCamera.CheckRaycast(layerMask);
+        }
+        else if(!fireHitscan)
+        {
+            playerCamera.FireProjectile();
+        }
         yield return new WaitForSeconds(1);
         canFire = true;
     }
-
+     
 }

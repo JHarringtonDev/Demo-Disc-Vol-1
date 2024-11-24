@@ -350,6 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee0de8e7bc520241bcf694cd916c083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 949141993391664673, guid: 9e1fa8cfa35b0274a9dbd2e401ef6704, type: 3}
 --- !u!1 &643063007
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +611,8 @@ MonoBehaviour:
   cameraSensitivity: 200
   minYLook: 0
   maxYLook: 0
+  fireHitscan: 0
+  bullet: {fileID: 0}
 --- !u!54 &789817190
 Rigidbody:
   m_ObjectHideFlags: 0

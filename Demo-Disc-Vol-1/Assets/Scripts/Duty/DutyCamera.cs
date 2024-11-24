@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 
 public class DutyCamera : MonoBehaviour
 {
     PlayerControllerDuty player;
     Object hitTarget;
+    [SerializeField] GameObject bulletPrefab;
 
     private void Start()
     {
@@ -43,5 +45,10 @@ public class DutyCamera : MonoBehaviour
         {
             Destroy(hit.collider.gameObject);
         }
+    }
+
+    public void FireProjectile()
+    {
+        Instantiate(bulletPrefab, transform.position, transform.rotation);
     }
 }

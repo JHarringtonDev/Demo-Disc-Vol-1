@@ -607,12 +607,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c62a9bc8e2d71459f206c1a656ec3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 20
   cameraSensitivity: 200
+  moveSpeed: 20
   minYLook: 0
   maxYLook: 0
   fireHitscan: 0
   bullet: {fileID: 0}
+  fireDelay: 0.5
+  reloadTime: 1
+  GunModel: {fileID: 817235564}
+  loadedBullets: 6
+  heldBullets: 17
 --- !u!54 &789817190
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -640,6 +645,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!1 &817235564 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a0f63bb0af3a4d74ab4a1a0f97b11aea, type: 3}
+  m_PrefabInstance: {fileID: 1359210671}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &927387881
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,19 +1138,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0f63bb0af3a4d74ab4a1a0f97b11aea, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9991874
+      value: 0.9990483
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0f63bb0af3a4d74ab4a1a0f97b11aea, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0f63bb0af3a4d74ab4a1a0f97b11aea, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.040306255
+      value: -0.043619405
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0f63bb0af3a4d74ab4a1a0f97b11aea, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0f63bb0af3a4d74ab4a1a0f97b11aea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1148,7 +1158,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0f63bb0af3a4d74ab4a1a0f97b11aea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -4.62
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0f63bb0af3a4d74ab4a1a0f97b11aea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

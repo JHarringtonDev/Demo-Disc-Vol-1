@@ -9,15 +9,23 @@ public class PlayerControllerDuty : MonoBehaviour
     Rigidbody rb;
     LayerMask layerMask;
 
-    [SerializeField] float moveSpeed;
     public float cameraSensitivity;
+
+
+    [SerializeField] float moveSpeed;
     [SerializeField] float minYLook;
     [SerializeField] float maxYLook;
     [SerializeField] bool fireHitscan;
     [SerializeField] GameObject bullet;
+    [SerializeField] float fireDelay;
+    [SerializeField] float reloadTime;
+    [SerializeField] GameObject GunModel;
 
+    [SerializeField] int loadedBullets;
+    [SerializeField] int heldBullets;
 
     bool canFire = true;
+    bool canReload = true;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +50,21 @@ public class PlayerControllerDuty : MonoBehaviour
         if (Input.GetButton("Fire1") && canFire)
         {
             StartCoroutine("ShootGun");
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && canReload)
+        {
+            StartCoroutine(reloadGun());
+        }
+
+        if(!canReload)
+        {
+            GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(6, 0, 0, 1), 0.5f * Time.deltaTime);
+        }
+        else
+        {
+            GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(0, 0, 0, 1), 5f * Time.deltaTime);
+
         }
     }
 
@@ -85,19 +108,51 @@ public class PlayerControllerDuty : MonoBehaviour
         transform.eulerAngles = rot;
     }
 
+    IEnumerator reloadGun()
+    {
+        canReload = false;
+        canFire = false;
+
+        int bulletsNeeded = 6 - loadedBullets;
+
+        if (heldBullets >= bulletsNeeded) 
+        {
+            heldBullets -= bulletsNeeded;
+            loadedBullets += bulletsNeeded;
+        }
+        else if(heldBullets < bulletsNeeded)
+        {
+            loadedBullets += heldBullets;
+            heldBullets = 0;
+        }
+
+        yield return new WaitForSeconds(reloadTime);
+        canReload = true;
+        canFire = true;
+    }
+
     IEnumerator ShootGun()
     {
-        canFire = false;
-        if (fireHitscan)
+        if(loadedBullets > 0)
         {
-            playerCamera.CheckRaycast(layerMask);
+            canFire = false;
+            loadedBullets--;
+
+            if (fireHitscan)
+            {
+                playerCamera.CheckRaycast(layerMask);
+            }
+            else if(!fireHitscan)
+            {
+                playerCamera.FireProjectile();
+            }
+            yield return new WaitForSeconds(fireDelay);
+            canFire = true;
         }
-        else if(!fireHitscan)
+        else
         {
-            playerCamera.FireProjectile();
+            StartCoroutine(reloadGun());
         }
-        yield return new WaitForSeconds(1);
-        canFire = true;
     }
      
 }

@@ -13,6 +13,7 @@ public class PlayerControllerDuty : MonoBehaviour
 
 
     [SerializeField] float moveSpeed;
+    [SerializeField] float sprintMultiplier;
     [SerializeField] float minYLook;
     [SerializeField] float maxYLook;
     [SerializeField] bool fireHitscan;
@@ -26,6 +27,8 @@ public class PlayerControllerDuty : MonoBehaviour
 
     bool canFire = true;
     bool canReload = true;
+    bool isSprinting;
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +47,7 @@ public class PlayerControllerDuty : MonoBehaviour
     void Update()
     {
         MovePlayer();
-        //TurnCameraHorizontal();
+        HandleSprint();
         TurnPlayer();
 
         if (Input.GetButton("Fire1") && canFire)
@@ -57,9 +60,13 @@ public class PlayerControllerDuty : MonoBehaviour
             StartCoroutine(reloadGun());
         }
 
-        if(!canReload)
+        if (!canReload && !isSprinting)
         {
             GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(6, 0, 0, 1), 0.5f * Time.deltaTime);
+        }
+        else if (isSprinting)
+        {
+            GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(-1, 0, 0, 1), 1f * Time.deltaTime);
         }
         else
         {
@@ -78,10 +85,33 @@ public class PlayerControllerDuty : MonoBehaviour
 
         Vector3 dir = transform.right * xInput + transform.forward * yInput;
 
-        dir *= moveSpeed;
+        if (isSprinting)
+        {
+            dir *= (moveSpeed * sprintMultiplier);
+        }
+        else
+        {
+            dir *= moveSpeed;
+        }
 
-        transform.position += dir * Time.deltaTime;
+        rb.MovePosition(transform.position + dir * Time.deltaTime);
         
+    }
+
+    void HandleSprint()
+    {
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+            isSprinting = true;
+            canFire = false;
+            canReload = false;
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftShift) && isSprinting)
+        {
+            isSprinting = false;
+            canFire = true; 
+            canReload = true;
+        }
     }
 
     float ClampAngle(float angle, float from, float to)
@@ -138,6 +168,8 @@ public class PlayerControllerDuty : MonoBehaviour
             canFire = false;
             loadedBullets--;
 
+            GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(-6, 0, 0, 1), 1f * Time.deltaTime);
+
             if (fireHitscan)
             {
                 playerCamera.CheckRaycast(layerMask);
@@ -154,5 +186,9 @@ public class PlayerControllerDuty : MonoBehaviour
             StartCoroutine(reloadGun());
         }
     }
-     
+    
+    public void HandleAmmoPickUp(int bulletAmount)
+    {
+        heldBullets += bulletAmount;
+    }
 }

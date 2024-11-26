@@ -21,19 +21,12 @@ public class BulletScript : MonoBehaviour
         StartCoroutine(Despawn());
     }
 
-    
-    void HandleCollision(Collision contact)
-    {
-        if (contact.gameObject.layer == LayerMask.NameToLayer("Target"))
-        {
-            Destroy(contact.gameObject);
-        }
-    
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
-        HandleCollision(collision);
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Target"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 
     IEnumerator Despawn()

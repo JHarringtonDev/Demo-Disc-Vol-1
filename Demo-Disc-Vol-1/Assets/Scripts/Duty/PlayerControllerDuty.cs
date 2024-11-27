@@ -94,7 +94,7 @@ public class PlayerControllerDuty : MonoBehaviour
             dir *= moveSpeed;
         }
 
-        rb.MovePosition(transform.position + dir * Time.fixedDeltaTime);
+        rb.MovePosition(transform.position + dir * Time.deltaTime);
         
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControllerDuty : MonoBehaviour
 {
@@ -197,8 +198,12 @@ public class PlayerControllerDuty : MonoBehaviour
         heldBullets += bulletAmount;
     }
 
-    public void HandleDamage()
+    public void HandleDamage(int damage)
     {
-
+        health -= damage;
+        if(health <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }

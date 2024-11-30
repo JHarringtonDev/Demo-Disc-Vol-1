@@ -9,7 +9,9 @@ public class BoxScript : MonoBehaviour
     PlayerControllerDuty duty;
     Rigidbody rb;
 
-    [SerializeField] float distanceFromPlayer;
+    [SerializeField] float speed;
+    [SerializeField] int damage;
+
 
     private void Start()
     {
@@ -21,10 +23,18 @@ public class BoxScript : MonoBehaviour
 
     private void Update()
     {
-        rb.MovePosition(Vector3.MoveTowards(transform.position,duty.gameObject.transform.position,distanceFromPlayer * Time.deltaTime));
+        rb.MovePosition(Vector3.MoveTowards(transform.position,duty.gameObject.transform.position,speed * Time.deltaTime));
     }
     private void OnDestroy()
     {
         spawner.spawnedBoxes--;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            duty.HandleDamage(damage);
+        }
     }
 }

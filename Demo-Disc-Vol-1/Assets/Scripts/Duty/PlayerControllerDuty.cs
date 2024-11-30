@@ -22,8 +22,11 @@ public class PlayerControllerDuty : MonoBehaviour
     [SerializeField] float reloadTime;
     [SerializeField] GameObject GunModel;
 
+    [SerializeField] int maxHealth;
     [SerializeField] int loadedBullets;
     [SerializeField] int heldBullets;
+
+    int health;
 
     bool canFire = true;
     bool canReload = true;
@@ -36,6 +39,8 @@ public class PlayerControllerDuty : MonoBehaviour
         layerMask = LayerMask.GetMask("Target");
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        health = maxHealth;
 
         Mathf.Clamp(transform.localRotation.z, 0, 1);
 
@@ -190,5 +195,10 @@ public class PlayerControllerDuty : MonoBehaviour
     public void HandleAmmoPickUp(int bulletAmount)
     {
         heldBullets += bulletAmount;
+    }
+
+    public void HandleDamage()
+    {
+
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerControllerDuty : MonoBehaviour
 {
@@ -23,11 +24,14 @@ public class PlayerControllerDuty : MonoBehaviour
     [SerializeField] float reloadTime;
     [SerializeField] GameObject GunModel;
 
-    [SerializeField] int maxHealth;
-    [SerializeField] int loadedBullets;
-    [SerializeField] int heldBullets;
+    [SerializeField] float maxHealth;
+    [SerializeField] float loadedBullets;
+    [SerializeField] float heldBullets;
 
-    int health;
+    [SerializeField] Image healthFill;
+    [SerializeField] Image ammoFill;
+
+    float health;
 
     bool canFire = true;
     bool canReload = true;
@@ -47,6 +51,8 @@ public class PlayerControllerDuty : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         playerCamera = FindObjectOfType<DutyCamera>();
+
+        displayAmmo();
     }
 
     // Update is called once per frame
@@ -149,7 +155,7 @@ public class PlayerControllerDuty : MonoBehaviour
         canReload = false;
         canFire = false;
 
-        int bulletsNeeded = 6 - loadedBullets;
+        float bulletsNeeded = 6 - loadedBullets;
 
         if (heldBullets >= bulletsNeeded) 
         {
@@ -163,6 +169,7 @@ public class PlayerControllerDuty : MonoBehaviour
         }
 
         yield return new WaitForSeconds(reloadTime);
+        displayAmmo();
         canReload = true;
         canFire = true;
     }
@@ -173,6 +180,7 @@ public class PlayerControllerDuty : MonoBehaviour
         {
             canFire = false;
             loadedBullets--;
+            displayAmmo();
 
             GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(-6, 0, 0, 1), 1f * Time.deltaTime);
 
@@ -201,9 +209,15 @@ public class PlayerControllerDuty : MonoBehaviour
     public void HandleDamage(int damage)
     {
         health -= damage;
+        healthFill.fillAmount = health / maxHealth;
         if(health <= 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    void displayAmmo()
+    {
+        ammoFill.fillAmount = loadedBullets / 6;
     }
 }

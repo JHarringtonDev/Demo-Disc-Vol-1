@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    int money;
+    [SerializeField] int money;
+    int towerHealth;
 
     PlayerControllerDuty duty;
 
+
     [SerializeField] int startingMoney;
+    [SerializeField] int maxTowerHealth;
+    [SerializeField] int enemyReward;
     [SerializeField] int ammoCost;
     [SerializeField] GameObject ammoBox;
 
@@ -16,7 +21,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         duty = FindObjectOfType<PlayerControllerDuty>();
+
         money = startingMoney;
+        towerHealth = maxTowerHealth;
     }
 
     public int getMoney()
@@ -32,4 +39,10 @@ public class GameManager : MonoBehaviour
             Instantiate(ammoBox, new Vector3(0, 10, 0) + duty.gameObject.transform.position, Quaternion.identity);
         } 
     }
+
+    public void addMoney()
+    {
+        money += enemyReward;
+    }
+
 }

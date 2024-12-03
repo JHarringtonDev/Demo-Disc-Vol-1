@@ -7,34 +7,63 @@ public class BoxScript : MonoBehaviour
 
     BoxSpawner spawner;
     PlayerControllerDuty duty;
+    GameManager gameManager;
+    TowerScript tower;
+
     Rigidbody rb;
+    bool canDamage = true;
 
     [SerializeField] float speed;
     [SerializeField] int damage;
+    [SerializeField] float damageBuffer;
+    [SerializeField] GameObject moveTarget;
 
 
     private void Start()
     {
         spawner = FindObjectOfType<BoxSpawner>();
         duty = FindObjectOfType<PlayerControllerDuty>();
+        gameManager = FindObjectOfType<GameManager>();
+        tower = FindObjectOfType<TowerScript>();
 
         rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        rb.MovePosition(Vector3.MoveTowards(transform.position,duty.gameObject.transform.position,speed * Time.deltaTime));
+        rb.MovePosition(Vector3.MoveTowards(transform.position,tower.gameObject.transform.position,speed * Time.deltaTime));
     }
     private void OnDestroy()
     {
         spawner.spawnedBoxes--;
+        gameManager.addMoney();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (canDamage)
         {
-            duty.HandleDamage(damage);
+            if (collision.gameObject.tag == "Player")
+            {
+                duty.HandleDamage(damage);
+                canDamage = false;
+                StartCoroutine(ChangeDamageState());
+            }
+            else if(collision.gameObject.tag == "Tower")
+            {
+                tower.towerDamage(damage);
+                canDamage = false;
+                StartCoroutine(ChangeDamageState());
+            }
         }
+    }
+
+
+    IEnumerator ChangeDamageState() 
+    {
+        {
+            yield return new WaitForSeconds(damageBuffer);
+            canDamage = true;
+        } 
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TowerScript : MonoBehaviour
 {
@@ -26,6 +27,11 @@ public class TowerScript : MonoBehaviour
             Debug.Log("Purchased");
             gameManager.SpawnAmmo();
         }
+
+        if (towerHealth <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -42,5 +48,10 @@ public class TowerScript : MonoBehaviour
         {
             canBuy = false;
         }
+    }
+
+    public void towerDamage(int damageAmount)
+    {
+        towerHealth -= damageAmount;
     }
 }

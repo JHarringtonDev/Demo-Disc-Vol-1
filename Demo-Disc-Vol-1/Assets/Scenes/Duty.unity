@@ -155,6 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040a0a4cbd347c04fb53fbf98e1458bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerHealth: 0
+  maxHealth: 20
 --- !u!65 &125031013
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2659,7 +2661,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a45a79abaecb2b0469f902b43db81c1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingMoney: 0
+  startingMoney: 500
+  ammoCost: 100
+  ammoBox: {fileID: 5671467964044635569, guid: a479e82c23a22034b95eaae06cff84e9, type: 3}
 --- !u!4 &1062247465
 Transform:
   m_ObjectHideFlags: 0

@@ -7,13 +7,15 @@ public class TowerScript : MonoBehaviour
     GameManager gameManager;
 
     bool canBuy;
-    int towerHealth;
-    int maxHealth;
+
+    [SerializeField] int towerHealth;
+    [SerializeField] int maxHealth;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        towerHealth = maxHealth;
     }
 
     // Update is called once per frame
@@ -22,20 +24,21 @@ public class TowerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && canBuy)
         {
             Debug.Log("Purchased");
+            gameManager.SpawnAmmo();
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             canBuy = true;
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        if(collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             canBuy = false;
         }

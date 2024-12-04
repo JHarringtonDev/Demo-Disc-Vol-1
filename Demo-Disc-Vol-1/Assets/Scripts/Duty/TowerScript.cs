@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TowerScript : MonoBehaviour
 {
@@ -9,9 +10,10 @@ public class TowerScript : MonoBehaviour
 
     bool canBuy;
 
-    [SerializeField] int towerHealth;
-    [SerializeField] int maxHealth;
+    [SerializeField] float towerHealth;
+    [SerializeField] float maxHealth;
     [SerializeField] GameObject buyMenu;
+    [SerializeField] Image healthFill;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +36,8 @@ public class TowerScript : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        healthFill.fillAmount = towerHealth / maxHealth;
     }
 
     private void OnTriggerEnter(Collider other)

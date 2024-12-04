@@ -36,6 +36,7 @@ public class PlayerControllerDuty : MonoBehaviour
     bool canFire = true;
     bool canReload = true;
     bool isSprinting;
+    bool isPaused;
 
 
     // Start is called before the first frame update
@@ -219,5 +220,21 @@ public class PlayerControllerDuty : MonoBehaviour
     void displayAmmo()
     {
         ammoFill.fillAmount = loadedBullets / 6;
+    }
+
+    public void setPause()
+    {
+        if (!isPaused)
+        {
+            isPaused = true;
+            canFire = false;
+            canReload = false;
+        } 
+        else if (isPaused)
+        {
+            isPaused = false;
+            canFire = true;
+            canReload = true;
+        }
     }
 }

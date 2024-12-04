@@ -16,7 +16,8 @@ public class BoxScript : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] int damage;
     [SerializeField] float damageBuffer;
-    [SerializeField] GameObject moveTarget;
+    [SerializeField] bool targetPlayer;
+
 
 
     private void Start()
@@ -31,7 +32,14 @@ public class BoxScript : MonoBehaviour
 
     private void Update()
     {
-        rb.MovePosition(Vector3.MoveTowards(transform.position,tower.gameObject.transform.position,speed * Time.deltaTime));
+        if(targetPlayer)
+        {
+            rb.MovePosition(Vector3.MoveTowards(transform.position, duty.gameObject.transform.position, speed * Time.deltaTime));
+        }
+        else
+        {
+            rb.MovePosition(Vector3.MoveTowards(transform.position,tower.gameObject.transform.position,speed * Time.deltaTime));
+        }
     }
     private void OnDestroy()
     {

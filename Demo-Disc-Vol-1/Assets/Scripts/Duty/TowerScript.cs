@@ -11,6 +11,7 @@ public class TowerScript : MonoBehaviour
 
     [SerializeField] int towerHealth;
     [SerializeField] int maxHealth;
+    [SerializeField] GameObject buyMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,8 @@ public class TowerScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && canBuy)
         {
             Debug.Log("Purchased");
-            gameManager.SpawnAmmo();
+            //gameManager.SpawnAmmo();
+            buyMenu.SetActive(true);
         }
 
         if (towerHealth <= 0)

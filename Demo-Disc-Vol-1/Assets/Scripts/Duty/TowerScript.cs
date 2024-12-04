@@ -56,4 +56,16 @@ public class TowerScript : MonoBehaviour
     {
         towerHealth -= damageAmount;
     }
+
+    public void healTower(int healthPoint)
+    {
+        if(towerHealth + healthPoint <= maxHealth) 
+        {
+            towerHealth += healthPoint;
+        }
+        else
+        {
+            towerHealth = maxHealth;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,6 +31,8 @@ public class PlayerControllerDuty : MonoBehaviour
 
     [SerializeField] Image healthFill;
     [SerializeField] Image ammoFill;
+    [SerializeField] TextMeshProUGUI ammoCountDisplay;
+
 
     float health;
 
@@ -59,32 +62,35 @@ public class PlayerControllerDuty : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MovePlayer();
-        HandleSprint();
-        TurnPlayer();
+        if(!isPaused)
+        {
+            MovePlayer();
+            HandleSprint();
+            TurnPlayer();
 
-        if (Input.GetButton("Fire1") && canFire)
-        {
-            StartCoroutine("ShootGun");
-        }
+            if (Input.GetButton("Fire1") && canFire)
+            {
+                StartCoroutine("ShootGun");
+            }
 
-        if (Input.GetKeyDown(KeyCode.R) && canReload)
-        {
-            StartCoroutine(reloadGun());
-        }
+            if (Input.GetKeyDown(KeyCode.R) && canReload)
+            {
+                StartCoroutine(reloadGun());
+            }
 
-        if (!canReload && !isSprinting)
-        {
-            GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(6, 0, 0, 1), 0.5f * Time.deltaTime);
-        }
-        else if (isSprinting)
-        {
-            GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(-1, 0, 0, 1), 1f * Time.deltaTime);
-        }
-        else
-        {
-            GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(0, 0, 0, 1), 5f * Time.deltaTime);
+            if (!canReload && !isSprinting)
+            {
+                GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(6, 0, 0, 1), 0.5f * Time.deltaTime);
+            }
+            else if (isSprinting)
+            {
+                GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(-1, 0, 0, 1), 1f * Time.deltaTime);
+            }
+            else
+            {
+                GunModel.transform.localRotation = Quaternion.Slerp(GunModel.transform.localRotation, new Quaternion(0, 0, 0, 1), 5f * Time.deltaTime);
 
+            }
         }
     }
 
@@ -205,6 +211,7 @@ public class PlayerControllerDuty : MonoBehaviour
     public void HandleAmmoPickUp(int bulletAmount)
     {
         heldBullets += bulletAmount;
+        displayAmmo();
     }
 
     public void HandleDamage(int damage)
@@ -220,6 +227,7 @@ public class PlayerControllerDuty : MonoBehaviour
     void displayAmmo()
     {
         ammoFill.fillAmount = loadedBullets / 6;
+        ammoCountDisplay.text = "Remaining Bullets:" + heldBullets;
     }
 
     public void setPause()
@@ -227,14 +235,10 @@ public class PlayerControllerDuty : MonoBehaviour
         if (!isPaused)
         {
             isPaused = true;
-            canFire = false;
-            canReload = false;
         } 
         else if (isPaused)
         {
             isPaused = false;
-            canFire = true;
-            canReload = true;
         }
     }
 }

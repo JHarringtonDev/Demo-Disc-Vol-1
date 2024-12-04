@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
         towerHealth = maxTowerHealth;
     }
 
-    public int getMoney()
+    public int GetMoney()
     {
         return money;
     }
@@ -45,4 +45,8 @@ public class GameManager : MonoBehaviour
         money += enemyReward;
     }
 
+    public void SpendMoney(int moneySpent)
+    {
+        money -= moneySpent;
+    }
 }

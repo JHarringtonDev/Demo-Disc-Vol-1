@@ -424,6 +424,7 @@ MonoBehaviour:
   towerHealth: 0
   maxHealth: 100
   buyMenu: {fileID: 744368646}
+  healthFill: {fileID: 1606054278}
 --- !u!65 &125031013
 BoxCollider:
   m_ObjectHideFlags: 0

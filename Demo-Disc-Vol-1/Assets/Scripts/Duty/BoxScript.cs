@@ -17,6 +17,7 @@ public class BoxScript : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] float damageBuffer;
     [SerializeField] bool targetPlayer;
+    [SerializeField] int enemyHealth;
 
 
 
@@ -38,7 +39,7 @@ public class BoxScript : MonoBehaviour
         }
         else
         {
-            rb.MovePosition(Vector3.MoveTowards(transform.position,tower.gameObject.transform.position,speed * Time.deltaTime));
+            rb.MovePosition(Vector3.MoveTowards(transform.position, tower.gameObject.transform.position,speed * Time.deltaTime));
         }
     }
     private void OnDestroy()
@@ -73,5 +74,15 @@ public class BoxScript : MonoBehaviour
             yield return new WaitForSeconds(damageBuffer);
             canDamage = true;
         } 
+    }
+
+    public void takeDamage()
+    {
+        enemyHealth--;
+
+        if (enemyHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

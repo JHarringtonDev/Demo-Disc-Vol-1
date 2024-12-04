@@ -25,7 +25,11 @@ public class BulletScript : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Target"))
         {
-            Destroy(collision.gameObject);
+            if(collision.gameObject.GetComponent<BoxScript>() != null)
+            {
+                BoxScript box = collision.gameObject.GetComponent<BoxScript>();
+                box.takeDamage();
+            }
         }
     }
 

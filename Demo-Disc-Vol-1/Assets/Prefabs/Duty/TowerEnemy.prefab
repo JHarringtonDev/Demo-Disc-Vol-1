@@ -149,3 +149,5 @@ MonoBehaviour:
   speed: 5
   damage: 1
   damageBuffer: 2
+  targetPlayer: 0
+  enemyHealth: 1

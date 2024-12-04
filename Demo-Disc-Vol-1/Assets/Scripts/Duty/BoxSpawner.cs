@@ -9,10 +9,13 @@ public class BoxSpawner : MonoBehaviour
     bool canSpawn = true;
 
     public int spawnedBoxes = 0;
+    int totalSpawned;
+    int possibleIndex = 0;
 
     [SerializeField] int maxBoxes;
+    [SerializeField] int enemyTypeThreshold;
     [SerializeField] float spawnDelay;
-    [SerializeField] GameObject boxPrefab;
+    [SerializeField] List<GameObject> enemyPrefabs;
     [SerializeField] List<Transform> spawnPoints = new List<Transform>();
 
 
@@ -29,10 +32,18 @@ public class BoxSpawner : MonoBehaviour
     IEnumerator SpawnBoxes()
     {
         canSpawn = false;
-        int spawnSelect = Mathf.Abs(Random.Range(0, 4));
+
         spawnedBoxes++;
-        Instantiate(boxPrefab, spawnPoints[spawnSelect]);
+        totalSpawned++;
+
+        int spawnSelect = Mathf.Abs(Random.Range(0, 4));
+        int enemyType = Mathf.Abs(Random.Range(0, possibleIndex));
+
+        possibleIndex = Mathf.Abs(totalSpawned / enemyTypeThreshold);
+        Debug.Log(possibleIndex);
+        Instantiate(enemyPrefabs[enemyType], spawnPoints[spawnSelect]);
         yield return new WaitForSeconds(spawnDelay);
         canSpawn = true;
     }
+
 }

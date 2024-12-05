@@ -10,6 +10,8 @@ public class WeaponScript : MonoBehaviour
     bool hitboxActive;
     float attackTime;
 
+    [SerializeField] float weaponDamage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,8 +34,11 @@ public class WeaponScript : MonoBehaviour
     {
         if (hitboxActive && other.tag == "Enemy")
         {
-            Debug.Log("target hit");
-            Destroy(other.gameObject);
+            if(other.GetComponent<Enemy>() != null)
+            {
+                Enemy hitEnemy = other.GetComponent<Enemy>();
+                hitEnemy.TakeDamage(weaponDamage);
+            }
         }
     }
 

@@ -40,7 +40,6 @@ public class BoxSpawner : MonoBehaviour
         int enemyType = Mathf.Abs(Random.Range(0, possibleIndex));
 
         possibleIndex = Mathf.Abs(totalSpawned / enemyTypeThreshold);
-        Debug.Log(possibleIndex);
         Instantiate(enemyPrefabs[enemyType], spawnPoints[spawnSelect]);
         yield return new WaitForSeconds(spawnDelay);
         canSpawn = true;

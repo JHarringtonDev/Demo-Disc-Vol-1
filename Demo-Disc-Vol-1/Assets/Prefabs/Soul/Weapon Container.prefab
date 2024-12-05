@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponHitbox: {fileID: 0}
+  weaponDamage: 3
 --- !u!136 &5295694640091349412
 CapsuleCollider:
   m_ObjectHideFlags: 0

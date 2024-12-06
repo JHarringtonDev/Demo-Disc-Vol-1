@@ -20,9 +20,10 @@ public class PlayerControllerDuty : MonoBehaviour
     [SerializeField] float minYLook;
     [SerializeField] float maxYLook;
     [SerializeField] bool fireHitscan;
-    [SerializeField] GameObject bullet;
     [SerializeField] float fireDelay;
     [SerializeField] float reloadTime;
+
+    [SerializeField] GameObject bullet;
     [SerializeField] GameObject GunModel;
 
     [SerializeField] float maxHealth;
@@ -68,9 +69,14 @@ public class PlayerControllerDuty : MonoBehaviour
             HandleSprint();
             TurnPlayer();
 
-            if (Input.GetButton("Fire1") && canFire)
+            if (Input.GetButtonDown("Fire1") && canFire)
             {
                 StartCoroutine("ShootGun");
+            }
+
+            if(Input.GetButtonDown("Fire2") && canFire)
+            {
+                ThrowGrenade();
             }
 
             if (Input.GetKeyDown(KeyCode.R) && canReload)
@@ -133,28 +139,9 @@ public class PlayerControllerDuty : MonoBehaviour
         }
     }
 
-    float ClampAngle(float angle, float from, float to)
-    {
-        // accepts e.g. -80, 80
-        if (angle < 0f) angle = 360 + angle;
-        if (angle > 180f) return Mathf.Max(angle, 360 + from);
-        return Mathf.Min(angle, to);
-    }
-
     void TurnPlayer()
     {
         transform.Rotate(new Vector3(0,Input.GetAxis("Mouse X") * Time.deltaTime * cameraSensitivity,0));
-    }
-
-    void TurnCamera()
-    {
-        float mx = Input.GetAxis("Mouse X") * Time.deltaTime * cameraSensitivity;
-        float my = Input.GetAxis("Mouse Y") * Time.deltaTime * cameraSensitivity;
-
-        Vector3 rot = transform.rotation.eulerAngles + new Vector3(-my, mx, 0f); //use local if your char is not always oriented Vector3.up
-        rot.x = ClampAngle(rot.x, -60f, 60f);
-
-        transform.eulerAngles = rot;
     }
 
     IEnumerator reloadGun()
@@ -206,6 +193,11 @@ public class PlayerControllerDuty : MonoBehaviour
         {
             StartCoroutine(reloadGun());
         }
+    }
+
+    void ThrowGrenade()
+    {
+        playerCamera.ThrowGrenade();
     }
     
     public void HandleAmmoPickUp(int bulletAmount)

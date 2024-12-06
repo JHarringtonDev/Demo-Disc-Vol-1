@@ -7,7 +7,9 @@ public class DutyCamera : MonoBehaviour
 {
     PlayerControllerDuty player;
     Object hitTarget;
+
     [SerializeField] GameObject bulletPrefab;
+    [SerializeField] GameObject grenadePrefab;
 
     private void Start()
     {
@@ -50,5 +52,10 @@ public class DutyCamera : MonoBehaviour
     public void FireProjectile()
     {
         Instantiate(bulletPrefab, transform.position, transform.rotation);
+    }
+
+    public void ThrowGrenade()
+    {
+        Instantiate(grenadePrefab, transform.position, transform.rotation);
     }
 }

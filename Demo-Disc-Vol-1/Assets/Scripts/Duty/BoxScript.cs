@@ -35,7 +35,7 @@ public class BoxScript : MonoBehaviour
     {
         if(targetPlayer)
         {
-            rb.MovePosition(Vector3.MoveTowards(transform.position, duty.gameObject.transform.position, speed * Time.deltaTime));
+            transform.position = Vector3.MoveTowards(transform.position, duty.gameObject.transform.position, speed * Time.deltaTime);
         }
         else
         {

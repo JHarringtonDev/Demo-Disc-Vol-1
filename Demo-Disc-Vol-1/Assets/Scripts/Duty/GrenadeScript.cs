@@ -8,11 +8,17 @@ public class GrenadeScript : MonoBehaviour
     [SerializeField] float rangeRadius;
     [SerializeField] float explosionDelay;
     [SerializeField] float grenadeDamage;
+    [SerializeField] float throwStrength;
+
+    Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(CheckBlastRange());
+        rb = GetComponent<Rigidbody>();
+
+        rb.AddForce(transform.forward * throwStrength,ForceMode.Impulse);
     }
 
     void ExplosionDamage(Vector3 center, float radius)

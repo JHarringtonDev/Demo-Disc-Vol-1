@@ -34,6 +34,7 @@ public class PlayerControllerDuty : MonoBehaviour
     [SerializeField] Image healthFill;
     [SerializeField] Image ammoFill;
     [SerializeField] TextMeshProUGUI ammoCountDisplay;
+    [SerializeField] TextMeshProUGUI grenadeCountDisplay;
 
 
     float health;
@@ -202,6 +203,7 @@ public class PlayerControllerDuty : MonoBehaviour
         {
             playerCamera.ThrowGrenade();
             heldGrenades--;
+            displayAmmo();
         }
     }
     
@@ -214,6 +216,7 @@ public class PlayerControllerDuty : MonoBehaviour
     public void GetGrenade()
     {
         heldGrenades++;
+        displayAmmo();
     }
 
     public void HandleDamage(float damage)
@@ -230,6 +233,7 @@ public class PlayerControllerDuty : MonoBehaviour
     {
         ammoFill.fillAmount = loadedBullets / 6;
         ammoCountDisplay.text = "Remaining Bullets:" + heldBullets;
+        grenadeCountDisplay.text = heldGrenades.ToString();
     }
 
     public void setPause()

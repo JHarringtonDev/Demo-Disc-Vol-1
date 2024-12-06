@@ -78,6 +78,7 @@ public class BuyMenu : MonoBehaviour
         {
             Debug.Log("bought grenade");
             gameManager.SpendMoney(shop3Cost);
+            duty.GetGrenade();
             displayBalance();
         }
     }

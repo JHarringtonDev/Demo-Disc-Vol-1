@@ -13,6 +13,7 @@ public class PlayerControllerDuty : MonoBehaviour
     LayerMask layerMask;
 
     public float cameraSensitivity;
+    int heldGrenades;
 
 
     [SerializeField] float moveSpeed;
@@ -197,13 +198,22 @@ public class PlayerControllerDuty : MonoBehaviour
 
     void ThrowGrenade()
     {
-        playerCamera.ThrowGrenade();
+        if(heldGrenades > 0)
+        {
+            playerCamera.ThrowGrenade();
+            heldGrenades--;
+        }
     }
     
     public void HandleAmmoPickUp(int bulletAmount)
     {
         heldBullets += bulletAmount;
         displayAmmo();
+    }
+
+    public void GetGrenade()
+    {
+        heldGrenades++;
     }
 
     public void HandleDamage(float damage)

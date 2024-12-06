@@ -214,7 +214,7 @@ public class PlayerControllerDuty : MonoBehaviour
         displayAmmo();
     }
 
-    public void HandleDamage(int damage)
+    public void HandleDamage(float damage)
     {
         health -= damage;
         healthFill.fillAmount = health / maxHealth;

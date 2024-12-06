@@ -14,10 +14,10 @@ public class BoxScript : MonoBehaviour
     bool canDamage = true;
 
     [SerializeField] float speed;
-    [SerializeField] int damage;
+    [SerializeField] float damage;
     [SerializeField] float damageBuffer;
     [SerializeField] bool targetPlayer;
-    [SerializeField] int enemyHealth;
+    [SerializeField] float enemyHealth;
 
 
 
@@ -76,9 +76,9 @@ public class BoxScript : MonoBehaviour
         } 
     }
 
-    public void takeDamage()
+    public void takeDamage(float damage)
     {
-        enemyHealth--;
+        enemyHealth -= damage;
 
         if (enemyHealth <= 0)
         {

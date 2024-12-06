@@ -56,7 +56,7 @@ public class TowerScript : MonoBehaviour
         }
     }
 
-    public void towerDamage(int damageAmount)
+    public void towerDamage(float damageAmount)
     {
         towerHealth -= damageAmount;
     }

@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disappearDelay: 1
+  bulletDamage: 1
   bulletSpeed: 100
 --- !u!54 &-3224448407679851405
 Rigidbody:

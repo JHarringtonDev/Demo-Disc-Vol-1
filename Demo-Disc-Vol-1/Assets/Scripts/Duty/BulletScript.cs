@@ -6,6 +6,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     [SerializeField] float disappearDelay;
+    [SerializeField] float bulletDamage;
     [SerializeField] float bulletSpeed;
     Rigidbody rb;
 
@@ -28,7 +29,7 @@ public class BulletScript : MonoBehaviour
             if(collision.gameObject.GetComponent<BoxScript>() != null)
             {
                 BoxScript box = collision.gameObject.GetComponent<BoxScript>();
-                box.takeDamage();
+                box.takeDamage(bulletDamage);
             }
         }
     }

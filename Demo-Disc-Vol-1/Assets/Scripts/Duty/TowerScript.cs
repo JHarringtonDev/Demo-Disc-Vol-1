@@ -13,6 +13,7 @@ public class TowerScript : MonoBehaviour
     [SerializeField] float towerHealth;
     [SerializeField] float maxHealth;
     [SerializeField] GameObject buyMenu;
+    [SerializeField] GameObject storePrompt;
     [SerializeField] Image healthFill;
 
     // Start is called before the first frame update
@@ -45,6 +46,7 @@ public class TowerScript : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             canBuy = true;
+            storePrompt.SetActive(true);
         }
     }
 
@@ -53,6 +55,7 @@ public class TowerScript : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             canBuy = false;
+            storePrompt.SetActive(false);
         }
     }
 

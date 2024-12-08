@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PlayerControllerDuty : MonoBehaviour
 {
     DutyCamera playerCamera;
+    PauseMenu pauseMenu;
 
     Rigidbody rb;
     LayerMask layerMask;
@@ -48,6 +49,8 @@ public class PlayerControllerDuty : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1f;
+
         layerMask = LayerMask.GetMask("Target");
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -58,6 +61,7 @@ public class PlayerControllerDuty : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         playerCamera = FindObjectOfType<DutyCamera>();
+        pauseMenu = FindObjectOfType<PauseMenu>();
 
         displayAmmo();
     }
@@ -225,7 +229,7 @@ public class PlayerControllerDuty : MonoBehaviour
         healthFill.fillAmount = health / maxHealth;
         if(health <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            pauseMenu.gameOver();
         }
     }
 

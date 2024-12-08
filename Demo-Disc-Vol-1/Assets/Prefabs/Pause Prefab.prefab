@@ -682,6 +682,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 4322746932200193535}
+  pauseText: {fileID: 1508477005604542815}
+  closeButton: {fileID: 1267952362582233874}
 --- !u!1 &5887530562106257489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1068,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 212}
-  m_SizeDelta: {x: 358.78, y: 50}
+  m_SizeDelta: {x: 852.1473, y: 121.6821}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1968519192983412393
 CanvasRenderer:

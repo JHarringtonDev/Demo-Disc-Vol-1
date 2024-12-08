@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class TowerScript : MonoBehaviour
 {
     GameManager gameManager;
+    PauseMenu pauseMenu;
 
     bool canBuy;
 
@@ -21,6 +22,7 @@ public class TowerScript : MonoBehaviour
     {
         gameManager = FindObjectOfType<GameManager>();
         towerHealth = maxHealth;
+        pauseMenu = FindObjectOfType<PauseMenu>();
     }
 
     // Update is called once per frame
@@ -35,7 +37,7 @@ public class TowerScript : MonoBehaviour
 
         if (towerHealth <= 0)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            pauseMenu.gameOver();
         }
 
         healthFill.fillAmount = towerHealth / maxHealth;

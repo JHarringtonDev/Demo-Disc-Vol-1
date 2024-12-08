@@ -1,14 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] GameObject menu;
-    PlayerControllerDuty player;
     GameManager gameManager;
+    PlayerControllerDuty player;
 
+    [SerializeField] GameObject menu;
+    [SerializeField] TextMeshProUGUI pauseText;
+    [SerializeField] GameObject closeButton;
+
+    bool gameIsOver;
     bool paused;
 
     private void Start()
@@ -21,7 +26,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape) && !gameIsOver)
         {
             if (!paused)
             {
@@ -58,5 +63,13 @@ public class PauseMenu : MonoBehaviour
         paused = false;
         menu.SetActive(false);
         gameManager.unpauseGame();
+    }
+
+    public void gameOver()
+    {
+        gameIsOver = true;
+        OpenMenu();
+        pauseText.text = "Game Over";
+        closeButton.SetActive(false);
     }
 }

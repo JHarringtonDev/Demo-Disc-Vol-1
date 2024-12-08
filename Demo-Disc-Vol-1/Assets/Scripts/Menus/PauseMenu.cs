@@ -7,12 +7,15 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject menu;
     PlayerControllerDuty player;
+    GameManager gameManager;
 
     bool paused;
 
     private void Start()
     {
         player = FindObjectOfType<PlayerControllerDuty>();
+        gameManager = FindObjectOfType<GameManager>();
+
     }
 
     // Update is called once per frame
@@ -35,10 +38,7 @@ public class PauseMenu : MonoBehaviour
     {
         paused = true;
         menu.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-        Time.timeScale = 0;
-        player.setPause();
+        gameManager.pauseGame();
     }
 
     public void ReloadScene()
@@ -57,9 +57,6 @@ public class PauseMenu : MonoBehaviour
     {
         paused = false;
         menu.SetActive(false);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1f;
-        player.setPause();
+        gameManager.unpauseGame();
     }
 }

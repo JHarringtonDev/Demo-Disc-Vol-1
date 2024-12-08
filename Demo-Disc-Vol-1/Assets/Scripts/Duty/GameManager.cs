@@ -33,11 +33,11 @@ public class GameManager : MonoBehaviour
 
     public void SpawnAmmo()
     {
-        if(money >= ammoCost) 
+        if (money >= ammoCost)
         {
             money -= ammoCost;
             Instantiate(ammoBox, new Vector3(0, 10, 0) + duty.gameObject.transform.position, Quaternion.identity);
-        } 
+        }
     }
 
     public void addMoney()
@@ -48,5 +48,21 @@ public class GameManager : MonoBehaviour
     public void SpendMoney(int moneySpent)
     {
         money -= moneySpent;
+    }
+
+    public void pauseGame()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
+        Time.timeScale = 0;
+        duty.setPause();
+    }
+
+    public void unpauseGame()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1f;
+        duty.setPause();
     }
 }

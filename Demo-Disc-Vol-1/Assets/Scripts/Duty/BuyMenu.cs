@@ -36,20 +36,14 @@ public class BuyMenu : MonoBehaviour
 
     void OnEnable()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-        Time.timeScale = 0;
-        duty.setPause();
+        gameManager.pauseGame();
         displayBalance();
     }
 
     public void closeMenu()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1f;
+        gameManager.unpauseGame();
         gameObject.SetActive(false);
-        duty.setPause();
     }
 
     public void HealTower()

@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 71572847}
   - component: {fileID: 71572846}
   m_Layer: 5
-  m_Name: TBD 1
+  m_Name: Duty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8fbb1ba4bc62e3499f0f769d2100988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScene: 
+  targetScene: Duty
 --- !u!114 &71572847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,7 +218,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 71572848}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 71572846}
+        m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &71572848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,7 +340,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TBD
+  m_text: Duty
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

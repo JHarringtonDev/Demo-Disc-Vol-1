@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Soul.unity
     guid: c51030676c4f5be40b87b7947879d22d
+  - enabled: 1
+    path: Assets/Scenes/Duty.unity
+    guid: c31d976bdc5cf8141bce47103f2ac091
   m_configObjects: {}

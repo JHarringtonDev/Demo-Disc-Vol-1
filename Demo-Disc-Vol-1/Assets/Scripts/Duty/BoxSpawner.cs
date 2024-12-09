@@ -42,10 +42,6 @@ public class BoxSpawner : MonoBehaviour
         int spawnSelect = Random.Range(0, 4);
         float enemyType =  Mathf.Round(Random.Range(0, possibleIndex));
 
-
-
-        Debug.Log(enemyType);
-
         Instantiate(enemyPrefabs[(int)enemyType], spawnPoints[spawnSelect]);
         yield return new WaitForSeconds(spawnDelay);
         canSpawn = true;

@@ -30,8 +30,6 @@ public class TowerScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && canBuy)
         {
-            Debug.Log("Purchased");
-            //gameManager.SpawnAmmo();
             buyMenu.SetActive(true);
         }
 

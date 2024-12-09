@@ -928,12 +928,18 @@ MonoBehaviour:
   rollDelay: 1
   attackCost: 20
   attackDelay: 2
+  magicDamage: 5
+  magicDelay: 2
+  magicDistance: 10
+  magicAOE: 4
+  magicCost: 30
   animator: {fileID: 2032599936}
   playerModel: {fileID: 2032599935}
   enemysInScene:
   - {fileID: 678800405}
   - {fileID: 962991781}
   - {fileID: 929655827}
+  magicEffect: {fileID: 654616018090439555, guid: 88cde92f26708c24ea9521d15b492d05, type: 3}
 --- !u!54 &897401419
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -59,11 +59,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float rollDelay;
     [SerializeField] float attackCost;
     [SerializeField] float attackDelay;
+    [SerializeField] float magicDamage;
+    [SerializeField] float magicDelay;
+    [SerializeField] float magicDistance;
+    [SerializeField] float magicAOE;
+    [SerializeField] float magicCost;
 
     [Header("Serialized Objects")]
     [SerializeField] Animator animator;
     [SerializeField] Transform playerModel;
     [SerializeField] Transform[] enemysInScene;
+    [SerializeField] GameObject magicEffect;
 
 
     // Start is called before the first frame update
@@ -116,6 +122,11 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Fire2") && canSwitchFlask)
             {
                 StartCoroutine("SwitchFlask");
+            }
+
+            if (Input.GetKeyDown(KeyCode.T) && magic >= magicCost)
+            {
+                StartCoroutine("HandleMagicAttack");
             }
 
             if (Input.GetButtonDown("Jump") && !isRolling)
@@ -310,6 +321,30 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(attackDelay);
             canMove = true;
         }
+    }
+
+    IEnumerator HandleMagicAttack()
+    {
+        Vector3 center = transform.position + (transform.forward * magicDistance);
+
+        magic -= magicCost;
+        animator.SetTrigger("MagicCast");
+
+        yield return new WaitForSeconds(magicDelay);
+
+        Instantiate(magicEffect, center, Quaternion.identity);
+
+        Collider[] hitColliders = Physics.OverlapSphere(center, magicAOE);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.GetComponent<Enemy>() != null)
+            {
+                Enemy enemy = hitCollider.GetComponent<Enemy>();
+                enemy.TakeDamage(magicDamage);
+            }
+        }
+        yield return new WaitForSeconds(attackDelay);
+
     }
 
     IEnumerator HandleFlask()

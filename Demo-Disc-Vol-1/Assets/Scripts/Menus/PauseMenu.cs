@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
 
     bool gameIsOver;
     bool paused;
+    bool canPause = true;
 
     private void Start()
     {
@@ -24,13 +25,13 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape) && !gameIsOver)
+        if (Input.GetKeyUp(KeyCode.Escape) && !gameIsOver && canPause)
         {
             if (!paused)
             {
                 OpenMenu();
             }
-            else if(paused)
+            else if (paused)
             {
                 closeMenu();
             }
@@ -69,5 +70,10 @@ public class PauseMenu : MonoBehaviour
         OpenMenu();
         pauseText.text = "Game Over";
         closeButton.SetActive(false);
+    }
+
+    public void DisablePauseMenu(bool state)
+    {
+        canPause = state;
     }
 }

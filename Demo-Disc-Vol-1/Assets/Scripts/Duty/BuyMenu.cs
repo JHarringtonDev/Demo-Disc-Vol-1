@@ -9,6 +9,7 @@ public class BuyMenu : MonoBehaviour
     PlayerControllerDuty duty;
     GameManager gameManager;
     TowerScript tower;
+    PauseMenu pauseMenu;
 
     [SerializeField] int towerHeal;
 
@@ -28,6 +29,7 @@ public class BuyMenu : MonoBehaviour
         duty = FindObjectOfType<PlayerControllerDuty>();
         gameManager = FindObjectOfType<GameManager>();
         tower = FindObjectOfType<TowerScript>();
+        pauseMenu = FindObjectOfType<PauseMenu>();
 
         shopItem1.text = shopItem1.text + shop1Cost;
         shopItem2.text = shopItem2.text + shop2Cost;
@@ -37,12 +39,14 @@ public class BuyMenu : MonoBehaviour
     void OnEnable()
     {
         gameManager.pauseGame();
+        pauseMenu.DisablePauseMenu(false);
         displayBalance();
     }
 
     public void closeMenu()
     {
         gameManager.unpauseGame();
+        pauseMenu.DisablePauseMenu(true);
         gameObject.SetActive(false);
     }
 

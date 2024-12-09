@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     PlayerController soulController;
     PlayerControllerDuty dutyController;
 
-
     [SerializeField] int startingMoney;
     [SerializeField] int maxTowerHealth;
     [SerializeField] int enemyReward;
@@ -53,32 +52,35 @@ public class GameManager : MonoBehaviour
 
     public void pauseGame()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
-        Time.timeScale = 0;
-        if(soulController != null)
-        {
-            soulController.setPause();
-        }
-        else if(dutyController != null)
-        {
-            dutyController.setPause();
-        }
+       
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+            Time.timeScale = 0;
+            if(soulController != null)
+            {
+                soulController.setPause();
+            }
+            else if(dutyController != null)
+            {
+                dutyController.setPause();
+            }
         
     }
 
     public void unpauseGame()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        Time.timeScale = 1f;
-        if (soulController != null)
-        {
-            soulController.setPause();
-        }
-        else if (dutyController != null)
-        {
-            dutyController.setPause();
-        }
+       
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1f;
+            if (soulController != null)
+            {
+                soulController.setPause();
+            }
+            else if (dutyController != null)
+            {
+                dutyController.setPause();
+            }
+        
     }
 }

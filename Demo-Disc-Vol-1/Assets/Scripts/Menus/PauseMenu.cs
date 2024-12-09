@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     GameManager gameManager;
-    PlayerControllerDuty player;
 
     [SerializeField] GameObject menu;
     [SerializeField] TextMeshProUGUI pauseText;
@@ -18,7 +17,6 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
-        player = FindObjectOfType<PlayerControllerDuty>();
         gameManager = FindObjectOfType<GameManager>();
 
     }

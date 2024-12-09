@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     bool redFlask = true;
     bool canSwitchFlask = true;
     bool lockedOn;
+    bool isPaused;
 
     Transform lockTarget;
 
@@ -95,7 +96,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-        if (isAlive)
+        if (isAlive && !isPaused)
         {
             movePlayer();
             handleSprint();
@@ -135,32 +136,32 @@ public class PlayerController : MonoBehaviour
 
     }
 
-     void movePlayer()
-     {
-         if (canMove)
-         {
-
-             xInput = Input.GetAxis("Horizontal");
-             yInput = Input.GetAxis("Vertical");
-
-             dir = transform.right * xInput + transform.forward * yInput;
-             dir *= currentSpeed;
-             dir.y = rb.velocity.y;
-
-             rb.velocity = dir;
-
-         }
-
-     }
-
-     void rotatePlayer()
-     {
-        if (!lockedOn)
+    void movePlayer()
+    {
+        if (canMove)
         {
-         transform.Rotate(Input.GetAxis("Mouse X") * cameraSpeed * transform.up * Time.deltaTime);
+
+            xInput = Input.GetAxis("Horizontal");
+            yInput = Input.GetAxis("Vertical");
+
+            dir = transform.right * xInput + transform.forward * yInput;
+            dir *= currentSpeed;
+            dir.y = rb.velocity.y;
+
+            rb.velocity = dir;
 
         }
-        else if(lockedOn)
+
+    }
+
+    void rotatePlayer()
+    {
+        if (!lockedOn)
+        {
+            transform.Rotate(Input.GetAxis("Mouse X") * cameraSpeed * transform.up * Time.deltaTime);
+
+        }
+        else if (lockedOn)
         {
             transform.LookAt(lockTarget);
         }
@@ -185,194 +186,205 @@ public class PlayerController : MonoBehaviour
 
     void HandleLockOn()
     {
-    
+
 
         if (!lockedOn && GetClosestEnemy(enemysInScene) != null)
         {
             lockedOn = true;
             lockTarget = GetClosestEnemy(enemysInScene);
         }
-        else if(lockedOn)
+        else if (lockedOn)
         {
             lockedOn = false;
             transform.rotation = baseRotation;
         }
 
-        
+
     }
 
-        void handleAnimation()
+    void handleAnimation()
+    {
+        if (Mathf.Abs(yInput) > Mathf.Abs(xInput))
         {
-            if (Mathf.Abs(yInput) > Mathf.Abs(xInput))
-            {
 
-                if (yInput > 0)
-                {
-                    uncheckAnimations();
-                    animator.SetBool("isRunning", true);
-                }
-                else if (yInput < 0)
-                {
-                    uncheckAnimations();
-                    animator.SetBool("isBackwards", true);
-                }
-
-            }
-            else if (Mathf.Abs(xInput) >= Mathf.Abs(yInput) && xInput != 0)
-            {
-
-                if (xInput > 0)
-                {
-                    uncheckAnimations();
-                    animator.SetBool("isStrafingR", true);
-                }
-                else if (xInput < 0)
-                {
-                    uncheckAnimations();
-                    animator.SetBool("isStrafingL", true);
-                }
-
-            }
-
-            else
+            if (yInput > 0)
             {
                 uncheckAnimations();
+                animator.SetBool("isRunning", true);
             }
-        }
+            else if (yInput < 0)
+            {
+                uncheckAnimations();
+                animator.SetBool("isBackwards", true);
+            }
 
-        void uncheckAnimations()
-        {
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isBackwards", false);
-            animator.SetBool("isStrafingL", false);
-            animator.SetBool("isStrafingR", false);
         }
-
-        void handleSprint()
+        else if (Mathf.Abs(xInput) >= Mathf.Abs(yInput) && xInput != 0)
         {
 
-            if (Input.GetButton("Fire3") && stamina > 0)
+            if (xInput > 0)
             {
-                timeHeld += sprintDelay * Time.deltaTime;
-
-                if (timeHeld > sprintDelay)
-                {
-                    currentSpeed = moveSpeed * sprintMultiplier;
-                    stamina -= staminaDrain * Time.deltaTime;
-                }
-
+                uncheckAnimations();
+                animator.SetBool("isStrafingR", true);
             }
-            else if (Input.GetButtonUp("Fire3") && timeHeld < 1)
+            else if (xInput < 0)
             {
-                StartCoroutine("HandleRoll");
-            }
-            else if (stamina < maxStamina && canMove)
-            {
-                timeHeld = 0;
-                currentSpeed = moveSpeed;
-                stamina += staminaRegen * Time.deltaTime;
-            }
-        }
-
-        IEnumerator HandleRoll()
-        {
-            if (stamina >= rollCost && canMove)
-            {
-                Vector3 rollDirection = rb.velocity;
-                animator.SetTrigger("Roll");
-                rb.velocity = new Vector3(0, 0, 0);
-                isRolling = true;
-                isDamageable = false;
-                canMove = false;
-                stamina -= rollCost;
-                rb.AddForce(rollDirection * rollSpeed, ForceMode.Impulse);
-                playerModel.LookAt(rollDirection + transform.position);
-
-                yield return new WaitForSeconds(rollDelay);
-
-                isRolling = false;
-                canMove = true;
-                isDamageable = true;
-
+                uncheckAnimations();
+                animator.SetBool("isStrafingL", true);
             }
 
         }
 
-        IEnumerator HandleAttack()
+        else
         {
-            if (stamina >= attackCost)
-            {
-                canMove = false;
-                animator.SetTrigger("basicSlash");
-                stamina -= attackCost;
-                weaponScript.CheckHitbox(attackDelay);
-                yield return new WaitForSeconds(attackDelay);
-                canMove = true;
-            }
+            uncheckAnimations();
         }
+    }
 
-        IEnumerator HandleFlask()
+    void uncheckAnimations()
+    {
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isBackwards", false);
+        animator.SetBool("isStrafingL", false);
+        animator.SetBool("isStrafingR", false);
+    }
+
+    void handleSprint()
+    {
+
+        if (Input.GetButton("Fire3") && stamina > 0)
         {
+            timeHeld += sprintDelay * Time.deltaTime;
+
+            if (timeHeld > sprintDelay)
+            {
+                currentSpeed = moveSpeed * sprintMultiplier;
+                stamina -= staminaDrain * Time.deltaTime;
+            }
+
+        }
+        else if (Input.GetButtonUp("Fire3") && timeHeld < 1)
+        {
+            StartCoroutine("HandleRoll");
+        }
+        else if (stamina < maxStamina && canMove)
+        {
+            timeHeld = 0;
+            currentSpeed = moveSpeed;
+            stamina += staminaRegen * Time.deltaTime;
+        }
+    }
+
+    IEnumerator HandleRoll()
+    {
+        if (stamina >= rollCost && canMove)
+        {
+            Vector3 rollDirection = rb.velocity;
+            animator.SetTrigger("Roll");
+            rb.velocity = new Vector3(0, 0, 0);
             isRolling = true;
-
-            if (remainingRedFlasks >= 1 && redFlask)
-            {
-                health += 20;
-                animator.SetTrigger("Drink");
-                remainingRedFlasks--;
-                flaskUI.FlaskNumber(redFlask);
-            }
-            else if (remainingBlueFlasks >= 1 && !redFlask)
-            {
-                magic += 20;
-                animator.SetTrigger("Drink");
-                remainingBlueFlasks--;
-                flaskUI.FlaskNumber(redFlask);
-            }
-
-            yield return new WaitForSeconds(1f);
-            isRolling = false;
-        }
-
-        IEnumerator SwitchFlask()
-        {
-            canSwitchFlask = false;
-
-            if (redFlask)
-            {
-                redFlask = false;
-                flaskUI.switchFlask(redFlask);
-
-            }
-            else if (!redFlask)
-            {
-                redFlask = true;
-                flaskUI.switchFlask(redFlask);
-            }
-
-            yield return new WaitForSeconds(1);
-            canSwitchFlask = true;
-        }
-
-        public IEnumerator TakeDamage(float damage)
-        {
-            if (isDamageable)
-            {
-                isDamageable = false;
-                health -= damage;
-                yield return new WaitForSeconds(damageFrames);
-                isDamageable = true;
-            }
-        }
-
-        void HandleDeath()
-        {
-            isAlive = false;
+            isDamageable = false;
             canMove = false;
-            animator.SetTrigger("Death");
+            stamina -= rollCost;
+            rb.AddForce(rollDirection * rollSpeed, ForceMode.Impulse);
+            playerModel.LookAt(rollDirection + transform.position);
+
+            yield return new WaitForSeconds(rollDelay);
+
+            isRolling = false;
+            canMove = true;
+            isDamageable = true;
+
         }
 
     }
+
+    IEnumerator HandleAttack()
+    {
+        if (stamina >= attackCost)
+        {
+            canMove = false;
+            animator.SetTrigger("basicSlash");
+            stamina -= attackCost;
+            weaponScript.CheckHitbox(attackDelay);
+            yield return new WaitForSeconds(attackDelay);
+            canMove = true;
+        }
+    }
+
+    IEnumerator HandleFlask()
+    {
+        isRolling = true;
+
+        if (remainingRedFlasks >= 1 && redFlask)
+        {
+            health += 20;
+            animator.SetTrigger("Drink");
+            remainingRedFlasks--;
+            flaskUI.FlaskNumber(redFlask);
+        }
+        else if (remainingBlueFlasks >= 1 && !redFlask)
+        {
+            magic += 20;
+            animator.SetTrigger("Drink");
+            remainingBlueFlasks--;
+            flaskUI.FlaskNumber(redFlask);
+        }
+
+        yield return new WaitForSeconds(1f);
+        isRolling = false;
+    }
+
+    IEnumerator SwitchFlask()
+    {
+        canSwitchFlask = false;
+
+        if (redFlask)
+        {
+            redFlask = false;
+            flaskUI.switchFlask(redFlask);
+
+        }
+        else if (!redFlask)
+        {
+            redFlask = true;
+            flaskUI.switchFlask(redFlask);
+        }
+
+        yield return new WaitForSeconds(1);
+        canSwitchFlask = true;
+    }
+
+    public IEnumerator TakeDamage(float damage)
+    {
+        if (isDamageable)
+        {
+            isDamageable = false;
+            health -= damage;
+            yield return new WaitForSeconds(damageFrames);
+            isDamageable = true;
+        }
+    }
+
+    void HandleDeath()
+    {
+        isAlive = false;
+        canMove = false;
+        animator.SetTrigger("Death");
+    }
+
+    public void setPause()
+    {
+        if (!isPaused)
+        {
+            isPaused = true;
+        }
+        else if (isPaused)
+        {
+            isPaused = false;
+        }
+    }
+}
 
 
 

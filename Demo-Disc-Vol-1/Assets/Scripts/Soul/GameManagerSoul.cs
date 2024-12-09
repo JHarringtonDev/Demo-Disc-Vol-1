@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManagerSoul : MonoBehaviour
 {
     [SerializeField] int money;
-    
+    int towerHealth;
 
-    PlayerController soulController;
-    PlayerControllerDuty dutyController;
+    PlayerControllerDuty duty;
 
 
     [SerializeField] int startingMoney;
@@ -21,10 +19,10 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        soulController = FindObjectOfType<PlayerController>();
-        dutyController = FindObjectOfType<PlayerControllerDuty>();
+        duty = FindObjectOfType<PlayerControllerDuty>();
 
         money = startingMoney;
+        towerHealth = maxTowerHealth;
     }
 
     public int GetMoney()
@@ -37,7 +35,7 @@ public class GameManager : MonoBehaviour
         if (money >= ammoCost)
         {
             money -= ammoCost;
-            Instantiate(ammoBox, new Vector3(0, 10, 0) + dutyController.gameObject.transform.position, Quaternion.identity);
+            Instantiate(ammoBox, new Vector3(0, 10, 0) + duty.gameObject.transform.position, Quaternion.identity);
         }
     }
 
@@ -56,15 +54,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.Confined;
         Time.timeScale = 0;
-        if(soulController != null)
-        {
-            soulController.setPause();
-        }
-        else if(dutyController != null)
-        {
-            dutyController.setPause();
-        }
-        
+        duty.setPause();
     }
 
     public void unpauseGame()
@@ -72,13 +62,6 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1f;
-        if (soulController != null)
-        {
-            soulController.setPause();
-        }
-        else if (dutyController != null)
-        {
-            dutyController.setPause();
-        }
+        duty.setPause();
     }
 }

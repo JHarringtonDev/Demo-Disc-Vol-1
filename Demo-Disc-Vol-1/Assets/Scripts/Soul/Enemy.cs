@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,12 +9,20 @@ public class Enemy : MonoBehaviour
     [SerializeField] float damageAmount;
     [SerializeField] float maxHealth;
 
+    NavMeshAgent agent;
+
     float currentHealth;
     // Start is called before the first frame update
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        agent = GetComponent<NavMeshAgent>();
         currentHealth = maxHealth;
+    }
+
+    private void Update()
+    {
+        agent.SetDestination(player.transform.position);
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -325,6 +325,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator HandleMagicAttack()
     {
+        canMove = false;
         Vector3 center = transform.position + (transform.forward * magicDistance);
 
         magic -= magicCost;
@@ -344,7 +345,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         yield return new WaitForSeconds(attackDelay);
-
+        canMove = true;
     }
 
     IEnumerator HandleFlask()

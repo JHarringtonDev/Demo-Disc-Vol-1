@@ -6,6 +6,7 @@ using UnityEngine;
 public class TriggerScript : MonoBehaviour
 {
     SoulManager soulManager;
+    [SerializeField] bool hallwayTrigger;
 
     // Start is called before the first frame update
     void Start()
@@ -17,19 +18,37 @@ public class TriggerScript : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0,0,4), 4);
-            foreach (var hitCollider in hitColliders)
+            
+            if(hallwayTrigger)
             {
-                if (hitCollider.GetComponent<PlayerController>() != null && !soulManager.hallwayActive)
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0,0,4), 4);
+                foreach (var hitCollider in hitColliders)
                 {
-                    Debug.Log("player");
-                    soulManager.hallwayActive = true;
-                    return;
+                    if (hitCollider.GetComponent<PlayerController>() != null && !soulManager.hallwayActive)
+                    {
+                        soulManager.hallwayActive = true;
+                        return;
+                    }
+                    else if(soulManager.hallwayActive)
+                    {
+                        soulManager.hallwayActive = false;
+                    }
                 }
-                else if(soulManager.hallwayActive)
+            }
+            else
+            {
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0,0,-4), 4);
+                foreach (var hitCollider in hitColliders)
                 {
-                    Debug.Log("why");
-                    soulManager.hallwayActive = false;
+                    if (hitCollider.GetComponent<PlayerController>() != null && !soulManager.roomActive)
+                    {
+                        soulManager.roomActive = true;
+                        return;
+                    }
+                    else if (soulManager.roomActive)
+                    {
+                        soulManager.roomActive = false;
+                    }
                 }
             }
         }

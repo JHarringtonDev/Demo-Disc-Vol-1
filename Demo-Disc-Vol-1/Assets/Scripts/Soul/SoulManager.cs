@@ -19,4 +19,15 @@ public class SoulManager : MonoBehaviour
         
     }
 
+    public void changeHallway()
+    {
+        if (hallwayActive)
+        {
+            hallwayActive = false;
+        }
+        else
+        {
+            hallwayActive = true;
+        }
+    }
 }

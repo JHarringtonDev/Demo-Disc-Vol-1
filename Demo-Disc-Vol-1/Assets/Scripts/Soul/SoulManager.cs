@@ -6,6 +6,7 @@ public class SoulManager : MonoBehaviour
 {
     public bool hallwayActive;
     public bool roomActive;
+    public bool bossActive;
 
     // Start is called before the first frame update
     void Start()

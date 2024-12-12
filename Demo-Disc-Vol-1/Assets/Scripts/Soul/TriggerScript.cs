@@ -7,6 +7,9 @@ public class TriggerScript : MonoBehaviour
 {
     SoulManager soulManager;
     [SerializeField] bool hallwayTrigger;
+    [SerializeField] bool bossRoom;
+
+    [SerializeField] GameObject fogWall;
 
     // Start is called before the first frame update
     void Start()
@@ -18,10 +21,10 @@ public class TriggerScript : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            
-            if(hallwayTrigger)
+
+            if (hallwayTrigger)
             {
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0,0,4), 4);
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0, 0, 4), 4);
                 foreach (var hitCollider in hitColliders)
                 {
                     if (hitCollider.GetComponent<PlayerController>() != null && !soulManager.hallwayActive)
@@ -29,15 +32,15 @@ public class TriggerScript : MonoBehaviour
                         soulManager.hallwayActive = true;
                         return;
                     }
-                    else if(soulManager.hallwayActive)
+                    else if (soulManager.hallwayActive)
                     {
                         soulManager.hallwayActive = false;
                     }
                 }
             }
-            else
+            else if (!bossRoom)
             {
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0,0,-4), 4);
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0, 0, -4), 4);
                 foreach (var hitCollider in hitColliders)
                 {
                     if (hitCollider.GetComponent<PlayerController>() != null && !soulManager.roomActive)
@@ -48,6 +51,19 @@ public class TriggerScript : MonoBehaviour
                     else if (soulManager.roomActive)
                     {
                         soulManager.roomActive = false;
+                    }
+                }
+            }
+            else if (bossRoom)
+            {
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(2, 0, 0), 4);
+                foreach (var hitCollider in hitColliders)
+                {
+                    if (hitCollider.GetComponent<PlayerController>() != null && !soulManager.roomActive)
+                    {
+                        fogWall.SetActive(true);
+                        soulManager.bossActive = true;
+                        return;
                     }
                 }
             }

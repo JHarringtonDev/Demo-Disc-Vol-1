@@ -78,7 +78,23 @@ public class Enemy : MonoBehaviour
             {
                 agent.SetDestination(startingLocation);
             }
-            
+        }
+        else if (roomEnemy)
+        {
+            if (soulManager.roomActive)
+            {
+                blocked = NavMesh.Raycast(transform.position, player.transform.position, out hit, NavMesh.AllAreas);
+                //Debug.DrawLine(transform.position, player.transform.position, blocked ? Color.red : Color.green);
+
+                if (!blocked)
+                {
+                    agent.SetDestination(player.transform.position);
+                }
+            }
+            else
+            {
+                agent.SetDestination(startingLocation);
+            }
         }
     }
 }

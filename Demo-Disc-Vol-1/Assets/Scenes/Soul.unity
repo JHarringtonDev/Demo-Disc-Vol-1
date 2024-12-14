@@ -1098,7 +1098,7 @@ MonoBehaviour:
   damageFrames: 5
   cameraSpeed: 100
   moveSpeed: 5
-  rollSpeed: 5
+  rollSpeed: 2
   sprintDelay: 1
   sprintMultiplier: 2
   timeHeld: 0

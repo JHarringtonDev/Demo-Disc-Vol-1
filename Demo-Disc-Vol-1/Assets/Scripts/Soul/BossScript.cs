@@ -9,7 +9,9 @@ public class BossScript : MonoBehaviour
     NavMeshAgent agent;
     PlayerController playerController;
 
-    float currentHealth;
+    [SerializeField] float maxHealth;
+
+    [SerializeField] float currentHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,8 @@ public class BossScript : MonoBehaviour
         soulManager = FindObjectOfType<SoulManager>();
         playerController = FindObjectOfType<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
+
+        currentHealth = maxHealth;
     }
 
     // Update is called once per frame

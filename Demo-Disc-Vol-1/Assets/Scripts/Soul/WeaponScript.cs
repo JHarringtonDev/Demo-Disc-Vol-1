@@ -34,10 +34,17 @@ public class WeaponScript : MonoBehaviour
     {
         if (hitboxActive && other.tag == "Enemy")
         {
-            if(other.GetComponent<Enemy>() != null)
+            if (other.GetComponent<Enemy>() != null)
             {
                 Enemy hitEnemy = other.GetComponent<Enemy>();
                 hitEnemy.TakeDamage(weaponDamage);
+                hitboxActive = false;
+            }
+            else if(other.GetComponent<BossScript>() != null)
+            {
+                BossScript hitEnemy = other.GetComponent<BossScript>();
+                hitEnemy.TakeDamage(weaponDamage);
+                hitboxActive = false;
             }
         }
     }

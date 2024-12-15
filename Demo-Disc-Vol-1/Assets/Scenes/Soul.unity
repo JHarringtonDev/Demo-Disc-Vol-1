@@ -519,7 +519,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6502182839619065283, guid: 8db1a542adebc5744b3e57d101dc07ee, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1110699953487165484}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8db1a542adebc5744b3e57d101dc07ee, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 861929024}
   m_SourcePrefab: {fileID: 100100000, guid: 8db1a542adebc5744b3e57d101dc07ee, type: 3}
 --- !u!1001 &511529258
 PrefabInstance:
@@ -1007,6 +1010,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 856293386}
   m_CullTransparentMesh: 1
+--- !u!1 &861929023 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8db1a542adebc5744b3e57d101dc07ee, type: 3}
+  m_PrefabInstance: {fileID: 493796124}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &861929024
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861929023}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a0dbfe58d079f644999342e3a5740b7f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &897401414
 GameObject:
   m_ObjectHideFlags: 0
@@ -64640,6 +64669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 15
   currentHealth: 0
+  animator: {fileID: 861929024}
 --- !u!4 &1636742473 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3099287195418288931, guid: 747c83800deef474982725c38763fbef, type: 3}
@@ -64667,7 +64697,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.81, z: 0}
+  m_Center: {x: 0, y: 1.03, z: 0}
 --- !u!54 &1636742475
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -64693,7 +64723,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &1767533545
 GameObject:

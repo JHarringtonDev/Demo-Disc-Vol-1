@@ -13,6 +13,8 @@ public class BossScript : MonoBehaviour
 
     [SerializeField] float currentHealth;
 
+    [SerializeField] Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,7 @@ public class BossScript : MonoBehaviour
        if(soulManager.bossActive)
         {
             agent.SetDestination(playerController.transform.position);
+            animator.SetBool("isRunning", true);
         } 
     }
 

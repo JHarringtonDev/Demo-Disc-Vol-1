@@ -9,6 +9,8 @@ public class BossScript : MonoBehaviour
     NavMeshAgent agent;
     PlayerController playerController;
 
+    public bool attacking;
+
     [SerializeField] float maxHealth;
 
     [SerializeField] float currentHealth;

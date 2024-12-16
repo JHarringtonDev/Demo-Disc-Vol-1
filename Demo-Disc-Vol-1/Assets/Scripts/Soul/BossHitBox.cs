@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class BossHitBox : MonoBehaviour
 {
-    bool hitboxActive;
-    float attackDamage;
+    BossScript boss;
+
+    [SerializeField] float attackDamage;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        boss = FindObjectOfType<BossScript>();
     }
 
     // Update is called once per frame
@@ -21,12 +22,13 @@ public class BossHitBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(hitboxActive)
+        if(boss.attacking)
         {
             if(other.GetComponent<PlayerController>() != null)
             {
                 PlayerController player = other.GetComponent<PlayerController>();
-                player.TakeDamage(attackDamage);
+                player.StartCoroutine("TakeDamage", attackDamage);
+                boss.attacking = false;
             }
         }
     }

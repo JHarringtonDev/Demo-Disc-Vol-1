@@ -24,6 +24,7 @@ public class BossScript : MonoBehaviour
     [SerializeField] float introDelay;
     [SerializeField] float jumpAttackDelay;
     [SerializeField] float jumpTrackTime;
+    [SerializeField] float jumpAttackActive;
 
     [SerializeField] Animator animator;
     [SerializeField] GameObject healthbar;
@@ -104,7 +105,15 @@ public class BossScript : MonoBehaviour
 
         yield return new WaitForSeconds(jumpTrackTime);
         trackingAttack = false;
+        StartCoroutine(ActivateHitBox(jumpAttackActive));
         yield return new WaitForSeconds(jumpAttackDelay);
         canMove = true;
+    }
+
+    IEnumerator ActivateHitBox(float activeTime)
+    {
+        attacking = true;
+        yield return new WaitForSeconds(activeTime);
+        attacking = false;
     }
 }

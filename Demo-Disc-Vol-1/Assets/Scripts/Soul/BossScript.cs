@@ -18,8 +18,10 @@ public class BossScript : MonoBehaviour
     public float currentHealth;
 
     bool preformedIntro;
+    bool canMove;
 
     [SerializeField] float introDelay;
+    [SerializeField] float jumpAttackDelay;
 
     [SerializeField] Animator animator;
     [SerializeField] GameObject healthbar;
@@ -38,25 +40,34 @@ public class BossScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if(soulManager.bossActive)
+        if (soulManager.bossActive)
         {
             if (!preformedIntro)
             {
                 StartCoroutine(OpeningBehavior());
             }
-            else if(preformedIntro)
+            else if (preformedIntro && canMove)
             {
 
                 agent.SetDestination(playerController.transform.position);
                 animator.SetBool("isRunning", true);
 
-                if(healthbar.activeSelf == false)
+                if (healthbar.activeSelf == false)
                 {
                     healthbar.SetActive(true);
                 }
             }
 
-        } 
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0, 0, 4), 4);
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider.GetComponent<PlayerController>() != null && canMove)
+                {
+                    StartCoroutine(JumpAttack());
+                }
+
+            }
+        }
     }
 
     public void TakeDamage(float damage)
@@ -73,7 +84,17 @@ public class BossScript : MonoBehaviour
     IEnumerator OpeningBehavior()
     {
         animator.SetTrigger("Roar");
-        yield return new WaitForSeconds(introDelay);
         preformedIntro = true;
+        yield return new WaitForSeconds(introDelay);
+        canMove = true;
+    }
+
+    IEnumerator JumpAttack()
+    {
+        animator.SetBool("isRunning", false);
+        animator.SetTrigger("JumpAttack");
+        canMove = false;
+        yield return new WaitForSeconds(jumpAttackDelay);
+        canMove = true;
     }
 }

@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
                 StartCoroutine("SwitchFlask");
             }
 
-            if (Input.GetKeyDown(KeyCode.T) && magic >= magicCost)
+            if (Input.GetKeyDown(KeyCode.T) && magic >= magicCost && canMove)
             {
                 StartCoroutine("HandleMagicAttack");
             }
@@ -342,6 +342,11 @@ public class PlayerController : MonoBehaviour
             {
                 Enemy enemy = hitCollider.GetComponent<Enemy>();
                 enemy.TakeDamage(magicDamage);
+            }
+            else if (hitCollider.GetComponent<BossScript>() != null)
+            {
+                BossScript hitEnemy = hitCollider.GetComponent<BossScript>();
+                hitEnemy.TakeDamage(magicDamage);
             }
         }
         yield return new WaitForSeconds(attackDelay);

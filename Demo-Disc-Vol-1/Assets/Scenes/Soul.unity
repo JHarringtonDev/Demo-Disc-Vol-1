@@ -65100,7 +65100,8 @@ MonoBehaviour:
   maxHealth: 15
   currentHealth: 0
   introDelay: 5
-  jumpAttackDelay: 10
+  jumpAttackDelay: 9
+  jumpTrackTime: 1
   animator: {fileID: 861929024}
   healthbar: {fileID: 1492784005}
 --- !u!4 &1636742473 stripped

@@ -19,9 +19,11 @@ public class BossScript : MonoBehaviour
 
     bool preformedIntro;
     bool canMove;
+    bool trackingAttack;
 
     [SerializeField] float introDelay;
     [SerializeField] float jumpAttackDelay;
+    [SerializeField] float jumpTrackTime;
 
     [SerializeField] Animator animator;
     [SerializeField] GameObject healthbar;
@@ -57,6 +59,10 @@ public class BossScript : MonoBehaviour
                     healthbar.SetActive(true);
                 }
             }
+            else if (trackingAttack)
+            {
+                agent.SetDestination(playerController.transform.position);
+            }
 
             Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0, 0, 4), 4);
             foreach (var hitCollider in hitColliders)
@@ -91,9 +97,13 @@ public class BossScript : MonoBehaviour
 
     IEnumerator JumpAttack()
     {
+        trackingAttack = true;
         animator.SetBool("isRunning", false);
         animator.SetTrigger("JumpAttack");
         canMove = false;
+
+        yield return new WaitForSeconds(jumpTrackTime);
+        trackingAttack = false;
         yield return new WaitForSeconds(jumpAttackDelay);
         canMove = true;
     }

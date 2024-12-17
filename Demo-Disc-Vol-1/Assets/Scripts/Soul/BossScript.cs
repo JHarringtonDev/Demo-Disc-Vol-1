@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
 
 public class BossScript : MonoBehaviour
@@ -15,6 +16,10 @@ public class BossScript : MonoBehaviour
     public float maxHealth;
 
     public float currentHealth;
+
+    bool preformedIntro;
+
+    [SerializeField] float introDelay;
 
     [SerializeField] Animator animator;
     [SerializeField] GameObject healthbar;
@@ -35,13 +40,22 @@ public class BossScript : MonoBehaviour
     {
        if(soulManager.bossActive)
         {
-            agent.SetDestination(playerController.transform.position);
-            animator.SetBool("isRunning", true);
-
-            if(healthbar.activeSelf == false)
+            if (!preformedIntro)
             {
-                healthbar.SetActive(true);
+                StartCoroutine(OpeningBehavior());
             }
+            else if(preformedIntro)
+            {
+
+                agent.SetDestination(playerController.transform.position);
+                animator.SetBool("isRunning", true);
+
+                if(healthbar.activeSelf == false)
+                {
+                    healthbar.SetActive(true);
+                }
+            }
+
         } 
     }
 
@@ -54,5 +68,12 @@ public class BossScript : MonoBehaviour
             healthbar.SetActive(false);
             Destroy(gameObject);
         }
+    }
+
+    IEnumerator OpeningBehavior()
+    {
+        animator.SetTrigger("Roar");
+        yield return new WaitForSeconds(introDelay);
+        preformedIntro = true;
     }
 }

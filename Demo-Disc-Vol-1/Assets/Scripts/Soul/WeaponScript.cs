@@ -40,9 +40,9 @@ public class WeaponScript : MonoBehaviour
                 hitEnemy.TakeDamage(weaponDamage);
                 hitboxActive = false;
             }
-            else if(other.GetComponent<BossScript>() != null)
+            else if(other.transform.parent.transform.parent.GetComponent<BossScript>() != null)
             {
-                BossScript hitEnemy = other.GetComponent<BossScript>();
+                BossScript hitEnemy = other.transform.parent.transform.parent.GetComponent<BossScript>();
                 hitEnemy.TakeDamage(weaponDamage);
                 hitboxActive = false;
             }

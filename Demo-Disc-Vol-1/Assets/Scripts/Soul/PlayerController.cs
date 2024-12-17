@@ -338,15 +338,18 @@ public class PlayerController : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(center, magicAOE);
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.GetComponent<Enemy>() != null)
+            if(hitCollider.tag == "Enemy")
             {
-                Enemy enemy = hitCollider.GetComponent<Enemy>();
-                enemy.TakeDamage(magicDamage);
-            }
-            else if (hitCollider.GetComponent<BossScript>() != null)
-            {
-                BossScript hitEnemy = hitCollider.GetComponent<BossScript>();
-                hitEnemy.TakeDamage(magicDamage);
+                if (hitCollider.GetComponent<Enemy>() != null)
+                {
+                    Enemy enemy = hitCollider.GetComponent<Enemy>();
+                    enemy.TakeDamage(magicDamage);
+                }
+                else if (hitCollider.transform.parent.transform.parent.GetComponent<BossScript>() != null)
+                {
+                    BossScript hitEnemy = hitCollider.transform.parent.transform.parent.GetComponent<BossScript>();
+                    hitEnemy.TakeDamage(magicDamage);
+                }
             }
         }
         yield return new WaitForSeconds(attackDelay);

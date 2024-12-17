@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class BossScript : MonoBehaviour
 {
@@ -11,11 +12,13 @@ public class BossScript : MonoBehaviour
 
     public bool attacking;
 
-    [SerializeField] float maxHealth;
+    public float maxHealth;
 
-    [SerializeField] float currentHealth;
+    public float currentHealth;
 
     [SerializeField] Animator animator;
+    [SerializeField] GameObject healthbar;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -34,14 +37,21 @@ public class BossScript : MonoBehaviour
         {
             agent.SetDestination(playerController.transform.position);
             animator.SetBool("isRunning", true);
+
+            if(healthbar.activeSelf == false)
+            {
+                healthbar.SetActive(true);
+            }
         } 
     }
 
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+
         if (currentHealth <= 0)
         {
+            healthbar.SetActive(false);
             Destroy(gameObject);
         }
     }

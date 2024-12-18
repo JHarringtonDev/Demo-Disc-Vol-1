@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.ProBuilder.MeshOperations;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class BossScript : MonoBehaviour
 {
@@ -30,7 +31,8 @@ public class BossScript : MonoBehaviour
     [SerializeField] float jumpAttackDelay;
     [SerializeField] float jumpTrackTime;
     [SerializeField] float jumpAttackActive;
-
+    [SerializeField] float detectionDistance;
+    [SerializeField] float detectionRadius;
 
     [SerializeField] Animator animator;
     [SerializeField] GameObject healthbar;
@@ -72,21 +74,22 @@ public class BossScript : MonoBehaviour
                 {
                     healthbar.SetActive(true);
                 }
+
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * detectionDistance, detectionRadius);
+                foreach (var hitCollider in hitColliders)
+                {
+                    if (hitCollider.GetComponent<PlayerController>() != null && canMove)
+                    {
+                        StartCoroutine(JumpAttack());
+                    }
+
+                }
             }
             else if (trackingAttack)
             {
                 agent.SetDestination(playerController.transform.position);
             }
 
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0, 0, 4), 4);
-            foreach (var hitCollider in hitColliders)
-            {
-                if (hitCollider.GetComponent<PlayerController>() != null && canMove)
-                {
-                    StartCoroutine(JumpAttack());
-                }
-
-            }
         }
 
         if (hasDied && deathMaterial.color.a > 0)
@@ -149,5 +152,8 @@ public class BossScript : MonoBehaviour
         Destroy(gameObject);
     }
 
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position + transform.forward * detectionDistance, detectionRadius);
+    }
 }

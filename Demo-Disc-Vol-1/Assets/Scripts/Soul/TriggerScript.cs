@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TriggerScript : MonoBehaviour
 {
     SoulManager soulManager;
+
+    [SerializeField] BoxCollider bCollider;
+
     [SerializeField] bool hallwayTrigger;
     [SerializeField] bool bossRoom;
 
@@ -24,7 +28,7 @@ public class TriggerScript : MonoBehaviour
 
             if (hallwayTrigger)
             {
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0, 0, 4), 4);
+                Collider[] hitColliders = Physics.OverlapBox(transform.position + new Vector3(0, 0, 0.5f), bCollider.size);
                 foreach (var hitCollider in hitColliders)
                 {
                     if (hitCollider.GetComponent<PlayerController>() != null && !soulManager.hallwayActive)
@@ -40,7 +44,7 @@ public class TriggerScript : MonoBehaviour
             }
             else if (!bossRoom)
             {
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(0, 0, -4), 4);
+                Collider[] hitColliders = Physics.OverlapBox(transform.position + new Vector3(0, 0, -0.5f), bCollider.size);
                 foreach (var hitCollider in hitColliders)
                 {
                     if (hitCollider.GetComponent<PlayerController>() != null && !soulManager.roomActive)
@@ -56,7 +60,7 @@ public class TriggerScript : MonoBehaviour
             }
             else if (bossRoom)
             {
-                Collider[] hitColliders = Physics.OverlapSphere(transform.position + new Vector3(2, 0, 0), 4);
+                Collider[] hitColliders = Physics.OverlapBox(transform.position + new Vector3(0.5f, 0, 0), bCollider.size);
                 foreach (var hitCollider in hitColliders)
                 {
                     if (hitCollider.GetComponent<PlayerController>() != null && !soulManager.roomActive)
@@ -67,6 +71,22 @@ public class TriggerScript : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (hallwayTrigger)
+        {
+            Gizmos.DrawWireCube(transform.position + new Vector3(0, 0, 0.5f), bCollider.size);
+        }
+        else if (!bossRoom)
+        {
+            Gizmos.DrawWireCube(transform.position + new Vector3(0, 0, -0.5f), bCollider.size);
+        }
+        else if (bossRoom)
+        {
+            Gizmos.DrawWireCube(transform.position + new Vector3(0.5f, 0, 0), bCollider.size);
         }
     }
 }

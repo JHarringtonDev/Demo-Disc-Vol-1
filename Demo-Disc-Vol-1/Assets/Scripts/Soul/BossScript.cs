@@ -28,11 +28,26 @@ public class BossScript : MonoBehaviour
     [SerializeField] float introDelay;
     [SerializeField] float deathTime;
     [SerializeField] float fadeTime;
+    [SerializeField] float detectionDistance;
+    [SerializeField] float detectionRadius;
+    [SerializeField] float punchRandomRate;
+    [SerializeField] float sweepRandomRate;
+    
+    [Header("Punch Attack")]
+    [SerializeField] float punchStartup;
+    [SerializeField] float punchEndDelay;
+    [SerializeField] float punchActive;
+
+    [Header("Jump Attack")]
     [SerializeField] float jumpAttackDelay;
     [SerializeField] float jumpTrackTime;
     [SerializeField] float jumpAttackActive;
-    [SerializeField] float detectionDistance;
-    [SerializeField] float detectionRadius;
+
+    [Header("Sweep Attack")]
+    [SerializeField] float sweepStartup;
+    [SerializeField] float sweepTrackTime;
+    [SerializeField] float sweepEndDelay;
+    [SerializeField] float sweepActive;
 
     [SerializeField] Animator animator;
     [SerializeField] GameObject healthbar;
@@ -80,7 +95,22 @@ public class BossScript : MonoBehaviour
                 {
                     if (hitCollider.GetComponent<PlayerController>() != null && canMove)
                     {
-                        StartCoroutine(JumpAttack());
+                        animator.SetBool("isRunning", false);
+                        float attackRoll = Random.Range(0f, 1f);
+                        Debug.Log(attackRoll);
+
+                        if(attackRoll <= punchRandomRate)
+                        {
+                            StartCoroutine(PunchAttack());
+                        }
+                        else if(attackRoll <= sweepRandomRate)
+                        {
+                            StartCoroutine (SweepAttack());
+                        }
+                        else
+                        {
+                            StartCoroutine(JumpAttack());
+                        }
                     }
 
                 }
@@ -121,7 +151,6 @@ public class BossScript : MonoBehaviour
     IEnumerator JumpAttack()
     {
         trackingAttack = true;
-        animator.SetBool("isRunning", false);
         animator.SetTrigger("JumpAttack");
         canMove = false;
 
@@ -129,6 +158,24 @@ public class BossScript : MonoBehaviour
         trackingAttack = false;
         StartCoroutine(ActivateHitBox(jumpAttackActive));
         yield return new WaitForSeconds(jumpAttackDelay);
+        canMove = true;
+    }
+
+    IEnumerator SweepAttack() 
+    {
+        animator.SetTrigger("Sweep");
+        canMove = false;
+        StartCoroutine(ActivateHitBox(sweepActive));
+        yield return new WaitForSeconds(sweepEndDelay);
+        canMove = true;
+    }
+
+    IEnumerator PunchAttack()
+    {
+        animator.SetTrigger("Punch");
+        canMove = false;
+        StartCoroutine(ActivateHitBox(punchActive));
+        yield return new WaitForSeconds(punchEndDelay);
         canMove = true;
     }
 

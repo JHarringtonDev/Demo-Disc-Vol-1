@@ -1203,7 +1203,7 @@ MonoBehaviour:
   maxMagicFlask: 3
   staminaDrain: 10
   staminaRegen: 5
-  damageFrames: 5
+  damageFrames: 2
   cameraSpeed: 100
   moveSpeed: 5
   rollSpeed: 2
@@ -65677,8 +65677,40 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1492784005}
     - target: {fileID: 4615937138782896260, guid: 747c83800deef474982725c38763fbef, type: 3}
+      propertyPath: punchActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615937138782896260, guid: 747c83800deef474982725c38763fbef, type: 3}
+      propertyPath: sweepActive
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615937138782896260, guid: 747c83800deef474982725c38763fbef, type: 3}
+      propertyPath: punchEndDelay
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615937138782896260, guid: 747c83800deef474982725c38763fbef, type: 3}
+      propertyPath: sweepEndDelay
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615937138782896260, guid: 747c83800deef474982725c38763fbef, type: 3}
+      propertyPath: sweepTrackTime
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615937138782896260, guid: 747c83800deef474982725c38763fbef, type: 3}
       propertyPath: detectionRadius
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615937138782896260, guid: 747c83800deef474982725c38763fbef, type: 3}
+      propertyPath: jumpAttackDelay
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615937138782896260, guid: 747c83800deef474982725c38763fbef, type: 3}
+      propertyPath: punchRandomRate
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615937138782896260, guid: 747c83800deef474982725c38763fbef, type: 3}
+      propertyPath: sweepRandomRate
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 4615937138782896260, guid: 747c83800deef474982725c38763fbef, type: 3}
       propertyPath: attackDetection.x

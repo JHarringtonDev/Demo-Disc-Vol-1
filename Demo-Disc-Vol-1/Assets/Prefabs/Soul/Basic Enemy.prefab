@@ -49,8 +49,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 50
   maxHealth: 10
+  detectionDistance: 2
+  detectionRadius: 2
+  kickRate: 0.15
+  kickEndLag: 3
+  slash1Rate: 0.65
+  slash1EndLag: 3
+  slash2Rate: 0
+  slash2EndLag: 3
   hallwayEnemy: 0
   roomEnemy: 0
+  animator: {fileID: 2506937079210449848}
 --- !u!195 &2850138499517656357
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     PlayerController player;
     GameManager gameManager;
     SoulManager soulManager;
+    [SerializeField] EnemyWeapon weapon;
 
 
     [SerializeField] float damageAmount;
@@ -68,7 +69,8 @@ public class Enemy : MonoBehaviour
             {
                 if (hitCollider.GetComponent<PlayerController>() != null)
                 {
-                    animator.SetBool("isRunning", false);
+                    weapon.hitBoxActive = true;
+                    animator.SetBool("IsRunning", false);
                     float attackRoll = Random.Range(0f, 1f);
                     Debug.Log(attackRoll);
 
@@ -96,6 +98,7 @@ public class Enemy : MonoBehaviour
         soulManager.enemiesAttacking++;
         animator.SetTrigger("Kick");
         yield return new WaitForSeconds(kickEndLag);
+        weapon.hitBoxActive = false;
         soulManager.enemiesAttacking--;
         followingPlayer = true;
         isAttacking = false;
@@ -108,6 +111,7 @@ public class Enemy : MonoBehaviour
         soulManager.enemiesAttacking++;
         animator.SetTrigger("Slash 1");
         yield return new WaitForSeconds(slash1EndLag);
+        weapon.hitBoxActive = false;
         soulManager.enemiesAttacking--;
         followingPlayer = true;
         isAttacking = false;
@@ -120,6 +124,7 @@ public class Enemy : MonoBehaviour
         soulManager.enemiesAttacking++;
         animator.SetTrigger("Slash 2");
         yield return new WaitForSeconds(slash2EndLag);
+        weapon.hitBoxActive = false;
         soulManager.enemiesAttacking--;
         followingPlayer = true;
         isAttacking = false;

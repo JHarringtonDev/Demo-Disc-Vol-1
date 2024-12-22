@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000739454203326579, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_Name
-      value: Basic Enemy (2)
+      value: HallwayEnemy3
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalPosition.x
@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00010108948
+      value: 0.774
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalPosition.z
@@ -529,7 +529,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000739454203326579, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_Name
-      value: Basic Enemy (3)
+      value: Room Enemy 1
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalPosition.x
@@ -569,6 +569,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582491468914860861, guid: 691c38cea1008a14890b23de17c53185, type: 3}
+      propertyPath: roomEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582491468914860861, guid: 691c38cea1008a14890b23de17c53185, type: 3}
+      propertyPath: hallwayEnemy
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -812,7 +820,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000739454203326579, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_Name
-      value: Basic Enemy (4)
+      value: Room Enemy 2
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalPosition.x
@@ -852,6 +860,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582491468914860861, guid: 691c38cea1008a14890b23de17c53185, type: 3}
+      propertyPath: roomEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582491468914860861, guid: 691c38cea1008a14890b23de17c53185, type: 3}
+      propertyPath: hallwayEnemy
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1622,7 +1638,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000739454203326579, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_Name
-      value: Basic Enemy (1)
+      value: HallwayEnemy2
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2546,7 +2562,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000739454203326579, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_Name
-      value: Basic Enemy (6)
+      value: Room Enemy 4
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2586,6 +2602,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582491468914860861, guid: 691c38cea1008a14890b23de17c53185, type: 3}
+      propertyPath: roomEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582491468914860861, guid: 691c38cea1008a14890b23de17c53185, type: 3}
+      propertyPath: hallwayEnemy
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -65767,7 +65791,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1000739454203326579, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_Name
-      value: Basic Enemy (5)
+      value: Room Enemy 3
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalPosition.x
@@ -65807,6 +65831,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3401682104746254042, guid: 691c38cea1008a14890b23de17c53185, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582491468914860861, guid: 691c38cea1008a14890b23de17c53185, type: 3}
+      propertyPath: roomEnemy
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4582491468914860861, guid: 691c38cea1008a14890b23de17c53185, type: 3}
+      propertyPath: hallwayEnemy
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

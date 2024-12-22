@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,6 +16,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float maxHealth;
     [SerializeField] float detectionDistance;
     [SerializeField] float detectionRadius;
+    [SerializeField] float deathTime;
 
     [Header("Kick")]
     [SerializeField] float kickRate;
@@ -35,11 +37,13 @@ public class Enemy : MonoBehaviour
     NavMeshHit hit;
     Vector3 startingLocation;
     [SerializeField] Animator animator;
+    [SerializeField] GameObject deathParticles;
 
 
     float currentHealth;
     bool blocked;
     bool isAttacking;
+    bool isAlive = true;
     bool followingPlayer = true;
 
     // Start is called before the first frame update
@@ -57,34 +61,37 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if(followingPlayer)
+        if (isAlive)
         {
-            moveEnemy();
-        }
-
-        if (soulManager.enemiesAttacking < 2 && !isAttacking)
-        {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * detectionDistance, detectionRadius);
-            foreach (var hitCollider in hitColliders)
+            if(followingPlayer)
             {
-                if (hitCollider.GetComponent<PlayerController>() != null)
-                {
-                    weapon.hitBoxActive = true;
-                    animator.SetBool("IsRunning", false);
-                    float attackRoll = Random.Range(0f, 1f);
-                    Debug.Log(attackRoll);
+                moveEnemy();
+            }
 
-                    if (attackRoll <= kickRate)
+            if (soulManager.enemiesAttacking < 2 && !isAttacking)
+            {
+                Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward * detectionDistance, detectionRadius);
+                foreach (var hitCollider in hitColliders)
+                {
+                    if (hitCollider.GetComponent<PlayerController>() != null)
                     {
-                        StartCoroutine(KickAttack());
-                    }
-                    else if (attackRoll <= slash1Rate)
-                    {
-                        StartCoroutine(Slash1Attack());
-                    }
-                    else
-                    {
-                        StartCoroutine(Slash2Attack());
+                        weapon.hitBoxActive = true;
+                        animator.SetBool("IsRunning", false);
+                        float attackRoll = Random.Range(0f, 1f);
+                        Debug.Log(attackRoll);
+
+                        if (attackRoll <= kickRate)
+                        {
+                            StartCoroutine(KickAttack());
+                        }
+                        else if (attackRoll <= slash1Rate)
+                        {
+                            StartCoroutine(Slash1Attack());
+                        }
+                        else
+                        {
+                            StartCoroutine(Slash2Attack());
+                        }
                     }
                 }
             }
@@ -130,12 +137,24 @@ public class Enemy : MonoBehaviour
         isAttacking = false;
     }
 
+    IEnumerator HandleDeath() 
+    {
+        followingPlayer = false;
+        animator.SetTrigger("Death");
+        deathParticles.SetActive(true);
+        yield return new WaitForSeconds(deathTime);
+        Destroy(gameObject);
+    }
+
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            isAlive = false;
+            agent.isStopped = true;
+            animator.SetBool("IsRunning", false);
+            StartCoroutine(HandleDeath());
         }
     }
 

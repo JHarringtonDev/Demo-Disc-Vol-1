@@ -72,6 +72,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject magicEffect;
 
 
+    private void Awake()
+    {
+        animator.SetTrigger("Stand");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
         currentSpeed = moveSpeed;
 
+        
         baseRotation = transform.rotation;
     }
 

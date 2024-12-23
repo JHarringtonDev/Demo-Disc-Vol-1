@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public int remainingRedFlasks;
     [HideInInspector] public int remainingBlueFlasks;
 
-    bool canMove = true;
+    bool canMove;
     bool isRolling;
     bool isDamageable = true;
     bool isAlive = true;
@@ -66,15 +66,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float magicCost;
 
     [Header("Serialized Objects")]
+    [SerializeField] float startDelay;
     [SerializeField] Animator animator;
     [SerializeField] Transform playerModel;
     [SerializeField] Transform[] enemysInScene;
     [SerializeField] GameObject magicEffect;
 
-
     private void Awake()
     {
         animator.SetTrigger("Stand");
+        StartCoroutine(StartAnimation());
     }
 
     // Start is called before the first frame update
@@ -308,6 +309,7 @@ public class PlayerController : MonoBehaviour
 
             yield return new WaitForSeconds(rollDelay);
 
+            rb.velocity = Vector3.zero;
             isRolling = false;
             canMove = true;
             isDamageable = true;
@@ -324,7 +326,9 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("basicSlash");
             stamina -= attackCost;
             weaponScript.CheckHitbox(attackDelay);
+            rb.velocity = rb.velocity/2;
             yield return new WaitForSeconds(attackDelay);
+            rb.velocity = Vector3.zero;
             canMove = true;
         }
     }
@@ -414,6 +418,12 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(damageFrames);
             isDamageable = true;
         }
+    }
+
+    IEnumerator StartAnimation()
+    {
+        yield return new WaitForSeconds(startDelay);
+        canMove = true;
     }
 
     void HandleDeath()

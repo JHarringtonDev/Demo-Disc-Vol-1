@@ -1453,12 +1453,13 @@ MonoBehaviour:
   rollCost: 20
   rollDelay: 1
   attackCost: 20
-  attackDelay: 2
+  attackDelay: 1.5
   magicDamage: 5
   magicDelay: 2
   magicDistance: 10
   magicAOE: 4
   magicCost: 30
+  startDelay: 2.5
   animator: {fileID: 2032599936}
   playerModel: {fileID: 2032599935}
   enemysInScene:

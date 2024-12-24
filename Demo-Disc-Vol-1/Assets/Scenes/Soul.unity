@@ -1606,6 +1606,7 @@ MonoBehaviour:
   roomActive: 0
   bossActive: 0
   enemiesAttacking: 0
+  bossDefeated: 0
 --- !u!1 &1024815456
 GameObject:
   m_ObjectHideFlags: 0

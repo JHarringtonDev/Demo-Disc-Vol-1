@@ -21,6 +21,15 @@ public class TriggerScript : MonoBehaviour
         soulManager = FindAnyObjectByType<SoulManager>();
     }
 
+    private void Update()
+    {
+        if(bossRoom && soulManager.bossDefeated)
+        {
+            fogWall.SetActive(false);
+            gameObject.SetActive(false);
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Player"))

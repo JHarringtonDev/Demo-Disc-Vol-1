@@ -380,20 +380,21 @@ public class PlayerController : MonoBehaviour
 
         if (remainingRedFlasks >= 1 && redFlask)
         {
-            health += healthFlaskRestore;
             animator.SetTrigger("Drink");
             remainingRedFlasks--;
             flaskUI.FlaskNumber(redFlask);
+            yield return new WaitForSeconds(1f);
+            health += healthFlaskRestore;
         }
         else if (remainingBlueFlasks >= 1 && !redFlask)
         {
-            magic += magicFlaskRestore;
             animator.SetTrigger("Drink");
             remainingBlueFlasks--;
             flaskUI.FlaskNumber(redFlask);
+            yield return new WaitForSeconds(1f);
+            magic += magicFlaskRestore;
         }
 
-        yield return new WaitForSeconds(1f);
         isRolling = false;
     }
 

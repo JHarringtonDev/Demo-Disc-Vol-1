@@ -8,6 +8,7 @@ public class SoulManager : MonoBehaviour
     public bool roomActive;
     public bool bossActive;
     public int enemiesAttacking = 0;
+    public bool bossDefeated;
 
     // Start is called before the first frame update
     void Start()

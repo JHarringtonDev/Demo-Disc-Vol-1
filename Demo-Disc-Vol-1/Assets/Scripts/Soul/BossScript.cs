@@ -77,7 +77,7 @@ public class BossScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (soulManager.bossActive)
+        if (soulManager.bossActive && !hasDied)
         {
             if (!preformedIntro)
             {
@@ -200,6 +200,7 @@ public class BossScript : MonoBehaviour
         animator.SetTrigger("Death");
         yield return new WaitForSeconds(deathTime);
         healthbar.SetActive(false);
+        soulManager.bossDefeated = true;
         Destroy(gameObject);
     }
 

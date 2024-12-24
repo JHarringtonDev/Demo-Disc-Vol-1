@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     Vector3 moveInput;
     WeaponScript weaponScript;
     FlaskUI flaskUI;
+    UIScript UI;
 
     float xInput;
     float yInput;
@@ -95,6 +96,8 @@ public class PlayerController : MonoBehaviour
 
         weaponScript = FindObjectOfType<WeaponScript>();
         flaskUI = FindObjectOfType<FlaskUI>();
+        UI = FindObjectOfType<UIScript>();
+        UI.fadeIn = true;
 
         health = maxHealth;
         stamina = maxStamina;
@@ -433,6 +436,12 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(startDelay);
         canMove = true;
+    }
+
+    public void CrouchAnimation()
+    {
+        canMove = false;
+        animator.SetTrigger("Crouch");
     }
 
     void HandleDeath()

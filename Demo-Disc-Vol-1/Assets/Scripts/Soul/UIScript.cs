@@ -5,11 +5,18 @@ using UnityEngine.UI;
 
 public class UIScript : MonoBehaviour
 {
-
+    [Header("SF Images")]
     [SerializeField] Image healthBar;
     [SerializeField] Image magicBar;
     [SerializeField] Image staminaBar;
     [SerializeField] Image bossHealthBar;
+    [SerializeField] Image fadeImage;
+
+    [Header("Fade Attributes")]
+    public bool fadeIn;
+    public bool fadeOut;
+    [SerializeField] float fadeSpeed;
+    Color fadeColor;
 
     PlayerController player;
     BossScript boss;
@@ -25,6 +32,15 @@ public class UIScript : MonoBehaviour
     void Update()
     {
         HandleHud();
+
+        if (fadeIn && fadeImage.color.a > 0)
+        {
+            FadeInScreen();
+        }
+        else if (fadeOut && fadeImage.color.a < 1)
+        {
+            FadeOutScreen();
+        }
     }
 
     void HandleHud()
@@ -37,5 +53,19 @@ public class UIScript : MonoBehaviour
         {
             bossHealthBar.fillAmount = boss.currentHealth / boss.maxHealth;
         }
+    }
+
+    void FadeInScreen()
+    { 
+        fadeColor = fadeImage.color;
+        fadeColor.a -= fadeSpeed * Time.deltaTime;
+        fadeImage.color = fadeColor;
+    }
+
+    void FadeOutScreen()
+    {
+        fadeColor = fadeImage.color;
+        fadeColor.a += fadeSpeed * Time.deltaTime;
+        fadeImage.color = fadeColor;
     }
 }

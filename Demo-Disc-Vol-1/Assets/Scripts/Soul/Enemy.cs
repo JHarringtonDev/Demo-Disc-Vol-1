@@ -30,12 +30,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] float slash2Rate;
     [SerializeField] float slash2EndLag;
 
+    [Header("EnemyType")]
     [SerializeField] bool hallwayEnemy;
     [SerializeField] bool roomEnemy;
 
     NavMeshAgent agent;
     NavMeshHit hit;
     Vector3 startingLocation;
+
+    [Header("Serialized Components")]
     [SerializeField] Animator animator;
     [SerializeField] GameObject deathParticles;
 

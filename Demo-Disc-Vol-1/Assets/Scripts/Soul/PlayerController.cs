@@ -52,13 +52,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float cameraSpeed;
     [SerializeField] float moveSpeed;
     [SerializeField] float rollSpeed;
-    [SerializeField] float sprintDelay;
     [SerializeField] float sprintMultiplier;
+    [SerializeField] float sprintDelay;
     [SerializeField] float timeHeld;
+    [SerializeField] float startDelay;
+
+    [Header("Stamina Values")]
     [SerializeField] float rollCost;
     [SerializeField] float rollDelay;
     [SerializeField] float attackCost;
     [SerializeField] float attackDelay;
+
+    [Header("Magic Values")]
     [SerializeField] float magicDamage;
     [SerializeField] float magicDelay;
     [SerializeField] float magicDistance;
@@ -66,7 +71,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float magicCost;
 
     [Header("Serialized Objects")]
-    [SerializeField] float startDelay;
     [SerializeField] Animator animator;
     [SerializeField] Transform playerModel;
     [SerializeField] Transform[] enemysInScene;

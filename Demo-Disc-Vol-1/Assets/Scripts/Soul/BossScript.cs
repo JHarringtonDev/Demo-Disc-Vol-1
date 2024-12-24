@@ -25,30 +25,34 @@ public class BossScript : MonoBehaviour
 
     Color fadeColor;
 
+    [Header("Event Timings")]
     [SerializeField] float introDelay;
     [SerializeField] float deathTime;
     [SerializeField] float fadeTime;
+
+    [Header("Player Detection")]
     [SerializeField] float detectionDistance;
     [SerializeField] float detectionRadius;
-    [SerializeField] float punchRandomRate;
-    [SerializeField] float sweepRandomRate;
     
     [Header("Punch Attack")]
     [SerializeField] float punchStartup;
     [SerializeField] float punchEndDelay;
     [SerializeField] float punchActive;
-
-    [Header("Jump Attack")]
-    [SerializeField] float jumpAttackDelay;
-    [SerializeField] float jumpTrackTime;
-    [SerializeField] float jumpAttackActive;
+    [SerializeField] float punchRandomRate;
 
     [Header("Sweep Attack")]
     [SerializeField] float sweepStartup;
     [SerializeField] float sweepTrackTime;
     [SerializeField] float sweepEndDelay;
     [SerializeField] float sweepActive;
+    [SerializeField] float sweepRandomRate;
 
+    [Header("Jump Attack")]
+    [SerializeField] float jumpAttackDelay;
+    [SerializeField] float jumpTrackTime;
+    [SerializeField] float jumpAttackActive;
+
+    [Header("Serialized Components")]
     [SerializeField] Animator animator;
     [SerializeField] GameObject healthbar;
     [SerializeField] GameObject deathBlast;

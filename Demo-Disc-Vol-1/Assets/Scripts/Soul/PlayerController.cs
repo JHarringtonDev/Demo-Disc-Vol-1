@@ -44,6 +44,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float staminaRegen;
     [SerializeField] float damageFrames;
 
+    [Header("Flask Restoration")]
+    [SerializeField] float healthFlaskRestore;
+    [SerializeField] float magicFlaskRestore;
+
     float currentSpeed;
     Vector3 dir;
     Quaternion baseRotation;
@@ -376,14 +380,14 @@ public class PlayerController : MonoBehaviour
 
         if (remainingRedFlasks >= 1 && redFlask)
         {
-            health += 20;
+            health += healthFlaskRestore;
             animator.SetTrigger("Drink");
             remainingRedFlasks--;
             flaskUI.FlaskNumber(redFlask);
         }
         else if (remainingBlueFlasks >= 1 && !redFlask)
         {
-            magic += 20;
+            magic += magicFlaskRestore;
             animator.SetTrigger("Drink");
             remainingBlueFlasks--;
             flaskUI.FlaskNumber(redFlask);

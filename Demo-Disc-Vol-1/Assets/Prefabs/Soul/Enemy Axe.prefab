@@ -102,4 +102,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitBoxActive: 0
-  weaponDamage: 5
+  weaponDamage: 15

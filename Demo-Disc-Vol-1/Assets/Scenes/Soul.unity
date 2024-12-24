@@ -1457,8 +1457,10 @@ MonoBehaviour:
   maxHealthFlask: 5
   maxMagicFlask: 3
   staminaDrain: 10
-  staminaRegen: 5
+  staminaRegen: 7
   damageFrames: 2
+  healthFlaskRestore: 50
+  magicFlaskRestore: 50
   cameraSpeed: 100
   moveSpeed: 5
   rollSpeed: 2

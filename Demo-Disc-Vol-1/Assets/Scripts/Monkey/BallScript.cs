@@ -25,8 +25,4 @@ public class BallScript : MonoBehaviour
             rb.AddForce(parentContainer.transform.forward * acceleration, ForceMode.Acceleration);
         }
     }
-    private void FixedUpdate()
-    {
-        Debug.Log(rb.velocity.z);
-    }
 }

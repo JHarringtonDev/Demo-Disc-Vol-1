@@ -6,8 +6,10 @@ public class StageScript : MonoBehaviour
 {
     Rigidbody rb;
 
+    [SerializeField] float horizontalSpeed;
+    [SerializeField] float verticalSpeed;
+    [SerializeField] float returnSpeed;
 
-    [SerializeField] float rotateSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,15 @@ public class StageScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Quaternion deltaRotation = Quaternion.Euler(Input.GetAxis("Vertical") * rotateSpeed * Time.deltaTime, 0, -Input.GetAxis("Horizontal") * rotateSpeed * Time.deltaTime);
-        rb.MoveRotation(rb.rotation * deltaRotation);
+        if(Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
+        {
+            rb.MoveRotation(Quaternion.RotateTowards(rb.rotation, Quaternion.identity, returnSpeed * Time.deltaTime));
+        }
+        else
+        {
+            
+            Quaternion deltaRotation = Quaternion.Euler(Input.GetAxis("Vertical") * verticalSpeed * Time.deltaTime, 0, -Input.GetAxis("Horizontal") *     horizontalSpeed * Time.deltaTime);
+            rb.MoveRotation(rb.rotation * deltaRotation);
+        }
     }
 }

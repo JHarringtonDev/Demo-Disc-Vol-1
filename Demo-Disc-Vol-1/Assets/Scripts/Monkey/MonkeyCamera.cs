@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class MonkeyCamera : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] Rigidbody ballRb;
 
     // Update is called once per frame
     void Update()
     {
-        
+        transform.LookAt(ballRb.velocity);
     }
 }

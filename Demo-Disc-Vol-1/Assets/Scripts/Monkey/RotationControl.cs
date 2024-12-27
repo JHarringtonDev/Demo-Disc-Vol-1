@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,21 +9,27 @@ public class RotationControl : MonoBehaviour
     [SerializeField] float horizontalSpeed;
     [SerializeField] float verticalSpeed;
     [SerializeField] float returnSpeed;
+    [SerializeField] float clampedRotation;
 
     [SerializeField] GameObject playerCamera;
     [SerializeField] Transform cameraDirection;
+
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetAxis("Vertical") == 0 && Input.GetAxis("Horizontal") == 0)
         {
+            transform.position = Vector3.zero;
             transform.rotation = (Quaternion.RotateTowards(transform.rotation, Quaternion.identity, returnSpeed * Time.deltaTime));
         }
         else
         {
-            transform.RotateAround(Vector3.zero, playerCamera.transform.right, Input.GetAxis("Vertical") * verticalSpeed * Time.deltaTime);
-            transform.RotateAround(Vector3.zero, playerCamera.transform.forward, -Input.GetAxis("Horizontal") * horizontalSpeed * Time.deltaTime);
+            float vertRotation = Input.GetAxis("Vertical") * verticalSpeed * Time.deltaTime;
+            float horiRotation = -Input.GetAxis("Horizontal") * horizontalSpeed * Time.deltaTime;
+
+            transform.RotateAround(Vector3.zero, playerCamera.transform.right, vertRotation);
+            transform.RotateAround(Vector3.zero, playerCamera.transform.forward, horiRotation);
         }
     }
 }

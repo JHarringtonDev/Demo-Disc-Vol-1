@@ -171,7 +171,8 @@ MonoBehaviour:
   horizontalSpeed: 50
   verticalSpeed: 50
   returnSpeed: 50
-  playerBall: {fileID: 37175407}
+  playerCamera: {fileID: 867056362}
+  cameraDirection: {fileID: 867056363}
 --- !u!1 &37175407
 GameObject:
   m_ObjectHideFlags: 0

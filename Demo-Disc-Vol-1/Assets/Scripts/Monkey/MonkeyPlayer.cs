@@ -6,6 +6,7 @@ public class MonkeyPlayer : MonoBehaviour
 {
     [SerializeField] GameObject ballObject;
     [SerializeField] float cameraSpeed;
+    [SerializeField] float gameTime;
     Rigidbody playerRB;
 
     private void Start()
@@ -17,6 +18,21 @@ public class MonkeyPlayer : MonoBehaviour
     void Update()
     {
         transform.position = ballObject.transform.position;
-        transform.rotation = Quaternion.LookRotation(playerRB.velocity, Vector3.up);
+
+        if(gameTime <= 3)
+        {
+            gameTime += Time.deltaTime;
+            if(playerRB.velocity == Vector3.zero)
+            {
+                transform.rotation = Quaternion.identity;
+            }
+        } 
+
+
+        if (playerRB.velocity != Vector3.zero)
+        {
+            transform.rotation = Quaternion.LookRotation(playerRB.velocity, Vector3.up);
+        }
+       
     }
 }

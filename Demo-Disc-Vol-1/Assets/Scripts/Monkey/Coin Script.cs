@@ -7,6 +7,7 @@ public class CoinScript : MonoBehaviour
     [SerializeField] float rotateSpeed;
     [SerializeField] float destroyDelay;
     [SerializeField] GameObject coinMesh;
+    [SerializeField] Transform stage;
 
     MonkeyManager monkeyManager;
 
@@ -18,7 +19,7 @@ public class CoinScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        coinMesh.transform.Rotate(transform.up, rotateSpeed * Time.deltaTime);
+        coinMesh.transform.Rotate(Vector3.up, rotateSpeed * Time.deltaTime, Space.Self);
     }
 
     private void OnTriggerEnter(Collider other)

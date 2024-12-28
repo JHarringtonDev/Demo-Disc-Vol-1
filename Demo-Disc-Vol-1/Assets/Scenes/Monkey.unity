@@ -171,8 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horizontalSpeed: 50
   verticalSpeed: 50
-  returnSpeed: 50
-  clampedRotation: 50
+  returnSpeed: 100
+  clampedRotation: 20
   playerCamera: {fileID: 867056362}
   cameraDirection: {fileID: 867056363}
 --- !u!1 &37175407

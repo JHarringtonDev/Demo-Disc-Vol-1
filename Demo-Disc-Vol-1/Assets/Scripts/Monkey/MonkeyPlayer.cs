@@ -16,7 +16,7 @@ public class MonkeyPlayer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if(!levelOver)
         {

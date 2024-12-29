@@ -20,10 +20,7 @@ public class BallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rb.velocity.z < maxSpeed)
-        {
-            rb.AddForce(parentContainer.transform.forward * acceleration, ForceMode.Acceleration);
-        }
+
     }
 
     public void StopBall()

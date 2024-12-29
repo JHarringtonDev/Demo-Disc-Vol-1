@@ -28,6 +28,6 @@ public class BallScript : MonoBehaviour
 
     public void StopBall()
     {
-        rb.drag = 20;
+        rb.drag = 5;
     }
 }

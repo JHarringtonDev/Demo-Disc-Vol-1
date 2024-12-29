@@ -7,6 +7,7 @@ public class MonkeyPlayer : MonoBehaviour
     [SerializeField] GameObject ballObject;
     [SerializeField] float cameraSpeed;
     [SerializeField] float gameTime;
+    public bool levelOver;
     Rigidbody playerRB;
 
     private void Start()
@@ -17,7 +18,10 @@ public class MonkeyPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = ballObject.transform.position;
+        if(!levelOver)
+        {
+            transform.position = ballObject.transform.position;
+        }
 
         if(gameTime <= 3)
         {

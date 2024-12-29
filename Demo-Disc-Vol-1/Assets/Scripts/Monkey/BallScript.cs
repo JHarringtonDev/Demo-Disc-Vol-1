@@ -25,4 +25,9 @@ public class BallScript : MonoBehaviour
             rb.AddForce(parentContainer.transform.forward * acceleration, ForceMode.Acceleration);
         }
     }
+
+    public void StopBall()
+    {
+        rb.drag = 20;
+    }
 }

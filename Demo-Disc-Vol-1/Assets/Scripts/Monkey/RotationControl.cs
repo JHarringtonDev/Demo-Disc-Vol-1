@@ -18,7 +18,8 @@ public class RotationControl : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(cameraDirection.transform.forward);
+        //Debug.Log(cameraDirection.transform.forward);
+        Debug.Log(cameraDirection.forward);
     }
 
     // Update is called once per frame
@@ -30,17 +31,17 @@ public class RotationControl : MonoBehaviour
         {
             transform.rotation = (Quaternion.RotateTowards(transform.rotation, Quaternion.identity, returnSpeed * Time.deltaTime));
         }
-        else if(cameraDirection.forward.z > cameraDirection.forward.x)
-        {
-            transform.localEulerAngles =
-                new Vector3(Input.GetAxis("Vertical") * 20, transform.localEulerAngles.y, -Input.GetAxis("Horizontal") * 20)
-              ;
-        }
         else
         {
-            transform.localEulerAngles =
-            new Vector3(-Input.GetAxis("Vertical") * 20, transform.localEulerAngles.y, Input.GetAxis("Horizontal") * 20)
-            ;
+            Vector3 inputDirections =
+                new Vector3(Input.GetAxis("Horizontal") * 20 * cameraDirection.right.z, transform.localEulerAngles.y, -Input.GetAxis("Horizontal") * 20 * cameraDirection.right.x)
+        
+                +
+        
+                new Vector3(Input.GetAxis("Vertical") * 20 * cameraDirection.forward.z, transform.localEulerAngles.y, -Input.GetAxis("Vertical") * 20 * cameraDirection.forward.x)
+              ;
+
+            transform.localEulerAngles = inputDirections;
         }
         
 
@@ -57,14 +58,14 @@ public class RotationControl : MonoBehaviour
         //    {
         //        if(Mathf.Floor(transform.localEulerAngles.x) <= 20 || Mathf.Floor(transform.localEulerAngles.x) >= 330)
         //        {
-        //            transform.RotateAround(Vector3.zero, playerCamera.transform.right, vertRotation);
+        //            transform.RotateAround(Vector3.zero, cameraDirection.right, vertRotation);
         //        }
         //    }
         //    else if(vertRotation < 0)
         //    {
         //        if(Mathf.Floor(transform.localEulerAngles.x) >= 340 || Mathf.Floor(transform.localEulerAngles.x) <= 30)
         //        {
-        //            transform.RotateAround(Vector3.zero, playerCamera.transform.right, vertRotation);
+        //            transform.RotateAround(Vector3.zero, cameraDirection.right, vertRotation);
         //        }
         //    }
         //    
@@ -72,14 +73,14 @@ public class RotationControl : MonoBehaviour
         //    {
         //        if(Mathf.Floor(transform.localEulerAngles.z) <= 20 || Mathf.Floor(transform.localEulerAngles.z) >= 330)
         //        {
-        //            transform.RotateAround(Vector3.zero, playerCamera.transform.forward, horiRotation);
+        //            transform.RotateAround(Vector3.zero, cameraDirection.forward, horiRotation);
         //        }
         //    }
         //    else if (horiRotation < 0)
         //    {
         //        if (Mathf.Floor(transform.localEulerAngles.z) >= 340 || Mathf.Floor(transform.localEulerAngles.z) <= 30)
         //        {
-        //            transform.RotateAround(Vector3.zero, playerCamera.transform.forward, horiRotation);
+        //            transform.RotateAround(Vector3.zero, cameraDirection.forward, horiRotation);
         //        }
         //    }
         //}

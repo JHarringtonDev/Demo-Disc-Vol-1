@@ -31,7 +31,7 @@ public class RotationControl : MonoBehaviour
         {
             transform.rotation = (Quaternion.RotateTowards(transform.rotation, Quaternion.identity, returnSpeed * Time.deltaTime));
         }
-        else 
+        else if (cameraDirection.forward.z > 0)
         {
             Vector3 inputDirections =
                 new Vector3(Input.GetAxis("Horizontal") * 20 * cameraDirection.right.z, 0, -Input.GetAxis("Horizontal") * 20 * cameraDirection.right.x)

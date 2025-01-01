@@ -44,18 +44,18 @@ public class RotationControl : MonoBehaviour
             transform.localEulerAngles = inputDirections;
         }
 
-        //else
-        //{
-        //    Vector3 inputDirections =
-        //                    new Vector3(Input.GetAxis("Horizontal") * 20 * cameraDirection.right.z, 0, -Input.GetAxis("Horizontal") * 20 * //cameraDirection.right.x)
-        //
-        //                    +
-        //
-        //                    new Vector3(Input.GetAxis("Vertical") * 20 * cameraDirection.forward.z, 0, -Input.GetAxis("Vertical") * 20 * //cameraDirection.forward.x)
-        //                  ;
-        //
-        //    transform.localEulerAngles = -inputDirections;
-        //}
+        else
+        {
+            Vector3 inputDirections =
+                            new Vector3(Input.GetAxis("Horizontal") * 20 * cameraDirection.right.z, 0, Input.GetAxis("Horizontal") * 20 * cameraDirection.right.x)
+        
+                            +
+        
+                            new Vector3(Input.GetAxis("Vertical") * 20 * cameraDirection.forward.z, 0, Input.GetAxis("Vertical") * 20 * cameraDirection.forward.x)
+                          ;
+        
+            transform.localEulerAngles = -inputDirections;
+        }
 
         
 

@@ -18,13 +18,12 @@ public class ClickDetection : MonoBehaviour
 
         for (int i = 0; i < loadedAnts.Length; i++)
         {
-            loadedAnts[i].followingPlayer = true;
+            loadedAnts[i].FollowPlayer();
         }
     }
     // Update is called once per frame
     void Update()
     {
-        antAgent.SetDestination(player.transform.position);
         if (Input.GetMouseButtonDown(0))
         {
             antAgent.SetDestination(transform.position);
@@ -46,6 +45,7 @@ public class ClickDetection : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100.0f, clickMask))
             {
                 clickPosition = hit.point;
+                loadedAnts[0].ReturnHome();
                 Debug.Log("send ant to " + clickPosition);
             }
         }

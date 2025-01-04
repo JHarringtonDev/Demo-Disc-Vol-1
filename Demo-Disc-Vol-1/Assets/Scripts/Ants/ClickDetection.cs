@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class ClickDetection : MonoBehaviour
 {
     [SerializeField] LayerMask clickMask;
+    [SerializeField] NavMeshAgent playerAgent;
+
     // Update is called once per frame
     void Update()
     {
@@ -16,6 +20,7 @@ public class ClickDetection : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100.0f, clickMask))
             {
                 clickPosition = hit.point;
+                playerAgent.SetDestination(clickPosition);
                 Debug.Log("move player to " + clickPosition);
             }
         }

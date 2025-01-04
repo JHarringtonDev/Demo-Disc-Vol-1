@@ -7,13 +7,27 @@ using UnityEngine.UI;
 public class ClickDetection : MonoBehaviour
 {
     [SerializeField] LayerMask clickMask;
+    [SerializeField] GameObject player;
     [SerializeField] NavMeshAgent playerAgent;
+    [SerializeField] NavMeshAgent antAgent;
+    AntScript[] loadedAnts;
 
+    private void Start()
+    {
+        loadedAnts = FindObjectsOfType<AntScript>(); 
+
+        for (int i = 0; i < loadedAnts.Length; i++)
+        {
+            loadedAnts[i].followingPlayer = true;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
+        antAgent.SetDestination(player.transform.position);
         if (Input.GetMouseButtonDown(0))
         {
+            antAgent.SetDestination(transform.position);
             Vector3 clickPosition = -Vector3.one;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

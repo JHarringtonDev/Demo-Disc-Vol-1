@@ -5,9 +5,11 @@ using UnityEngine.AI;
 
 public class AntScript : MonoBehaviour
 {
-    bool followingPlayer;
+    public bool followingPlayer;
 
-    bool returningHome;
+    [SerializeField] bool returningHome;
+
+    Vector3 followTarget;
 
     HomeScript homeScript;
 
@@ -27,12 +29,15 @@ public class AntScript : MonoBehaviour
     {
         if (followingPlayer)
         {
-            antAgent.SetDestination(antPlayer.transform.position);
+            followTarget = antPlayer. transform.position;
         }
         else if(returningHome)
         {
-            antAgent.SetDestination(homeScript.transform.position);
+            followTarget = homeScript.transform.position;
+            Debug.Log(homeScript.transform.position);
         }
+
+        antAgent.SetDestination(followTarget);
     }
 
     public void FollowPlayer()
@@ -41,10 +46,12 @@ public class AntScript : MonoBehaviour
         followingPlayer = true;
     }
 
-    public void ReturnHome()
+    public void SendAnt(Vector3 antDestination)
     {
-        returningHome = true;
+        returningHome = false;
         followingPlayer = false;
-        Debug.Log("destination set home");
+        
+        followTarget = antDestination;
+
     }
 }

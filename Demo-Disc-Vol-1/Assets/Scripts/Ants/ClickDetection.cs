@@ -39,13 +39,21 @@ public class ClickDetection : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
+            int antIndex = 0;
+            for(int i = 0;i < loadedAnts.Length; i++)
+            {
+                if (loadedAnts[i].followingPlayer)
+                {
+                    antIndex = i; break;
+                }
+            }
             Vector3 clickPosition = -Vector3.one;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 100.0f, clickMask))
             {
                 clickPosition = hit.point;
-                loadedAnts[0].ReturnHome();
+                loadedAnts[antIndex].SendAnt(clickPosition);
                 Debug.Log("send ant to " + clickPosition);
             }
         }

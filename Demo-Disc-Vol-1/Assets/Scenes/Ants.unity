@@ -611,6 +611,7 @@ MonoBehaviour:
   player: {fileID: 1929573999}
   playerAgent: {fileID: 1929574000}
   antAgent: {fileID: 99356369}
+  returnClickRange: 4
 --- !u!4 &481600250
 Transform:
   m_ObjectHideFlags: 0

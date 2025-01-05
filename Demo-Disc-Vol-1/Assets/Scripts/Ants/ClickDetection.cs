@@ -10,6 +10,7 @@ public class ClickDetection : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] NavMeshAgent playerAgent;
     [SerializeField] NavMeshAgent antAgent;
+    [SerializeField] float returnClickRange;
     AntScript[] loadedAnts;
 
     private void Start()
@@ -39,8 +40,8 @@ public class ClickDetection : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            int antIndex = 0;
-            for(int i = 0;i < loadedAnts.Length; i++)
+            int antIndex = -1;
+            for (int i = 0; i < loadedAnts.Length; i++)
             {
                 if (loadedAnts[i].followingPlayer)
                 {
@@ -50,7 +51,7 @@ public class ClickDetection : MonoBehaviour
             Vector3 clickPosition = -Vector3.one;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100.0f, clickMask))
+            if (Physics.Raycast(ray, out hit, 100.0f, clickMask) && antIndex != -1)
             {
                 clickPosition = hit.point;
                 loadedAnts[antIndex].SendAnt(clickPosition);
@@ -65,7 +66,16 @@ public class ClickDetection : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100.0f, clickMask))
             {
                 clickPosition = hit.point;
-                Debug.Log("ants in range of " + clickPosition + " return to player");
+                //Debug.Log("ants in range of " + clickPosition + " return to player");
+            }
+            Collider[] hitColliders = Physics.OverlapSphere(clickPosition, returnClickRange);
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider.GetComponent<AntScript>() != null)
+                {
+                    AntScript ant = hitCollider.GetComponent<AntScript>();
+                    ant.FollowPlayer();
+                }
             }
         }
     }

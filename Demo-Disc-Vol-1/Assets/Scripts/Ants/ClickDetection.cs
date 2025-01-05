@@ -11,11 +11,14 @@ public class ClickDetection : MonoBehaviour
     [SerializeField] NavMeshAgent playerAgent;
     [SerializeField] NavMeshAgent antAgent;
     [SerializeField] float returnClickRange;
+
     AntScript[] loadedAnts;
+    ClickIndicator clickIndicator;
 
     private void Start()
     {
         loadedAnts = FindObjectsOfType<AntScript>(); 
+        clickIndicator = FindObjectOfType<ClickIndicator>();
 
         for (int i = 0; i < loadedAnts.Length; i++)
         {
@@ -35,6 +38,7 @@ public class ClickDetection : MonoBehaviour
             {
                 clickPosition = hit.point;
                 playerAgent.SetDestination(clickPosition);
+                clickIndicator.StartCoroutine(clickIndicator.ClickIndication(clickPosition, 1));
                 Debug.Log("move player to " + clickPosition);
             }
         }
@@ -54,6 +58,7 @@ public class ClickDetection : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100.0f, clickMask) && antIndex != -1)
             {
                 clickPosition = hit.point;
+                clickIndicator.StartCoroutine(clickIndicator.ClickIndication(clickPosition, 2));
                 loadedAnts[antIndex].SendAnt(clickPosition);
                 Debug.Log("send ant to " + clickPosition);
             }
@@ -66,6 +71,7 @@ public class ClickDetection : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100.0f, clickMask))
             {
                 clickPosition = hit.point;
+                clickIndicator.StartCoroutine(clickIndicator.ClickIndication(clickPosition, 3));
                 //Debug.Log("ants in range of " + clickPosition + " return to player");
             }
             Collider[] hitColliders = Physics.OverlapSphere(clickPosition, returnClickRange);
@@ -74,6 +80,7 @@ public class ClickDetection : MonoBehaviour
                 if (hitCollider.GetComponent<AntScript>() != null)
                 {
                     AntScript ant = hitCollider.GetComponent<AntScript>();
+
                     ant.FollowPlayer();
                 }
             }

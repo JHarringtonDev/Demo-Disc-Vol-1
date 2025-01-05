@@ -55,7 +55,7 @@ public class ClickDetection : MonoBehaviour
             Vector3 clickPosition = -Vector3.one;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100.0f, clickMask) && antIndex != -1)
+            if (Physics.Raycast(ray, out hit, 100.0f) && antIndex != -1)
             {
                 clickPosition = hit.point;
                 clickIndicator.StartCoroutine(clickIndicator.ClickIndication(clickPosition, 2));
@@ -68,7 +68,7 @@ public class ClickDetection : MonoBehaviour
             Vector3 clickPosition = -Vector3.one;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100.0f, clickMask))
+            if (Physics.Raycast(ray, out hit, 100.0f))
             {
                 clickPosition = hit.point;
                 clickIndicator.StartCoroutine(clickIndicator.ClickIndication(clickPosition, 3));

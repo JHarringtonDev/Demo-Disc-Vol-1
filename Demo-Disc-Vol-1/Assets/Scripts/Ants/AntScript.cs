@@ -33,8 +33,7 @@ public class AntScript : MonoBehaviour
         }
         else if(returningHome)
         {
-            followTarget = homeScript.transform.position;
-            Debug.Log(homeScript.transform.position);
+            followTarget = new Vector3(44,0,0);
         }
 
         antAgent.SetDestination(followTarget);
@@ -52,6 +51,12 @@ public class AntScript : MonoBehaviour
         followingPlayer = false;
         
         followTarget = antDestination;
+    }
 
+    public void SendHome()
+    {
+        returningHome = true;
+        followingPlayer = false;
+        followTarget = homeScript.transform.position;
     }
 }

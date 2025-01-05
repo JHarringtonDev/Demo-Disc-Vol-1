@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4715423679620373269}
   - component: {fileID: 5235440435867837494}
   - component: {fileID: 4309137130512363900}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Ant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a783613f8a1cecf4e91f5c824056b600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followingPlayer: 0
+  returningHome: 0
 --- !u!1 &4082671991933041788
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +133,7 @@ GameObject:
   - component: {fileID: 7425896566390681945}
   - component: {fileID: 4526853518170652656}
   - component: {fileID: 5475509913975604190}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Ant Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}

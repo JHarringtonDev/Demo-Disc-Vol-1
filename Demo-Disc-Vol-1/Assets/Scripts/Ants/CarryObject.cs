@@ -11,6 +11,7 @@ public class CarryObject : MonoBehaviour
     [SerializeField] bool goingHome;
     [SerializeField] TextMeshProUGUI requirementDisplay;
 
+    BoxCollider antCheck;
     NavMeshAgent agent;
     HomeScript homeScript;
 
@@ -19,6 +20,7 @@ public class CarryObject : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         homeScript = FindObjectOfType<HomeScript>();
         requirementDisplay.text = "0 / " + requiredAnts;
+        antCheck = GetComponent<BoxCollider>();
     }
 
     private void Update()
@@ -59,6 +61,8 @@ public class CarryObject : MonoBehaviour
             {
                 ant.GetComponent<AntScript>().SendHome();
             }
+            antCheck.enabled = false;
+            requirementDisplay.transform.parent.gameObject.SetActive(false);
             goingHome = true;
         }
 

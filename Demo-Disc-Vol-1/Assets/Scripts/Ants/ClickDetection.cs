@@ -76,11 +76,9 @@ public class ClickDetection : MonoBehaviour
             Collider[] hitColliders = Physics.OverlapSphere(clickPosition, returnClickRange);
             foreach (var hitCollider in hitColliders)
             {
-                Debug.Log(hitCollider.gameObject.name + " Detected");
                 if (hitCollider.GetComponent<AntScript>() != null)
                 {
                     AntScript ant = hitCollider.GetComponent<AntScript>();
-                    Debug.Log("Return to player");
                     ant.FollowPlayer();
                 }
             }

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followingPlayer: 1
   returningHome: 0
-  moveSpeed: 5
+  moveSpeed: 3
 --- !u!1 &4082671991933041788
 GameObject:
   m_ObjectHideFlags: 0

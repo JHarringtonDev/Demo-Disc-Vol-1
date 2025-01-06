@@ -60,7 +60,6 @@ public class ClickDetection : MonoBehaviour
                 clickPosition = hit.point;
                 clickIndicator.StartCoroutine(clickIndicator.ClickIndication(clickPosition, 2));
                 loadedAnts[antIndex].SendAnt(clickPosition);
-                Debug.Log("send ant to " + clickPosition);
             }
         }
         else if (Input.GetMouseButtonDown(2))
@@ -77,10 +76,11 @@ public class ClickDetection : MonoBehaviour
             Collider[] hitColliders = Physics.OverlapSphere(clickPosition, returnClickRange);
             foreach (var hitCollider in hitColliders)
             {
+                Debug.Log(hitCollider.gameObject.name + " Detected");
                 if (hitCollider.GetComponent<AntScript>() != null)
                 {
                     AntScript ant = hitCollider.GetComponent<AntScript>();
-
+                    Debug.Log("Return to player");
                     ant.FollowPlayer();
                 }
             }

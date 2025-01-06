@@ -9,6 +9,8 @@ public class AntScript : MonoBehaviour
 
     [SerializeField] bool returningHome;
 
+    [SerializeField] float moveSpeed;
+
     Vector3 followTarget;
 
     HomeScript homeScript;
@@ -29,20 +31,22 @@ public class AntScript : MonoBehaviour
     {
         if (followingPlayer)
         {
-            followTarget = antPlayer. transform.position;
+            followTarget = antPlayer.transform.position;
         }
         else if(returningHome)
         {
             followTarget = new Vector3(44,0,0);
         }
 
-        antAgent.SetDestination(followTarget);
+        transform.position = Vector3.MoveTowards(transform.position, followTarget, moveSpeed * Time.deltaTime);
     }
 
     public void FollowPlayer()
     {
         returningHome = false;
         followingPlayer = true;
+
+        followTarget = antPlayer.transform.position;
     }
 
     public void SendAnt(Vector3 antDestination)
@@ -57,6 +61,5 @@ public class AntScript : MonoBehaviour
     {
         returningHome = true;
         followingPlayer = false;
-        followTarget = homeScript.transform.position;
     }
 }

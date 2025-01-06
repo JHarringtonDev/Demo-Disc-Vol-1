@@ -39,6 +39,11 @@ public class CarryObject : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+            Invoke("checkAnts", 1f);
+    }
+
     void checkAnts()
     {
         int antsInRange = 0;

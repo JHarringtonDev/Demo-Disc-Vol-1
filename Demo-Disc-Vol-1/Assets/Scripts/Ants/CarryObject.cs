@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,14 +8,17 @@ public class CarryObject : MonoBehaviour
 {
     [SerializeField] int requiredAnts;
     [SerializeField] float antCheckRadius;
+    [SerializeField] bool goingHome;
+    [SerializeField] TextMeshProUGUI requirementDisplay;
+
     NavMeshAgent agent;
     HomeScript homeScript;
-    [SerializeField] bool goingHome;
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         homeScript = FindObjectOfType<HomeScript>();
+        requirementDisplay.text = "0 / " + requiredAnts;
     }
 
     private void Update()
@@ -57,5 +61,7 @@ public class CarryObject : MonoBehaviour
             }
             goingHome = true;
         }
+
+        requirementDisplay.text = antsInRange + " / " + requiredAnts;
     }
 }

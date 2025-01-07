@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,10 @@ public class AntScript : MonoBehaviour
     [SerializeField] bool returningHome;
 
     [SerializeField] float moveSpeed;
+
+    bool canChangePath = true;
+
+    [SerializeField] bool returningToPlayer;
 
     Vector3 followTarget;
 
@@ -29,7 +34,7 @@ public class AntScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (followingPlayer)
+        if (followingPlayer || returningToPlayer)
         {
             followTarget = antPlayer.transform.position;
         }
@@ -45,7 +50,8 @@ public class AntScript : MonoBehaviour
     {
         returningHome = false;
         followingPlayer = true;
-
+        returningToPlayer = false;
+        canChangePath = true;
         followTarget = antPlayer.transform.position;
     }
 
@@ -57,9 +63,23 @@ public class AntScript : MonoBehaviour
         followTarget = antDestination;
     }
 
+    public void ReturnToPlayer()
+    {
+        Debug.Log(gameObject.name + " returning to player");
+        returningHome = false;
+        followingPlayer = false;
+        returningToPlayer = true;
+    }
     public void SendHome()
     {
         returningHome = true;
         followingPlayer = false;
+
+        canChangePath = false;
+    }
+
+    public bool canChange()
+    {
+        return canChangePath;
     }
 }

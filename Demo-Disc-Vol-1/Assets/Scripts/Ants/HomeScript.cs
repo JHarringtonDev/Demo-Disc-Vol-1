@@ -9,7 +9,7 @@ public class HomeScript : MonoBehaviour
         if(other.GetComponent<AntScript>() != null)
         {
             AntScript triggeredAnt = other.GetComponent<AntScript>();
-            triggeredAnt.FollowPlayer();
+            triggeredAnt.ReturnToPlayer();
         }
     }
 }

@@ -30,7 +30,6 @@ public class ClickDetection : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            antAgent.SetDestination(transform.position);
             Vector3 clickPosition = -Vector3.one;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -78,8 +77,11 @@ public class ClickDetection : MonoBehaviour
             {
                 if (hitCollider.GetComponent<AntScript>() != null)
                 {
-                    AntScript ant = hitCollider.GetComponent<AntScript>();
-                    ant.FollowPlayer();
+                    if (hitCollider.GetComponent<AntScript>().canChange())
+                    {
+                        AntScript ant = hitCollider.GetComponent<AntScript>();
+                        ant.ReturnToPlayer();
+                    }
                 }
             }
         }

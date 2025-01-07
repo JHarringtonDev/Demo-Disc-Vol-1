@@ -43,7 +43,7 @@ public class AntScript : MonoBehaviour
             followTarget = new Vector3(44,0,0);
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, followTarget, moveSpeed * Time.deltaTime);
+        antAgent.SetDestination(followTarget);
     }
 
     public void FollowPlayer()

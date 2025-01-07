@@ -6,11 +6,12 @@ using UnityEngine.AI;
 
 public class AntScript : MonoBehaviour
 {
-    public bool followingPlayer;
 
     [SerializeField] bool returningHome;
 
     [SerializeField] float moveSpeed;
+
+    [SerializeField] bool followingPlayer;
 
     bool canChangePath = true;
 
@@ -69,6 +70,7 @@ public class AntScript : MonoBehaviour
         returningHome = false;
         followingPlayer = false;
         returningToPlayer = true;
+        canChangePath = false;
     }
     public void SendHome()
     {
@@ -81,5 +83,15 @@ public class AntScript : MonoBehaviour
     public bool canChange()
     {
         return canChangePath;
+    }
+
+    public bool checkReturning()
+    {
+        return returningToPlayer;
+    }
+
+    public bool checkFollow()
+    {
+        return followingPlayer;
     }
 }

@@ -8,8 +8,13 @@ public class AntPlayer : MonoBehaviour
     {
         if (other.GetComponent<AntScript>() != null)
         {
-            AntScript triggeredAnt = other.GetComponent<AntScript>();
-            triggeredAnt.FollowPlayer();
+            Debug.Log("Ant Detected");
+            if(other.GetComponent<AntScript>().checkReturning()) 
+            {
+                Debug.Log("returnChecked");
+                AntScript triggeredAnt = other.GetComponent<AntScript>();
+                triggeredAnt.FollowPlayer();
+            }
         }
     }
 }

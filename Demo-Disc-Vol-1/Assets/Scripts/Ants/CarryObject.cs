@@ -55,8 +55,11 @@ public class CarryObject : MonoBehaviour
         {
             if (hitCollider.GetComponent<AntScript>() != null)
             {
-                checkedAnts.Add(hitCollider.gameObject);
-                antsInRange++;
+                if(hitCollider.GetComponent<AntScript>().canChange() && !hitCollider.GetComponent<AntScript>().checkFollow()) 
+                { 
+                    checkedAnts.Add(hitCollider.gameObject);
+                    antsInRange++;
+                }
             }
         }
 

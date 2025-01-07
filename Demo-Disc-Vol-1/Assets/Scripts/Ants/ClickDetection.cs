@@ -46,7 +46,7 @@ public class ClickDetection : MonoBehaviour
             int antIndex = -1;
             for (int i = 0; i < loadedAnts.Length; i++)
             {
-                if (loadedAnts[i].followingPlayer)
+                if (loadedAnts[i].checkFollow())
                 {
                     antIndex = i; break;
                 }

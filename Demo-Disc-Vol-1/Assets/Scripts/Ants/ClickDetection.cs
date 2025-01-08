@@ -14,11 +14,13 @@ public class ClickDetection : MonoBehaviour
 
     AntScript[] loadedAnts;
     ClickIndicator clickIndicator;
+    AntCamera cam;
 
     private void Start()
     {
         loadedAnts = FindObjectsOfType<AntScript>(); 
         clickIndicator = FindObjectOfType<ClickIndicator>();
+        cam = FindObjectOfType<AntCamera>();
 
         for (int i = 0; i < loadedAnts.Length; i++)
         {
@@ -40,6 +42,7 @@ public class ClickDetection : MonoBehaviour
                 clickIndicator.StartCoroutine(clickIndicator.ClickIndication(clickPosition, 1));
                 Debug.Log("move player to " + clickPosition);
             }
+            cam.centerRotation();
         }
         else if (Input.GetMouseButtonDown(1))
         {

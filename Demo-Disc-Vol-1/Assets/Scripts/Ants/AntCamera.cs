@@ -5,20 +5,52 @@ using UnityEngine;
 public class AntCamera : MonoBehaviour
 {
     float cameraRotation;
+    bool canRotate = true;
     [SerializeField] float rotationSpeed;
     [SerializeField] float rotationCap;
 
     // Update is called once per frame
     void Update()
     {
-        cameraRotation += Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
-        float yRotation = Mathf.Clamp(cameraRotation, -rotationCap, rotationCap);
+        if (canRotate)
+        {
+            cameraRotation += Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
 
-        transform.localEulerAngles = new Vector3 (transform.localEulerAngles.x, yRotation, transform.localEulerAngles.z);
+        }
+        else if (Mathf.Floor(cameraRotation) < 0)
+        {
+            increaseToZero();
+        }
+        else if (Mathf.Floor(cameraRotation) > 0)
+        {
+            reduceToZero();
+        }
+        else if (Mathf.Floor(cameraRotation) == 0)
+        {
+            canRotate = true;
+            cameraRotation = 0;
+        }
+            float yRotation = Mathf.Clamp(cameraRotation, -rotationCap, rotationCap);
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, yRotation, transform.localEulerAngles.z);
     }
 
     public void centerRotation()
     {
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, 0, transform.localEulerAngles.z);
+        canRotate = false;
+        //canRotate = false;
+        //transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, 0, transform.localEulerAngles.z);
+        //canRotate = true;
+    }
+
+    void reduceToZero()
+    {
+        Debug.Log("Running reduce");
+        cameraRotation -= rotationSpeed * 2 * Time.deltaTime;
+    }
+
+    void increaseToZero()
+    {
+        Debug.Log("Running increase");
+        cameraRotation += rotationSpeed * 2 * Time.deltaTime;
     }
 }

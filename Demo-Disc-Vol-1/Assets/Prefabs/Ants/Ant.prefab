@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a783613f8a1cecf4e91f5c824056b600, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followingPlayer: 1
   returningHome: 0
   moveSpeed: 3
+  followingPlayer: 1
   returningToPlayer: 0
 --- !u!195 &2184863877083929646
 NavMeshAgent:
@@ -116,7 +116,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

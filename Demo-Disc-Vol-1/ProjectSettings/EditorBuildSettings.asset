@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ants.unity
     guid: 960a31976eab9fb4fa6b0401a9ab7c79
+  - enabled: 1
+    path: Assets/Scenes/Fantasy.unity
+    guid: e97f5651368e6494ba042098ca916d8a
   m_configObjects: {}

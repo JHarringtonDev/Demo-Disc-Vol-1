@@ -564,7 +564,7 @@ GameObject:
   - component: {fileID: 471337747}
   - component: {fileID: 471337746}
   m_Layer: 5
-  m_Name: TBD 4
+  m_Name: Fantasy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8fbb1ba4bc62e3499f0f769d2100988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetScene: 
+  targetScene: Fantasy
 --- !u!114 &471337747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -646,7 +646,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 471337748}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 471337746}
+        m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
+        m_MethodName: ChangeScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &471337748
 MonoBehaviour:
   m_ObjectHideFlags: 0

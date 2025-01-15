@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FantasyPlayer : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class FantasyPlayer : MonoBehaviour
     {
         //transform.position = transform.position + new Vector3(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, 0, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
 
-        rb.MovePosition(transform.position + new Vector3(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, 0, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime));
+        Vector3 playerInput = new Vector3(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, 0, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
+
+        rb.MovePosition(transform.position + playerInput);
+
+        transform.LookAt(transform.position + playerInput);
     }
 }

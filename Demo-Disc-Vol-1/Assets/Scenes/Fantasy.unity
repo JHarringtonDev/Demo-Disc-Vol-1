@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canEncounter: 0
+  encounterDelay: 1
+  encounterRate: 0.11
 --- !u!65 &580198487
 BoxCollider:
   m_ObjectHideFlags: 0

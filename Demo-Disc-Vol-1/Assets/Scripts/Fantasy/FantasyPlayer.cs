@@ -7,6 +7,8 @@ public class FantasyPlayer : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
 
+    Vector3 playerInput;
+
     Rigidbody rb;
     // Start is called before the first frame update
     void Start()
@@ -19,10 +21,15 @@ public class FantasyPlayer : MonoBehaviour
     {
         //transform.position = transform.position + new Vector3(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, 0, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
 
-        Vector3 playerInput = new Vector3(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, 0, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
+        playerInput = new Vector3(Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime, 0, Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime);
 
         rb.MovePosition(transform.position + playerInput);
 
         transform.LookAt(transform.position + playerInput);
+    }
+
+    public Vector3 GetPlayerInput()
+    {
+        return playerInput;
     }
 }

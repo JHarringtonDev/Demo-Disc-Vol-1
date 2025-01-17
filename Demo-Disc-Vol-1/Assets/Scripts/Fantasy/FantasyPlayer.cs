@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class FantasyPlayer : MonoBehaviour
 {
     [SerializeField] float moveSpeed;
+    [SerializeField] Animator playerAnimator;
 
     Vector3 playerInput;
 
@@ -26,6 +27,15 @@ public class FantasyPlayer : MonoBehaviour
         rb.MovePosition(transform.position + playerInput);
 
         transform.LookAt(transform.position + playerInput);
+
+        if(playerInput != Vector3.zero)
+        {
+            playerAnimator.SetBool("isRunning", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("isRunning", false);
+        }
     }
 
     public Vector3 GetPlayerInput()

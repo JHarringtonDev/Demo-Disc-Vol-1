@@ -446,7 +446,7 @@ GameObject:
   - component: {fileID: 478077447}
   - component: {fileID: 478077446}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Battle Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -611,7 +611,7 @@ GameObject:
   - component: {fileID: 587299208}
   - component: {fileID: 587299207}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Batlle Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -852,7 +852,7 @@ GameObject:
   - component: {fileID: 685690389}
   - component: {fileID: 685690388}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Overworld Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1285,7 +1285,7 @@ GameObject:
   - component: {fileID: 990750070}
   - component: {fileID: 990750069}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Overworld Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1635,7 +1635,6 @@ Transform:
   m_Children:
   - {fileID: 1906341241}
   - {fileID: 685690391}
-  - {fileID: 1716985183}
   - {fileID: 990750072}
   - {fileID: 580198488}
   m_Father: {fileID: 0}
@@ -1729,7 +1728,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1404536262}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Battle Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2134,11 +2133,11 @@ Transform:
   m_GameObject: {fileID: 1716985181}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 101.76308, y: -1042.8522, z: -1928.3915}
+  m_LocalPosition: {x: 148.0891, y: -1032.8711, z: -1877.3397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1240272970}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1731440146
 GameObject:
@@ -2511,7 +2510,7 @@ GameObject:
   - component: {fileID: 1906341240}
   - component: {fileID: 1906341239}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: Overworld Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3059,3 +3058,4 @@ SceneRoots:
   - {fileID: 901163971}
   - {fileID: 1583560284}
   - {fileID: 1044101580}
+  - {fileID: 1716985183}

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class BattleScript : MonoBehaviour
 {
+    [SerializeField] float exitTime;
+
     [SerializeField] Animator playerAnimator;
     [SerializeField] Animator enemyAnimator;
     [SerializeField] GameObject overWorldScene;
@@ -33,6 +35,12 @@ public class BattleScript : MonoBehaviour
 
     public void Run() 
     {
+        StartCoroutine(ExitBattle());
+    }
+
+    IEnumerator ExitBattle()
+    {
+        yield return new WaitForSeconds(exitTime);
         overWorldScene.SetActive(true);
     }
 }

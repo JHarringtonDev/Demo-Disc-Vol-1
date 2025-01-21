@@ -12,14 +12,15 @@ public class EncounterScript : MonoBehaviour
     [SerializeField] float encounterTime;
     [SerializeField] GameObject battleScene;
 
+    [SerializeField] FantasyPlayer playerController;
 
-    FantasyPlayer playerController;
 
     bool rollingEncounter;
 
     private void OnEnable()
     {
         battleScene.SetActive(false);
+        playerController.ExitBattle();
     }
 
     private void Start()
@@ -68,6 +69,7 @@ public class EncounterScript : MonoBehaviour
     IEnumerator activateEncounter()
     {
         Debug.Log("encounter begun");
+        playerController.EnterBattle();
         yield return new WaitForSeconds(encounterTime);
         battleScene.SetActive(true);
     }

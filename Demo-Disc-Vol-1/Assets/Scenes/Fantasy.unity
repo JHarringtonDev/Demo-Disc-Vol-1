@@ -561,6 +561,7 @@ MonoBehaviour:
   encounterRate: 0.11
   encounterTime: 3
   battleScene: {fileID: 1584026837}
+  playerController: {fileID: 990750070}
 --- !u!65 &580198487
 BoxCollider:
   m_ObjectHideFlags: 0

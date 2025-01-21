@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleScript : MonoBehaviour
 {
     [SerializeField] Animator playerAnimator;
     [SerializeField] Animator enemyAnimator;
+    [SerializeField] GameObject overWorldScene;
 
     // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        
+        overWorldScene.SetActive(false);
     }
 
     public void Attack()
@@ -31,6 +33,6 @@ public class BattleScript : MonoBehaviour
 
     public void Run() 
     {
-        Debug.Log("attempt escape");
+        overWorldScene.SetActive(true);
     }
 }

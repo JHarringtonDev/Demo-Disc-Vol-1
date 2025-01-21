@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EncounterScript : MonoBehaviour
 {
@@ -8,10 +9,18 @@ public class EncounterScript : MonoBehaviour
     [SerializeField] float encounterDelay;
     [SerializeField] float encounterRate;
 
+    [SerializeField] float encounterTime;
+    [SerializeField] GameObject battleScene;
+
 
     FantasyPlayer playerController;
 
     bool rollingEncounter;
+
+    private void OnEnable()
+    {
+        battleScene.SetActive(false);
+    }
 
     private void Start()
     {
@@ -49,15 +58,17 @@ public class EncounterScript : MonoBehaviour
         Debug.Log(encounterRoll);
         if(encounterRoll <= encounterRate)
         {
-            activateEncounter();
+            StartCoroutine(activateEncounter());
         }
 
         yield return new WaitForSeconds(encounterDelay);
         rollingEncounter = false;
     }
 
-    void activateEncounter()
+    IEnumerator activateEncounter()
     {
         Debug.Log("encounter begun");
+        yield return new WaitForSeconds(encounterTime);
+        battleScene.SetActive(true);
     }
 }

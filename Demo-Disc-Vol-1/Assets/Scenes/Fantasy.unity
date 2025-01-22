@@ -368,6 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493a7072cda82154ea34882731190c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exitTime: 0
   playerAnimator: {fileID: 1741904048}
   enemyAnimator: {fileID: 0}
   overWorldScene: {fileID: 1240272969}
@@ -1273,6 +1274,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 094c37e9d012f7e4ca8c7b2923f207c5, type: 3}
+--- !u!1 &950779889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 950779891}
+  - component: {fileID: 950779890}
+  m_Layer: 0
+  m_Name: Stat Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &950779890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950779889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6accc7e5966a38d449821c2d4165c328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  maxMagic: 100
+  attackPower: 0
+  level1Experience: 0
+  level2Experience: 0
+  level3Experience: 0
+  level4Experience: 0
+  level5Experience: 0
+  level6Experience: 0
+  level7Experience: 0
+  level8Experience: 0
+  level9Experience: 0
+  level10Experience: 0
+--- !u!4 &950779891
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950779889}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 46.32602, y: 9.981094, z: 51.051804}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &990750068
 GameObject:
   m_ObjectHideFlags: 0
@@ -3060,3 +3118,4 @@ SceneRoots:
   - {fileID: 1583560284}
   - {fileID: 1044101580}
   - {fileID: 1716985183}
+  - {fileID: 950779891}

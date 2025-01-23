@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,10 +12,20 @@ public class BattleScript : MonoBehaviour
     [SerializeField] Animator enemyAnimator;
     [SerializeField] GameObject overWorldScene;
 
+    [SerializeField] TextMeshProUGUI playerNameLvl;
+
+    StatManager stats;
+
     // Start is called before the first frame update
+    private void Awake()
+    {
+        stats = FindObjectOfType<StatManager>();
+    }
+
     private void OnEnable()
     {
         overWorldScene.SetActive(false);
+        playerNameLvl.text = $"Player Lvl. {stats.GetLevel()}";
     }
 
     public void Attack()

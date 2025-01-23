@@ -122,6 +122,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &9344653 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5713283556164312220, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
+  m_PrefabInstance: {fileID: 659372416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &279309944
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -368,10 +379,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 493a7072cda82154ea34882731190c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitTime: 0
+  exitTime: 3
   playerAnimator: {fileID: 1741904048}
   enemyAnimator: {fileID: 0}
   overWorldScene: {fileID: 1240272969}
+  playerNameLvl: {fileID: 9344653}
 --- !u!114 &447467826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1303,8 +1315,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6accc7e5966a38d449821c2d4165c328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  maxMagic: 100
+  maxHealth: 0
+  maxMagic: 0
   attackPower: 0
   experienceCurve:
     serializedVersion: 2
@@ -1330,6 +1342,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  attackMultiplier: 0
+  healthMultiplier: 0
+  magicMultiplier: 0
 --- !u!4 &950779891
 Transform:
   m_ObjectHideFlags: 0

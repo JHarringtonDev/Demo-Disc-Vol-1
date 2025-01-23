@@ -14,8 +14,8 @@ public class StatManager : MonoBehaviour
     [SerializeField] float healthMultiplier;
     [SerializeField] float magicMultiplier;
 
-    int currentLevel, totalExp;
-    int previousLevelExp, nextLevelExp;
+    int currentLevel = 1;
+    int previousLevelExp, totalExp, nextLevelExp;
 
     int currentMagic;
     int currentHealth;
@@ -74,5 +74,10 @@ public class StatManager : MonoBehaviour
         //previousLevelExp = (int)experienceCurve.Evaluate(currentLevel);
         nextLevelExp = (int)experienceCurve.Evaluate(currentLevel + 1);
         checkEXP();
+    }
+
+    public int GetLevel()
+    {
+        return currentLevel;
     }
 }

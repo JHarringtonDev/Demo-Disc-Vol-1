@@ -4,42 +4,38 @@ using UnityEngine;
 
 public class StatManager : MonoBehaviour
 {
-    [SerializeField] float maxHealth;
-    [SerializeField] float maxMagic;
-    [SerializeField] float attackPower;
+    [SerializeField] int maxHealth;
+    [SerializeField] int maxMagic;
+    [SerializeField] int attackPower;
 
-    [Header("Level thresholds")]
-    [SerializeField] int level1Experience;
-    [SerializeField] int level2Experience;
-    [SerializeField] int level3Experience;
-    [SerializeField] int level4Experience;
-    [SerializeField] int level5Experience;
-    [SerializeField] int level6Experience;
-    [SerializeField] int level7Experience;
-    [SerializeField] int level8Experience;
-    [SerializeField] int level9Experience;
-    [SerializeField] int level10Experience;
+    [Header("Level Up")]
+    [SerializeField] AnimationCurve experienceCurve;
+    [SerializeField] float attackMultiplier;
+    [SerializeField] float healthMultiplier;
+    [SerializeField] float magicMultiplier;
 
+    int currentLevel, totalExp;
+    int previousLevelExp, nextLevelExp;
 
-    int expPoints = 0;
-    int playerLevel;
-    float currentMagic;
-    float currentHealth;
+    int currentMagic;
+    int currentHealth;
+    int baseHealth;
+    int baseMagic;
+    int baseAttack;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         currentMagic = maxMagic;
+
+        baseHealth = maxHealth;
+        baseMagic = maxMagic;
+        baseAttack = attackPower;
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void DamagePlayer(float damage)
+    public void DamagePlayer(int damage)
     {
         currentHealth -= damage;
     }
@@ -54,9 +50,15 @@ public class StatManager : MonoBehaviour
         return currentMagic;
     }
 
+    public void GainExp(int gained)
+    {
+        totalExp += gained;
+        checkEXP();
+    }
+
     void checkEXP()
     {
-        if (expPoints > level1Experience && playerLevel < 2)
+        if(totalExp >= nextLevelExp)
         {
             levelUp();
         }
@@ -64,6 +66,13 @@ public class StatManager : MonoBehaviour
 
     void levelUp()
     {
+        currentLevel++;
+        maxHealth = baseHealth + (int)(currentLevel * healthMultiplier);
+        baseMagic = baseMagic + (int)(currentLevel * magicMultiplier);
+        attackPower = baseAttack + (int)(currentLevel * attackMultiplier);
 
+        //previousLevelExp = (int)experienceCurve.Evaluate(currentLevel);
+        nextLevelExp = (int)experienceCurve.Evaluate(currentLevel + 1);
+        checkEXP();
     }
 }

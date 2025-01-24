@@ -384,6 +384,14 @@ MonoBehaviour:
   enemyAnimator: {fileID: 0}
   overWorldScene: {fileID: 1240272969}
   playerNameLvl: {fileID: 9344653}
+  HPNumber: {fileID: 659372421}
+  MPNumber: {fileID: 659372420}
+  HPBar: {fileID: 659372419}
+  MPBar: {fileID: 659372418}
+  maxHP: 10
+  maxMP: 10
+  currentHP: 0
+  currentMP: 0
 --- !u!114 &447467826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,6 +767,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 447467824}
     m_Modifications:
+    - target: {fileID: 583935623553406691, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3011829274503983738, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -853,6 +865,50 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3011829274503983738, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
   m_PrefabInstance: {fileID: 659372416}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &659372418 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4250762335340714687, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
+  m_PrefabInstance: {fileID: 659372416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &659372419 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8347758402339349726, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
+  m_PrefabInstance: {fileID: 659372416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &659372420 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3523225276770025477, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
+  m_PrefabInstance: {fileID: 659372416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &659372421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3834668621556815692, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
+  m_PrefabInstance: {fileID: 659372416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &685690387
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,9 +1371,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6accc7e5966a38d449821c2d4165c328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 0
-  maxMagic: 0
-  attackPower: 0
+  maxHealth: 10
+  maxMagic: 10
+  attackPower: 10
   experienceCurve:
     serializedVersion: 2
     m_Curve:
@@ -1345,6 +1401,7 @@ MonoBehaviour:
   attackMultiplier: 0
   healthMultiplier: 0
   magicMultiplier: 0
+  battleUI: {fileID: 447467825}
 --- !u!4 &950779891
 Transform:
   m_ObjectHideFlags: 0

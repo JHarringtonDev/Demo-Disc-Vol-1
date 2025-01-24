@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class StatManager : MonoBehaviour
 {
+    [Header("Base Stats")]
     [SerializeField] int maxHealth;
     [SerializeField] int maxMagic;
     [SerializeField] int attackPower;
@@ -13,6 +14,9 @@ public class StatManager : MonoBehaviour
     [SerializeField] float attackMultiplier;
     [SerializeField] float healthMultiplier;
     [SerializeField] float magicMultiplier;
+
+    [Header("Scripts")]
+    [SerializeField] BattleScript battleUI;
 
     int currentLevel = 1;
     int previousLevelExp, totalExp, nextLevelExp;
@@ -38,16 +42,16 @@ public class StatManager : MonoBehaviour
     public void DamagePlayer(int damage)
     {
         currentHealth -= damage;
+        UpdateUIValues();
     }
 
-    public float GetHealth()
+    public void CastMagic()
     {
-        return currentHealth;
-    }
-
-    public float GetMagic()
-    {
-        return currentMagic;
+        if(currentMagic >= 5) 
+        {
+            currentMagic -= 5;
+            UpdateUIValues();
+        }
     }
 
     public void GainExp(int gained)
@@ -80,4 +84,14 @@ public class StatManager : MonoBehaviour
     {
         return currentLevel;
     }
+
+    public void UpdateUIValues()
+    {
+        battleUI.currentHP = (float)currentHealth;
+        battleUI.currentMP = (float)currentMagic;
+        battleUI.maxHP = (float)maxHealth;
+        battleUI.maxMP = (float)maxMagic;
+        battleUI.UpdateUI();
+    }
+
 }

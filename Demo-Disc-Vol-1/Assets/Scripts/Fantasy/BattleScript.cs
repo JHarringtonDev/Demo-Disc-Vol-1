@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BattleScript : MonoBehaviour
 {
@@ -12,7 +13,19 @@ public class BattleScript : MonoBehaviour
     [SerializeField] Animator enemyAnimator;
     [SerializeField] GameObject overWorldScene;
 
+    [Header("UI Features")]
     [SerializeField] TextMeshProUGUI playerNameLvl;
+    [SerializeField] TextMeshProUGUI HPNumber;
+    [SerializeField] TextMeshProUGUI MPNumber;
+    [SerializeField] Image HPBar;
+    [SerializeField] Image MPBar;
+
+    [HideInInspector]
+    public float maxHP;
+    public float maxMP;
+    public float currentHP;
+    public float currentMP;
+
 
     StatManager stats;
 
@@ -25,7 +38,7 @@ public class BattleScript : MonoBehaviour
     private void OnEnable()
     {
         overWorldScene.SetActive(false);
-        playerNameLvl.text = $"Player Lvl. {stats.GetLevel()}";
+        stats.UpdateUIValues();
     }
 
     public void Attack()
@@ -36,12 +49,12 @@ public class BattleScript : MonoBehaviour
 
     public void Magic()
     {
-        Debug.Log("magic cast");
+        stats.CastMagic();
     }
 
     public void Item()
     {
-        Debug.Log("open items");
+        stats.DamagePlayer(5);
     }
 
     public void Run() 
@@ -53,5 +66,14 @@ public class BattleScript : MonoBehaviour
     {
         yield return new WaitForSeconds(exitTime);
         overWorldScene.SetActive(true);
+    }
+
+    public void UpdateUI()
+    {
+        playerNameLvl.text = $"Player Lvl. {stats.GetLevel()}";
+        HPNumber.text = $"{currentHP}";
+        MPNumber.text = $"{currentMP}";
+        HPBar.fillAmount =  currentHP / maxHP ; 
+        MPBar.fillAmount = currentMP / maxMP; 
     }
 }

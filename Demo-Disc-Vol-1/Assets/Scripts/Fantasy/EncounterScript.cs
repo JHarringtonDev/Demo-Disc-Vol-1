@@ -68,6 +68,7 @@ public class EncounterScript : MonoBehaviour
 
     IEnumerator activateEncounter()
     {
+        canEncounter = false;
         Debug.Log("encounter begun");
         playerController.EnterBattle();
         yield return new WaitForSeconds(encounterTime);

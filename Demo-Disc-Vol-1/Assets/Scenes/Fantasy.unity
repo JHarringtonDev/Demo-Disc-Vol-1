@@ -735,6 +735,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 639312099}
+  - component: {fileID: 639312100}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -759,6 +760,20 @@ Transform:
   - {fileID: 1652401964}
   m_Father: {fileID: 1584026838}
   m_LocalEulerAnglesHint: {x: 0, y: 223.91, z: 0}
+--- !u!114 &639312100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639312098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ad54d55b445b4c98aa12a4082f521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 20
+  healthBar: {fileID: 1704552296}
 --- !u!1001 &659372416
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2234,6 +2249,17 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1704552296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8347758402339349726, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
+  m_PrefabInstance: {fileID: 280949985}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1716985181
 GameObject:
   m_ObjectHideFlags: 0

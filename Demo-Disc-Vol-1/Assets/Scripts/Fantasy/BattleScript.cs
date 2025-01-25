@@ -28,6 +28,7 @@ public class BattleScript : MonoBehaviour
 
 
     StatManager stats;
+    FantasyEnemy enemy;
 
     // Start is called before the first frame update
     private void Awake()
@@ -39,12 +40,14 @@ public class BattleScript : MonoBehaviour
     {
         overWorldScene.SetActive(false);
         stats.UpdateUIValues();
+        enemy = FindObjectOfType<FantasyEnemy>();
     }
 
     public void Attack()
     {
         Debug.Log("player melee");
         playerAnimator.SetTrigger("Attack");
+        enemy.TakeDamage(5);
     }
 
     public void Magic()

@@ -47,12 +47,13 @@ public class BattleScript : MonoBehaviour
     {
         Debug.Log("player melee");
         playerAnimator.SetTrigger("Attack");
-        enemy.TakeDamage(5);
+        enemy.TakeDamage(3);
     }
 
     public void Magic()
     {
         stats.CastMagic();
+        enemy.TakeDamage(4);
     }
 
     public void Item()

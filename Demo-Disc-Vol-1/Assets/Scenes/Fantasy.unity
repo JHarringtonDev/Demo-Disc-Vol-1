@@ -312,9 +312,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5187225464603588922, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6154837860231952102, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
       propertyPath: m_Name
       value: Stat Display
+      objectReference: {fileID: 0}
+    - target: {fileID: 6803660573704988563, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -21.54
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1779,7 +1787,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1240272970
 Transform:
   m_ObjectHideFlags: 0
@@ -1993,7 +2001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1584026838
 Transform:
   m_ObjectHideFlags: 0

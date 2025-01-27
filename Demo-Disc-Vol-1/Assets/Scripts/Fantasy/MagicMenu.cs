@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class MagicMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void CastFire()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CastIce()
     {
-        
+
+    }
+
+    public void CastLightning()
+    {
+
+    }
+
+    public void Back()
+    {
+
     }
 }

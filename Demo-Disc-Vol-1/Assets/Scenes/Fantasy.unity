@@ -190,7 +190,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Attack
+  m_text: Potion
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -480,6 +480,7 @@ GameObject:
   - component: {fileID: 355871434}
   - component: {fileID: 355871433}
   - component: {fileID: 355871432}
+  - component: {fileID: 355871436}
   m_Layer: 5
   m_Name: Magic Menu
   m_TagString: Untagged
@@ -548,7 +549,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &355871435
 RectTransform:
@@ -570,6 +571,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &355871436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355871431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd3799cb19498d749b96de1b838ee5c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &357587684
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +640,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Item
+  m_text: Elixir
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -717,7 +730,7 @@ GameObject:
   - component: {fileID: 410905650}
   - component: {fileID: 410905649}
   m_Layer: 5
-  m_Name: Magic
+  m_Name: Ether
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -787,9 +800,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 022efaee39fac2d459e22ec720fdd45d, type: 3}
-        m_TargetAssemblyTypeName: BattleScript, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1424315168}
+        m_TargetAssemblyTypeName: ItemMenu, Assembly-CSharp
+        m_MethodName: UseEther
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1115,7 +1128,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Magic
+  m_text: Ether
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2417,7 +2430,7 @@ GameObject:
   - component: {fileID: 1207937533}
   - component: {fileID: 1207937532}
   m_Layer: 5
-  m_Name: Run
+  m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2487,9 +2500,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 022efaee39fac2d459e22ec720fdd45d, type: 3}
-        m_TargetAssemblyTypeName: BattleScript, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1424315168}
+        m_TargetAssemblyTypeName: ItemMenu, Assembly-CSharp
+        m_MethodName: Back
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2594,7 +2607,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Run
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2834,13 +2847,14 @@ GameObject:
   - component: {fileID: 1424315166}
   - component: {fileID: 1424315165}
   - component: {fileID: 1424315164}
+  - component: {fileID: 1424315168}
   m_Layer: 5
   m_Name: Item Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1424315164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2902,7 +2916,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &1424315167
 RectTransform:
@@ -2924,6 +2938,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1424315168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1424315163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022efaee39fac2d459e22ec720fdd45d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1463315915
 GameObject:
   m_ObjectHideFlags: 0
@@ -2937,7 +2963,7 @@ GameObject:
   - component: {fileID: 1463315918}
   - component: {fileID: 1463315917}
   m_Layer: 5
-  m_Name: Item
+  m_Name: Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3007,9 +3033,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: cd3799cb19498d749b96de1b838ee5c3, type: 3}
-        m_TargetAssemblyTypeName: BattleScript, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 355871436}
+        m_TargetAssemblyTypeName: MagicMenu, Assembly-CSharp
+        m_MethodName: CastLightning
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3818,7 +3844,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Magic
+  m_text: Ice
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3908,7 +3934,7 @@ GameObject:
   - component: {fileID: 1774652782}
   - component: {fileID: 1774652781}
   m_Layer: 5
-  m_Name: Magic
+  m_Name: Ice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3978,9 +4004,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: cd3799cb19498d749b96de1b838ee5c3, type: 3}
-        m_TargetAssemblyTypeName: BattleScript, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 355871436}
+        m_TargetAssemblyTypeName: MagicMenu, Assembly-CSharp
+        m_MethodName: CastIce
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4175,7 +4201,7 @@ GameObject:
   - component: {fileID: 1809034977}
   - component: {fileID: 1809034976}
   m_Layer: 5
-  m_Name: Item
+  m_Name: Elixir
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4245,9 +4271,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 022efaee39fac2d459e22ec720fdd45d, type: 3}
-        m_TargetAssemblyTypeName: BattleScript, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1424315168}
+        m_TargetAssemblyTypeName: ItemMenu, Assembly-CSharp
+        m_MethodName: UseElixir
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4308,7 +4334,7 @@ GameObject:
   - component: {fileID: 1851855380}
   - component: {fileID: 1851855379}
   m_Layer: 5
-  m_Name: Attack
+  m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4378,9 +4404,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: cd3799cb19498d749b96de1b838ee5c3, type: 3}
-        m_TargetAssemblyTypeName: BattleScript, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 355871436}
+        m_TargetAssemblyTypeName: MagicMenu, Assembly-CSharp
+        m_MethodName: CastFire
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4577,7 +4603,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Run
+  m_text: Back
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4711,7 +4737,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Item
+  m_text: Lightning
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5041,7 +5067,7 @@ GameObject:
   - component: {fileID: 2042558678}
   - component: {fileID: 2042558677}
   m_Layer: 5
-  m_Name: Attack
+  m_Name: Potion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5111,9 +5137,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 022efaee39fac2d459e22ec720fdd45d, type: 3}
-        m_TargetAssemblyTypeName: BattleScript, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1424315168}
+        m_TargetAssemblyTypeName: ItemMenu, Assembly-CSharp
+        m_MethodName: UsePotion
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5218,7 +5244,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Attack
+  m_text: Fire
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5467,7 +5493,7 @@ GameObject:
   - component: {fileID: 2095035614}
   - component: {fileID: 2095035613}
   m_Layer: 5
-  m_Name: Run
+  m_Name: Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5537,9 +5563,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: cd3799cb19498d749b96de1b838ee5c3, type: 3}
-        m_TargetAssemblyTypeName: BattleScript, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 355871436}
+        m_TargetAssemblyTypeName: MagicMenu, Assembly-CSharp
+        m_MethodName: Back
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

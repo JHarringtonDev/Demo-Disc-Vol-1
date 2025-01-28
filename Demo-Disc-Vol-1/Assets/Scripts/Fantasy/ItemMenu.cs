@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class ItemMenu : MonoBehaviour
 {
+    [SerializeField] GameObject actionCover;
+
+    private void OnEnable()
+    {
+        actionCover.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        actionCover.SetActive(false);
+    }
+
     public void UsePotion()
     {
 
@@ -21,6 +33,6 @@ public class ItemMenu : MonoBehaviour
 
     public void Back()
     {
-
+        gameObject.SetActive(false);
     }
 }

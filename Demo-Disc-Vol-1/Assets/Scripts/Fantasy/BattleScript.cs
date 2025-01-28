@@ -12,6 +12,8 @@ public class BattleScript : MonoBehaviour
     [SerializeField] Animator playerAnimator;
     [SerializeField] Animator enemyAnimator;
     [SerializeField] GameObject overWorldScene;
+    [SerializeField] GameObject magicMenu;
+    [SerializeField] GameObject itemMenu;
 
     [Header("UI Features")]
     [SerializeField] TextMeshProUGUI playerNameLvl;
@@ -52,13 +54,12 @@ public class BattleScript : MonoBehaviour
 
     public void Magic()
     {
-        stats.CastMagic();
-        enemy.TakeDamage(4);
+        magicMenu.SetActive(true);
     }
 
     public void Item()
     {
-        stats.DamagePlayer(2);
+        itemMenu.SetActive(true);
     }
 
     public void Run() 

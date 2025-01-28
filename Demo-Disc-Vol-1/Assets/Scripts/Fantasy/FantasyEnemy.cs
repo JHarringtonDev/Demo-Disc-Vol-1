@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class FantasyEnemy : MonoBehaviour
 {
     [SerializeField] int maxHealth;
+    [SerializeField] string typeResist;
+    [SerializeField] string typeWeakness;
+
     int currentHealth;
 
     [SerializeField] Image healthBar;
@@ -22,9 +25,21 @@ public class FantasyEnemy : MonoBehaviour
         healthBar.fillAmount = (float)currentHealth/(float)maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, string type)
     {
-        currentHealth -= damage;
+        if(typeResist.Contains(type))
+        {
+            currentHealth -= damage/2;
+        }
+        else if(typeWeakness.Contains(type))
+        {
+            currentHealth -= damage * 2;
+        }
+        else
+        {
+            currentHealth -= damage;
+        }
+
         showHealthValue();
     }
 }

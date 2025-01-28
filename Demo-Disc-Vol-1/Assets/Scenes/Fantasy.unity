@@ -1509,6 +1509,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 20
+  typeResist: ice fire phys
+  typeWeakness: 
   healthBar: {fileID: 1704552296}
 --- !u!1001 &659372416
 PrefabInstance:

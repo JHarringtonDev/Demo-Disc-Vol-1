@@ -49,7 +49,7 @@ public class BattleScript : MonoBehaviour
     {
         Debug.Log("player melee");
         playerAnimator.SetTrigger("Attack");
-        enemy.TakeDamage(3);
+        enemy.TakeDamage(3,"phys");
     }
 
     public void Magic()

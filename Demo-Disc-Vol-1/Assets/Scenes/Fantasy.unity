@@ -383,6 +383,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionCover: {fileID: 493081270}
+  lvlCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 5
+      value: 50
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  fireLevel: 1
+  iceLevel: 1
+  lightningLevel: 1
+  baseDamage: 10
+  damageMultiplier: 2
+  baseCost: 10
+  costMultiplier: 2
+  fireText: {fileID: 2057531069}
+  iceText: {fileID: 1748960733}
+  lightningText: {fileID: 1937510771}
 --- !u!1 &357587684
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,9 +1939,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  attackMultiplier: 0
-  healthMultiplier: 0
-  magicMultiplier: 0
+  attackMultiplier: 10
+  healthMultiplier: 10
+  magicMultiplier: 10
   battleUI: {fileID: 447467825}
 --- !u!4 &950779891
 Transform:

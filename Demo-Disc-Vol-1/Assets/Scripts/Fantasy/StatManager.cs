@@ -18,7 +18,7 @@ public class StatManager : MonoBehaviour
     [Header("Scripts")]
     [SerializeField] BattleScript battleUI;
 
-    int currentLevel = 1;
+    int currentLevel;
     int previousLevelExp, totalExp, nextLevelExp;
 
     int currentMagic;
@@ -30,6 +30,7 @@ public class StatManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentLevel = 1;
         currentHealth = maxHealth;
         currentMagic = maxMagic;
 
@@ -37,6 +38,7 @@ public class StatManager : MonoBehaviour
         baseMagic = maxMagic;
         baseAttack = attackPower;
 
+        nextLevelExp = (int)experienceCurve.Evaluate(currentLevel + 1);
     }
 
     public void DamagePlayer(int damage)
@@ -45,12 +47,20 @@ public class StatManager : MonoBehaviour
         UpdateUIValues();
     }
 
-    public void CastMagic()
+    public bool CastMagic(int cost)
     {
-        if(currentMagic >= 5) 
+        Debug.Log("cast run");
+        if (currentMagic >= cost)
         {
-            currentMagic -= 5;
+            currentMagic -= cost;
+            Debug.Log("magic used");
             UpdateUIValues();
+            return true;
+        }
+        else
+        {
+            Debug.Log("not enough magic");
+            return false;
         }
     }
 
@@ -72,7 +82,7 @@ public class StatManager : MonoBehaviour
     {
         currentLevel++;
         maxHealth = baseHealth + (int)(currentLevel * healthMultiplier);
-        baseMagic = baseMagic + (int)(currentLevel * magicMultiplier);
+        maxMagic = baseMagic + (int)(currentLevel * magicMultiplier);
         attackPower = baseAttack + (int)(currentLevel * attackMultiplier);
 
         //previousLevelExp = (int)experienceCurve.Evaluate(currentLevel);

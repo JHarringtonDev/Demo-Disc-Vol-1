@@ -28,7 +28,6 @@ public class BattleScript : MonoBehaviour
     public float currentHP;
     public float currentMP;
 
-
     StatManager stats;
     FantasyEnemy enemy;
 
@@ -42,7 +41,8 @@ public class BattleScript : MonoBehaviour
     {
         overWorldScene.SetActive(false);
         stats.UpdateUIValues();
-        enemy = FindObjectOfType<FantasyEnemy>();
+
+        Invoke("FindCurrentEnemy", 0.5f);
     }
 
     public void Attack()
@@ -71,6 +71,11 @@ public class BattleScript : MonoBehaviour
     {
         yield return new WaitForSeconds(exitTime);
         overWorldScene.SetActive(true);
+    }
+
+    void FindCurrentEnemy()
+    {
+        enemy = FindObjectOfType<FantasyEnemy>();
     }
 
     public void UpdateUI()

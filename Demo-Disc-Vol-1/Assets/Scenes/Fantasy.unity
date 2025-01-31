@@ -2979,6 +2979,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1463315915}
   m_CullTransparentMesh: 1
+--- !u!1 &1533650211
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1533650213}
+  - component: {fileID: 1533650212}
+  m_Layer: 0
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1533650212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533650211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94627458c0fe6d340b7f461256d4c1c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  potionButton: {fileID: 258802368}
+  etherButton: {fileID: 578232804}
+  elixirButton: {fileID: 357587686}
+--- !u!4 &1533650213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533650211}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 46.32602, y: 9.981094, z: 51.051804}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1583560281
 GameObject:
   m_ObjectHideFlags: 0
@@ -5556,12 +5603,13 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1044101580}
   - {fileID: 1240272970}
   - {fileID: 1584026838}
-  - {fileID: 901163971}
-  - {fileID: 1583560284}
-  - {fileID: 1044101580}
-  - {fileID: 1716985183}
-  - {fileID: 950779891}
   - {fileID: 355871435}
   - {fileID: 1424315167}
+  - {fileID: 901163971}
+  - {fileID: 1583560284}
+  - {fileID: 1716985183}
+  - {fileID: 950779891}
+  - {fileID: 1533650213}

@@ -64,10 +64,42 @@ public class StatManager : MonoBehaviour
         }
     }
 
+    public void RestoreHealth(string item)
+    {
+        int amount = maxHealth/3;
+
+        if (item == "potion" && currentHealth + amount < maxHealth)
+        {
+            currentHealth += amount;
+        }
+        else if(item == "elixir")
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    public void RestoreMagic(string item)
+    {
+        int amount = maxMagic/3;
+        if(item == "ether" && currentMagic + amount < maxMagic)
+        {
+            currentMagic += amount;
+        }
+        else if(item == "elixir")
+        {
+            currentMagic = maxMagic;
+        }
+    }
+
     public void GainExp(int gained)
     {
         totalExp += gained;
         checkEXP();
+    }
+
+    public int GetLevel()
+    {
+        return currentLevel;
     }
 
     void checkEXP()
@@ -88,11 +120,6 @@ public class StatManager : MonoBehaviour
         //previousLevelExp = (int)experienceCurve.Evaluate(currentLevel);
         nextLevelExp = (int)experienceCurve.Evaluate(currentLevel + 1);
         checkEXP();
-    }
-
-    public int GetLevel()
-    {
-        return currentLevel;
     }
 
     public void UpdateUIValues()

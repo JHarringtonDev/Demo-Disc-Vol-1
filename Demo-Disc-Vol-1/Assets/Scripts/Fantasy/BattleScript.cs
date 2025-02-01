@@ -14,6 +14,7 @@ public class BattleScript : MonoBehaviour
     [SerializeField] GameObject overWorldScene;
     [SerializeField] GameObject magicMenu;
     [SerializeField] GameObject itemMenu;
+    [SerializeField] GameObject actionMenu;
 
     [Header("UI Features")]
     [SerializeField] TextMeshProUGUI playerNameLvl;
@@ -30,11 +31,13 @@ public class BattleScript : MonoBehaviour
 
     StatManager stats;
     FantasyEnemy enemy;
+    TurnSystem turnSystem;
 
     // Start is called before the first frame update
     private void Awake()
     {
         stats = FindObjectOfType<StatManager>();
+        turnSystem = FindObjectOfType<TurnSystem>();
     }
 
     private void OnEnable()
@@ -47,9 +50,10 @@ public class BattleScript : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("player melee");
         playerAnimator.SetTrigger("Attack");
         enemy.TakeDamage(3,"phys");
+        turnSystem.changeTurn();
+        actionMenu.SetActive(false);
     }
 
     public void Magic()

@@ -14,6 +14,7 @@ public class EncounterScript : MonoBehaviour
 
     [SerializeField] FantasyPlayer playerController;
 
+    TurnSystem turnSystem;
 
     bool rollingEncounter;
 
@@ -26,6 +27,7 @@ public class EncounterScript : MonoBehaviour
     private void Start()
     {
         playerController = FindObjectOfType<FantasyPlayer>();
+        turnSystem = FindObjectOfType<TurnSystem>();
     }
 
     private void Update()
@@ -73,5 +75,6 @@ public class EncounterScript : MonoBehaviour
         playerController.EnterBattle();
         yield return new WaitForSeconds(encounterTime);
         battleScene.SetActive(true);
+        turnSystem.beginBattle();
     }
 }

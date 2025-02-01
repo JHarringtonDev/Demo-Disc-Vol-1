@@ -133,6 +133,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &245844366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 245844368}
+  - component: {fileID: 245844367}
+  m_Layer: 0
+  m_Name: TurnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &245844367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245844366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695c392fc0c8d574e9af13c68be9fa52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMenu: {fileID: 447467823}
+  enemyTurnDuration: 5
+  actionMenu: {fileID: 1365635851}
+--- !u!4 &245844368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245844366}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 46.32602, y: 9.981094, z: 51.051804}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &258802366
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &447467824
 RectTransform:
   m_ObjectHideFlags: 0
@@ -774,6 +821,7 @@ MonoBehaviour:
   overWorldScene: {fileID: 1240272969}
   magicMenu: {fileID: 355871431}
   itemMenu: {fileID: 1424315163}
+  actionMenu: {fileID: 1365635851}
   playerNameLvl: {fileID: 9344653}
   HPNumber: {fileID: 659372421}
   MPNumber: {fileID: 659372420}
@@ -5613,3 +5661,4 @@ SceneRoots:
   - {fileID: 1716985183}
   - {fileID: 950779891}
   - {fileID: 1533650213}
+  - {fileID: 245844368}

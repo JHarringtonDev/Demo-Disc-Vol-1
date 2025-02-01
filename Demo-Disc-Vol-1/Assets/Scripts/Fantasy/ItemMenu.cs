@@ -7,6 +7,7 @@ public class ItemMenu : MonoBehaviour
     [SerializeField] GameObject actionCover;
     StatManager statManager;
     Inventory inventory;
+    TurnSystem turnSystem;
     private void OnEnable()
     {
         actionCover.SetActive(true);
@@ -22,6 +23,7 @@ public class ItemMenu : MonoBehaviour
     {
         statManager = FindObjectOfType<StatManager>();
         inventory = FindObjectOfType<Inventory>();
+        turnSystem = FindObjectOfType<TurnSystem>();
     }
 
     public void UsePotion()
@@ -29,6 +31,8 @@ public class ItemMenu : MonoBehaviour
         if(inventory.CheckPotionStock())
         {
             statManager.RestoreHealth("potion");
+            turnSystem.changeTurn();
+            gameObject.SetActive(false);
         }
     }
 
@@ -37,6 +41,8 @@ public class ItemMenu : MonoBehaviour
         if(inventory.CheckEtherStock())
         {
             statManager.RestoreMagic("ether");
+            turnSystem.changeTurn();
+            gameObject.SetActive(false);
         }
     }
 
@@ -46,6 +52,8 @@ public class ItemMenu : MonoBehaviour
         {
             statManager.RestoreHealth("elixir");
             statManager.RestoreMagic("elixir");
+            turnSystem.changeTurn();
+            gameObject.SetActive(false);
         }
     }
 

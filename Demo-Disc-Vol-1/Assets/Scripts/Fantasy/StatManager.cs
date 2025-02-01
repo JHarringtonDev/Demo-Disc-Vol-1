@@ -17,6 +17,7 @@ public class StatManager : MonoBehaviour
 
     [Header("Scripts")]
     [SerializeField] BattleScript battleUI;
+    TurnSystem turnSystem;
 
     int currentLevel;
     int previousLevelExp, totalExp, nextLevelExp;
@@ -38,6 +39,8 @@ public class StatManager : MonoBehaviour
         baseMagic = maxMagic;
         baseAttack = attackPower;
 
+        turnSystem = FindObjectOfType<TurnSystem>();
+
         nextLevelExp = (int)experienceCurve.Evaluate(currentLevel + 1);
     }
 
@@ -49,13 +52,13 @@ public class StatManager : MonoBehaviour
 
     public bool CastMagic(int cost)
     {
-        Debug.Log("cast run");
         if (currentMagic >= cost)
         {
             currentMagic -= cost;
-            Debug.Log("magic used");
             UpdateUIValues();
+            turnSystem.changeTurn();
             return true;
+            
         }
         else
         {
@@ -76,6 +79,7 @@ public class StatManager : MonoBehaviour
         {
             currentHealth = maxHealth;
         }
+        UpdateUIValues();
     }
 
     public void RestoreMagic(string item)
@@ -89,6 +93,7 @@ public class StatManager : MonoBehaviour
         {
             currentMagic = maxMagic;
         }
+        UpdateUIValues();
     }
 
     public void GainExp(int gained)

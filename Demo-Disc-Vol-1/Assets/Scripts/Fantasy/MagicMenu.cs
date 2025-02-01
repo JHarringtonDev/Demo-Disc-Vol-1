@@ -58,6 +58,7 @@ public class MagicMenu : MonoBehaviour
         {
             enemy.TakeDamage(magicDamage(magicType), magicType);
             fireUses++;
+            gameObject.SetActive(false);
         }
     }
 
@@ -68,6 +69,7 @@ public class MagicMenu : MonoBehaviour
         {
             enemy.TakeDamage(magicDamage(magicType), magicType);
             iceUses++;
+            gameObject.SetActive(false);
         }
 
     }
@@ -80,6 +82,7 @@ public class MagicMenu : MonoBehaviour
         {
             enemy.TakeDamage(magicDamage(magicType), magicType);
             lightningUses++;
+            gameObject.SetActive(false);
         }
         checkMagicLvl(magicType);
     }

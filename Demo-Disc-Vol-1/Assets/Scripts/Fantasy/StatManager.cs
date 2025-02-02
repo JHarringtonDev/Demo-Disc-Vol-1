@@ -17,6 +17,9 @@ public class StatManager : MonoBehaviour
 
     [Header("Scripts")]
     [SerializeField] BattleScript battleUI;
+
+    [SerializeField] Animator playerAnimator;
+
     TurnSystem turnSystem;
 
     int currentLevel;
@@ -57,8 +60,8 @@ public class StatManager : MonoBehaviour
             currentMagic -= cost;
             UpdateUIValues();
             turnSystem.changeTurn();
-            return true;
-            
+            playerAnimator.SetTrigger("Cast");
+            return true;  
         }
         else
         {
@@ -74,6 +77,7 @@ public class StatManager : MonoBehaviour
         if (item == "potion" && currentHealth + amount < maxHealth)
         {
             currentHealth += amount;
+            playerAnimator.SetTrigger("Item");
         }
         else if(item == "elixir")
         {
@@ -88,10 +92,12 @@ public class StatManager : MonoBehaviour
         if(item == "ether" && currentMagic + amount < maxMagic)
         {
             currentMagic += amount;
+            playerAnimator.SetTrigger("Item");
         }
         else if(item == "elixir")
         {
             currentMagic = maxMagic;
+            playerAnimator.SetTrigger("Item");
         }
         UpdateUIValues();
     }

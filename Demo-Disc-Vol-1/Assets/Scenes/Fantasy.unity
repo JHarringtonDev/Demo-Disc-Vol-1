@@ -2017,6 +2017,7 @@ MonoBehaviour:
   healthMultiplier: 10
   magicMultiplier: 10
   battleUI: {fileID: 447467825}
+  playerAnimator: {fileID: 1741904048}
 --- !u!4 &950779891
 Transform:
   m_ObjectHideFlags: 0

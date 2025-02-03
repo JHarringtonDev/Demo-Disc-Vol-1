@@ -48,6 +48,11 @@ public class BattleScript : MonoBehaviour
         Invoke("FindCurrentEnemy", 0.5f);
     }
 
+    private void OnDisable()
+    {
+        stats.SetPlayerLife();
+    }
+
     public void Attack()
     {
         playerAnimator.SetTrigger("Attack");

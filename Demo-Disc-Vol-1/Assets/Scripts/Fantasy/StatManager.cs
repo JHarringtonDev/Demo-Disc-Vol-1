@@ -140,6 +140,23 @@ public class StatManager : MonoBehaviour
         checkEXP();
     }
 
+    void decreaseLevel()
+    {
+        if(currentLevel > 1)
+        {
+            currentLevel--;
+        }
+        maxHealth = baseHealth + (int)(currentLevel * healthMultiplier);
+        maxMagic = baseMagic + (int)(currentLevel * magicMultiplier);
+        attackPower = baseAttack + (int)(currentLevel * attackMultiplier);
+
+        totalExp = (int)experienceCurve.Evaluate(currentLevel);
+        nextLevelExp = (int)experienceCurve.Evaluate(currentLevel + 1);
+
+        currentHealth = maxHealth;
+        currentMagic = maxMagic;
+    }
+
     void CheckHealth()
     {
         if (currentHealth <= 0)
@@ -147,8 +164,15 @@ public class StatManager : MonoBehaviour
             currentHealth = 0;
             playerAnimator.SetTrigger("Death");
             playerAlive = false;
+            UpdateUIValues();
+            decreaseLevel();
             StartCoroutine(battleUI.ExitBattle());
         }
+    }
+
+    public void SetPlayerLife()
+    {
+        playerAlive = true;
     }
 
     public void UpdateUIValues()

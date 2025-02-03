@@ -20,6 +20,7 @@ public class TurnSystem : MonoBehaviour
         playerMenu.SetActive(true);
         enemy = FindObjectOfType<FantasyEnemy>();
         statManager = FindObjectOfType<StatManager>();
+        actionMenu.SetActive(true);
     }
 
     public void changeTurn()

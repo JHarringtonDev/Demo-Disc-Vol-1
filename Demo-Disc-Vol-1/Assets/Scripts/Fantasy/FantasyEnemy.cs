@@ -16,14 +16,20 @@ public class FantasyEnemy : MonoBehaviour
     [SerializeField] string enemyName;
     [SerializeField] TextMeshProUGUI nameDisplay;
     StatManager statManager;
+    BattleScript battleScript;
+    TurnSystem turns;
     int currentHealth;
     int level;
+    bool isAlive;
 
     [SerializeField] Image healthBar;
 
     private void Start()
     {
         statManager = FindObjectOfType<StatManager>();
+        battleScript = FindObjectOfType<BattleScript>();
+        turns = FindObjectOfType<TurnSystem>();
+
         int playerLevel = statManager.GetLevel();
         level = (int)(playerLevel + (playerLevel * Random.Range(levelVariance, 1.25f)));
 
@@ -34,11 +40,14 @@ public class FantasyEnemy : MonoBehaviour
         nameDisplay.text = $"{enemyName} lvl.{level}";
         currentHealth = maxHealth;
         showHealthValue();
+
+        isAlive = true;
     }
 
     void showHealthValue()
     {
         healthBar.fillAmount = (float)currentHealth/(float)maxHealth;
+        Debug.Log("Enemy Health: " + currentHealth);
     }
 
     public void HandleAttack()
@@ -63,6 +72,28 @@ public class FantasyEnemy : MonoBehaviour
             currentHealth -= damage;
         }
 
+        checkHealth();
+
         showHealthValue();
+    }
+
+    void checkHealth()
+    {
+        if(currentHealth <= 0) 
+        {
+            currentHealth = 0;
+            animator.SetTrigger("Death");
+            isAlive = false;
+            StartCoroutine(battleScript.ExitBattle());
+        }
+        else
+        {
+            turns.changeTurn();
+        }
+    }
+
+    public bool GetEnemyLife()
+    {
+        return isAlive;
     }
 }

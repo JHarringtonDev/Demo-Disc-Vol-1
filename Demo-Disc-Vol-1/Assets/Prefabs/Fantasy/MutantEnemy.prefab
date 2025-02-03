@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 887ad54d55b445b4c98aa12a4082f521, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 10
   baseAttack: 5
   typeResist: ice phys
   typeWeakness: fire
@@ -261,6 +261,10 @@ PrefabInstance:
     - target: {fileID: 6803660573704988563, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -21.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 7984198492436412319, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8767323134658218552, guid: 9bb2589a7f6aba34bb8cb4b7ac9071ff, type: 3}
       propertyPath: m_Name

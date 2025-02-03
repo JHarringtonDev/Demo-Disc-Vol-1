@@ -71,7 +71,7 @@ public class BattleScript : MonoBehaviour
         StartCoroutine(ExitBattle());
     }
 
-    IEnumerator ExitBattle()
+    public IEnumerator ExitBattle()
     {
         yield return new WaitForSeconds(exitTime);
         overWorldScene.SetActive(true);

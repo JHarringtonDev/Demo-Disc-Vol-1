@@ -22,6 +22,8 @@ public class StatManager : MonoBehaviour
 
     TurnSystem turnSystem;
 
+    bool playerAlive = true;
+
     int currentLevel;
     int previousLevelExp, totalExp, nextLevelExp;
 
@@ -59,7 +61,6 @@ public class StatManager : MonoBehaviour
         {
             currentMagic -= cost;
             UpdateUIValues();
-            turnSystem.changeTurn();
             playerAnimator.SetTrigger("Cast");
             return true;  
         }
@@ -111,6 +112,11 @@ public class StatManager : MonoBehaviour
     public int GetLevel()
     {
         return currentLevel;
+    }
+
+    public bool GetPlayerLife()
+    {
+        return playerAlive;
     }
 
     void checkEXP()

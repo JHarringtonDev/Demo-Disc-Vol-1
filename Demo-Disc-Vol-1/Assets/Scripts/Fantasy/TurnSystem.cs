@@ -10,7 +10,7 @@ public class TurnSystem : MonoBehaviour
 
     bool playerTurn = true;
 
-
+    StatManager statManager;
     FantasyEnemy enemy;
 
 
@@ -19,6 +19,7 @@ public class TurnSystem : MonoBehaviour
         playerTurn = true;
         playerMenu.SetActive(true);
         enemy = FindObjectOfType<FantasyEnemy>();
+        statManager = FindObjectOfType<StatManager>();
     }
 
     public void changeTurn()
@@ -29,7 +30,7 @@ public class TurnSystem : MonoBehaviour
             StartCoroutine(EnemyTurn());
             actionMenu.SetActive(false);
         }
-        else if(!playerTurn)
+        else if (!playerTurn)
         {
             playerTurn = true;
             actionMenu.SetActive(true);

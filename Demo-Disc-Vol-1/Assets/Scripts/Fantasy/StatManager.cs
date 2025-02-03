@@ -53,6 +53,7 @@ public class StatManager : MonoBehaviour
     {
         currentHealth -= damage;
         UpdateUIValues();
+        CheckHealth();
     }
 
     public bool CastMagic(int cost)
@@ -137,6 +138,17 @@ public class StatManager : MonoBehaviour
         //previousLevelExp = (int)experienceCurve.Evaluate(currentLevel);
         nextLevelExp = (int)experienceCurve.Evaluate(currentLevel + 1);
         checkEXP();
+    }
+
+    void CheckHealth()
+    {
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            playerAnimator.SetTrigger("Death");
+            playerAlive = false;
+            StartCoroutine(battleUI.ExitBattle());
+        }
     }
 
     public void UpdateUIValues()

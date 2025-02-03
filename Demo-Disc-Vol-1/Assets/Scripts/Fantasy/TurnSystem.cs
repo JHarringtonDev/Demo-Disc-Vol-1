@@ -30,7 +30,7 @@ public class TurnSystem : MonoBehaviour
             StartCoroutine(EnemyTurn());
             actionMenu.SetActive(false);
         }
-        else if (!playerTurn)
+        else if (!playerTurn && statManager.GetPlayerLife())
         {
             playerTurn = true;
             actionMenu.SetActive(true);

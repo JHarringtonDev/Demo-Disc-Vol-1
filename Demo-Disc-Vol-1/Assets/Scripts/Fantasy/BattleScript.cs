@@ -52,7 +52,6 @@ public class BattleScript : MonoBehaviour
     {
         playerAnimator.SetTrigger("Attack");
         enemy.TakeDamage(3,"phys");
-        turnSystem.changeTurn();
         actionMenu.SetActive(false);
     }
 

@@ -32,18 +32,23 @@ public class BattleScript : MonoBehaviour
     StatManager stats;
     FantasyEnemy enemy;
     TurnSystem turnSystem;
+    GameManager gameManager;
 
     // Start is called before the first frame update
     private void Awake()
     {
         stats = FindObjectOfType<StatManager>();
         turnSystem = FindObjectOfType<TurnSystem>();
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     private void OnEnable()
     {
         overWorldScene.SetActive(false);
         stats.UpdateUIValues();
+        gameManager.usesMouse = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
 
         Invoke("FindCurrentEnemy", 0.5f);
     }
@@ -51,6 +56,7 @@ public class BattleScript : MonoBehaviour
     private void OnDisable()
     {
         stats.SetPlayerLife();
+        gameManager.usesMouse = false;
     }
 
     public void Attack()

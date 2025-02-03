@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] int ammoCost;
     [SerializeField] GameObject ammoBox;
 
+    public bool usesMouse;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -67,9 +69,12 @@ public class GameManager : MonoBehaviour
 
     public void unpauseGame()
     {
-       
+            
+        if(!usesMouse)
+        {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
+        }
             Time.timeScale = 1f;
             if (soulController != null)
             {

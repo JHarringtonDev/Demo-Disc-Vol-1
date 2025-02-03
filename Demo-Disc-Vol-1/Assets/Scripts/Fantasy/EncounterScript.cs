@@ -22,6 +22,8 @@ public class EncounterScript : MonoBehaviour
     {
         battleScene.SetActive(false);
         playerController.ExitBattle();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private void Start()

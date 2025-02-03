@@ -3443,6 +3443,7 @@ MonoBehaviour:
   enemyReward: 0
   ammoCost: 0
   ammoBox: {fileID: 0}
+  usesMouse: 0
 --- !u!4 &1716985183
 Transform:
   m_ObjectHideFlags: 0

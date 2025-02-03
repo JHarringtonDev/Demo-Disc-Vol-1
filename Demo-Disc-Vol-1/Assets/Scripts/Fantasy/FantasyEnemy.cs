@@ -12,12 +12,16 @@ public class FantasyEnemy : MonoBehaviour
     [SerializeField] string typeWeakness;
     [SerializeField] float levelVariance;
     [SerializeField] float maxRoll;
+    [SerializeField] float baseExpReward;
     [SerializeField] Animator animator;
     [SerializeField] string enemyName;
     [SerializeField] TextMeshProUGUI nameDisplay;
+
     StatManager statManager;
     BattleScript battleScript;
     TurnSystem turns;
+    Inventory inventory;
+
     int currentHealth;
     int level;
     bool isAlive;
@@ -29,6 +33,7 @@ public class FantasyEnemy : MonoBehaviour
         statManager = FindObjectOfType<StatManager>();
         battleScript = FindObjectOfType<BattleScript>();
         turns = FindObjectOfType<TurnSystem>();
+        inventory = FindObjectOfType<Inventory>();
 
         int playerLevel = statManager.GetLevel();
         level = (int)(playerLevel + (playerLevel * Random.Range(levelVariance, 1.25f)));
@@ -84,6 +89,7 @@ public class FantasyEnemy : MonoBehaviour
             currentHealth = 0;
             animator.SetTrigger("Death");
             isAlive = false;
+            BattleRewards();
             StartCoroutine(battleScript.ExitBattle());
         }
         else
@@ -95,5 +101,25 @@ public class FantasyEnemy : MonoBehaviour
     public bool GetEnemyLife()
     {
         return isAlive;
+    }
+
+    void BattleRewards()
+    {
+        float itemRoll = Random.Range(0f, 1f);
+
+        statManager.GainExp((int)(level * baseExpReward * Random.Range(0.75f, 1.25f)));
+
+        if(itemRoll< 0.45)
+        {
+            inventory.AddItem(1);
+        }
+        else if(itemRoll< 0.9)
+        {
+            inventory.AddItem(2);
+        }
+        else
+        {
+            inventory.AddItem(3);
+        }
     }
 }

@@ -122,6 +122,7 @@ public class StatManager : MonoBehaviour
 
     void checkEXP()
     {
+        Debug.Log($"Current EXP: {totalExp} | Needed for Level {nextLevelExp}");
         if(totalExp >= nextLevelExp)
         {
             levelUp();
@@ -131,9 +132,16 @@ public class StatManager : MonoBehaviour
     void levelUp()
     {
         currentLevel++;
+
+        float healthTransfer = (float)currentHealth / (float)maxHealth;
+        float magicTransfer = (float)currentMagic / (float)maxMagic;
+
         maxHealth = baseHealth + (int)(currentLevel * healthMultiplier);
         maxMagic = baseMagic + (int)(currentLevel * magicMultiplier);
         attackPower = baseAttack + (int)(currentLevel * attackMultiplier);
+
+        currentHealth = Mathf.RoundToInt(maxHealth * healthTransfer);
+        currentMagic = Mathf.RoundToInt(maxMagic * magicTransfer);
 
         //previousLevelExp = (int)experienceCurve.Evaluate(currentLevel);
         nextLevelExp = (int)experienceCurve.Evaluate(currentLevel + 1);

@@ -153,7 +153,8 @@ MonoBehaviour:
   typeResist: ice fire phys
   typeWeakness: lightning
   levelVariance: 0.5
-  maxRoll: 0
+  maxRoll: 1
+  baseExpReward: 5
   animator: {fileID: 1437150396558272183}
   enemyName: Parasite
   nameDisplay: {fileID: 5667090615026008941}

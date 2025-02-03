@@ -2003,7 +2003,7 @@ MonoBehaviour:
       outWeight: 0
     - serializedVersion: 3
       time: 100
-      value: 1000000
+      value: 10000
       inSlope: 2
       outSlope: 2
       tangentMode: 0

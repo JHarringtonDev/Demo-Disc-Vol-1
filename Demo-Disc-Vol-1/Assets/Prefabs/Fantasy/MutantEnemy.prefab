@@ -154,6 +154,7 @@ MonoBehaviour:
   typeWeakness: fire
   levelVariance: 0.75
   maxRoll: 1.5
+  baseExpReward: 10
   animator: {fileID: 3774737932515495841}
   enemyName: Mutant
   nameDisplay: {fileID: 5667090615026008941}

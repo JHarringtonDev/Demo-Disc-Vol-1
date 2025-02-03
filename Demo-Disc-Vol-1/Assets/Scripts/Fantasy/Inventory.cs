@@ -58,6 +58,21 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void AddItem(int item)
+    {
+        switch (item){
+            case 1:
+                potionsHeld++;
+                break;
+            case 2:
+                ethersHeld++;
+                break;
+            case 3:
+                elixirsHeld++;
+                break;
+        }
+    }
+
     public void ReflectInventory()
     {
         potionButton.text = $"Potions x{potionsHeld}";

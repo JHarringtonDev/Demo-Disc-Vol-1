@@ -54,7 +54,7 @@ MonoBehaviour:
   maxHealth: 10
   detectionDistance: 2
   detectionRadius: 2
-  deathTime: 0
+  deathTime: 4
   kickRate: 0.15
   kickEndLag: 3
   slash1Rate: 0.65

@@ -1542,14 +1542,14 @@ MonoBehaviour:
   healthFlaskRestore: 50
   magicFlaskRestore: 50
   cameraSpeed: 100
-  moveSpeed: 5
-  rollSpeed: 2
+  moveSpeed: 10
+  rollSpeed: 5
   sprintMultiplier: 2
   sprintDelay: 1
   timeHeld: 0
   startDelay: 2.5
   rollCost: 20
-  rollDelay: 1
+  rollDelay: 0.4
   attackCost: 20
   attackDelay: 1.5
   magicDamage: 5
@@ -1578,7 +1578,7 @@ Rigidbody:
   m_GameObject: {fileID: 897401414}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 5
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

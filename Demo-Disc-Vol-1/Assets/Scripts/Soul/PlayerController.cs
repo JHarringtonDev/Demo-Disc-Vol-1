@@ -174,10 +174,10 @@ public class PlayerController : MonoBehaviour
             yInput = Input.GetAxis("Vertical");
 
             dir = transform.right * xInput + transform.forward * yInput;
-            dir *= currentSpeed;
-            dir.y = rb.velocity.y;
+            //dir = dir ;
+            //dir *= currentSpeed * Time.deltaTime;
 
-            rb.velocity = dir;
+            rb.AddForce(dir * currentSpeed, ForceMode.Force);
 
         }
 
@@ -320,7 +320,7 @@ public class PlayerController : MonoBehaviour
 
             yield return new WaitForSeconds(rollDelay);
 
-            rb.velocity = Vector3.zero;
+            //rb.velocity = Vector3.zero;
             isRolling = false;
             canMove = true;
             isDamageable = true;
@@ -380,13 +380,14 @@ public class PlayerController : MonoBehaviour
     IEnumerator HandleFlask()
     {
         isRolling = true;
+        canMove = false;
 
         if (remainingRedFlasks >= 1 && redFlask)
         {
             animator.SetTrigger("Drink");
             remainingRedFlasks--;
             flaskUI.FlaskNumber(redFlask);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.5f);
             health += healthFlaskRestore;
         }
         else if (remainingBlueFlasks >= 1 && !redFlask)
@@ -394,10 +395,10 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("Drink");
             remainingBlueFlasks--;
             flaskUI.FlaskNumber(redFlask);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(1.5f);
             magic += magicFlaskRestore;
         }
-
+        canMove = true;
         isRolling = false;
     }
 
